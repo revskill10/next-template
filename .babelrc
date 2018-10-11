@@ -1,0 +1,8 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "import-graphql",
+    "graphql-tag",
+    "styled-components"
+  ]
+}

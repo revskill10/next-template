@@ -1,0 +1,13 @@
+query allPostsQuery {
+  khoas {
+    id
+    ten_khoa
+  }
+}
+
+subscription allPostsSubscription {
+  khoas {
+    id
+    ten_khoa
+  }
+}
