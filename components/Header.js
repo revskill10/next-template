@@ -12,6 +12,7 @@ const Header = ({ router: { pathname } }) => (
     <style jsx>{`
       header {
         margin-bottom: 25px;
+        float: left;
       }
       a {
         font-size: 14px;

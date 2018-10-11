@@ -7,6 +7,7 @@ import { queryTuans as query } from '../graphql/tuans.gql'
 import {connect} from 'react-redux'
 import {startClock, serverRenderClock} from '../data/store'
 import Examples from '../components/Examples'
+import { Flexrow, Flexcolumn } from '../components/Grid'
 
 const KhoasList = ({khoas}) =>
   <ul>
@@ -26,12 +27,53 @@ const TuansList = ({tuans}) =>
     })}
   </ul>
 
-const Test = () =>
+const Test = ({tuans}) =>
   <App>
-    <Header />
-    <LiveComponent query={allPostsQuery} subscription={allPostsSubscription}>
-      {KhoasList}
-    </LiveComponent>
+    <div>
+      <Flexrow>
+        <Flexcolumn size={12}>
+          <Header />
+        </Flexcolumn>
+      </Flexrow>
+      <Flexrow>
+        <Flexcolumn size={6}>
+          <React.Fragment>
+            <h1>Danh sach khoa</h1>
+            <LiveComponent query={allPostsQuery} subscription={allPostsSubscription}>
+              {KhoasList}
+            </LiveComponent>
+          </React.Fragment>
+        </Flexcolumn>
+        <Flexcolumn size={3}>
+          <h1>6</h1>
+        </Flexcolumn>
+        <Flexcolumn size={3}>
+          <h1>3</h1>
+        </Flexcolumn>
+      </Flexrow>  
+      <Flexrow>
+        <Flexcolumn size={8}>
+          <React.Fragment>
+            <h1>Danh sach Tuan</h1>
+            <TuansList tuans={tuans} />
+          </React.Fragment>
+        </Flexcolumn>
+        <Flexcolumn size={4}>
+          <React.Fragment>
+            <h1>4</h1>
+            <Examples />
+          </React.Fragment>
+        </Flexcolumn>
+      </Flexrow>  
+      <Flexrow>
+        <Flexcolumn size={3}>
+          <h1>3</h1>
+        </Flexcolumn>
+        <Flexcolumn size={9}>
+          <h1>9</h1>
+        </Flexcolumn>
+      </Flexrow>  
+    </div>
   </App>
 
 
@@ -54,15 +96,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { tuans } = this.props 
-
-    return (
-      <React.Fragment>        
-        <Test />
-        <TuansList tuans={tuans} />
-        <Examples />
-      </React.Fragment>      
-    )
+    return <Test {...this.props} />
   }
 }  
 
