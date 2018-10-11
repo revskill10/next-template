@@ -5,27 +5,10 @@ import { PageTransition } from 'next-page-transitions'
 import { Provider as ReduxProvider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 import initialI18nInstance from '../lib/i18n'
-import styled from 'styled-components'
 
-const StyledContainer = styled(Container)`
-.page-transition-enter {
-  opacity: 0;
-}
-.page-transition-enter-active {
-  opacity: 1;
-  transition: opacity 300ms;
-}
-.page-transition-exit {
-  opacity: 1;
-}
-.page-transition-exit-active {
-  opacity: 0;
-  transition: opacity 300ms;
-}
-`
 const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore}) => {
   const { i18n, initialI18nStore, initialLanguage } = pageProps || {}
-  return <StyledContainer>
+  return <Container>
       <ReduxProvider store={reduxStore}>
         <ApolloProvider client={apolloClient}>
           <PageTransition timeout={300} classNames="page-transition">
@@ -39,17 +22,23 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore}) 
           </PageTransition>
         </ApolloProvider>
       </ReduxProvider>
-    </StyledContainer>
-}
-
-AppContainer.getInitialProps = async ({ Component, router, ctx }) => {
-  let pageProps = {}
- 
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
-
-  return { pageProps, router }
+      <style jsx>{`
+        .page-transition-enter {
+          opacity: 0;
+        }
+        .page-transition-enter-active {
+          opacity: 1;
+          transition: opacity 300ms;
+        }
+        .page-transition-exit {
+          opacity: 1;
+        }
+        .page-transition-exit-active {
+          opacity: 0;
+          transition: opacity 300ms;
+        }
+      `}</style>
+    </Container>
 }
 
 export default AppContainer

@@ -1,13 +1,15 @@
+import styled from 'styled-components'
+
+const StyledAside = styled.aside`
+* {
+  padding: 1.5em;
+  font-size: 14px;
+  color: white;
+  background-color: red;
+}
+`
 export default ({ message }) => (
-  <aside>
+  <StyledAside>
     {message}
-    <style jsx>{`
-      aside {
-        padding: 1.5em;
-        font-size: 14px;
-        color: white;
-        background-color: red;
-      }
-    `}</style>
-  </aside>
+  </StyledAside>
 )

@@ -1,4 +1,4 @@
-import App from '../components/App'
+import App from '../layouts/App'
 import Header from '../components/Header'
 
 export default () => (
