@@ -1,6 +1,6 @@
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import produce from 'immer'
 
 const exampleInitialState = {
   lastUpdate: 0,
@@ -15,28 +15,23 @@ export const actionTypes = {
   RESET: 'RESET'
 }
 
-export const reducer = (state = exampleInitialState, action) => {
+const immerReducer = produce((draft, action) => {
   switch (action.type) {
     case actionTypes.TICK:
-      return Object.assign({}, state, {
-        lastUpdate: action.ts,
-        light: !!action.light
-      })
+      draft.lastUpdate = action.ts
+      draft.light = !!action.light
+      break
     case actionTypes.INCREMENT:
-      return Object.assign({}, state, {
-        count: state.count + 1
-      })
+      draft.count += 1
+      break;
     case actionTypes.DECREMENT:
-      return Object.assign({}, state, {
-        count: state.count - 1
-      })
+      draft.count -= 1
+      break;
     case actionTypes.RESET:
-      return Object.assign({}, state, {
-        count: exampleInitialState.count
-      })
-    default: return state
+      draft.count = exampleInitialState.count
+      break;
   }
-}
+})
 
 // ACTIONS
 export const serverRenderClock = (isServer) => dispatch => {
@@ -62,6 +57,18 @@ export const resetCount = () => dispatch => {
   return dispatch({ type: actionTypes.RESET })
 }
 
-export function initializeStore (initialState = exampleInitialState) {
-  return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+export function initializeStore (initialState = exampleInitialState, reducer = immerReducer) {
+  let middlewares = [thunkMiddleware]
+  if (process.env.NODE_ENV === `development`) {
+    const { logger } = require(`redux-logger`);
+    const { composeWithDevTools } = require('redux-devtools-extension')
+    middlewares.push(logger);
+    return composeWithDevTools(
+      applyMiddleware(...middlewares)
+    )(createStore)(reducer, initialState);
+  } else {
+    return compose(
+      applyMiddleware(...middlewares)
+    )(createStore)(reducer, initialState);
+  }
 }

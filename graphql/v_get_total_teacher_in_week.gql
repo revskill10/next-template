@@ -1,0 +1,13 @@
+query queryTotalTeacherInWeek {
+  v_get_total_teacher_in_week {
+    tuan
+    slg_gv
+  }
+}
+
+subscription subscribeTotalTeacherInWeek {
+  v_get_total_teacher_in_week {
+    tuan
+    slg_gv
+  }
+}

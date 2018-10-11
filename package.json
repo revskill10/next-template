@@ -2,9 +2,9 @@
   "name": "with-apollo",
   "version": "2.0.0",
   "scripts": {
-    "dev": "rm -rf ./node_modules/.cache/babel-loader && next",
+    "dev": "rm -rf ./node_modules/.cache/babel-loader && node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "apollo-boost": "^0.1.16",
@@ -16,7 +16,14 @@
     "apollo-link-http": "^1.5.5",
     "apollo-link-ws": "^1.0.9",
     "cookie": "^0.3.1",
+    "express": "^4.16.4",
     "graphql": "^14.0.2",
+    "i18next": "^11.9.1",
+    "i18next-browser-languagedetector": "^2.2.3",
+    "i18next-express-middleware": "^1.4.0",
+    "i18next-node-fs-backend": "^2.1.0",
+    "i18next-xhr-backend": "^1.5.1",
+    "immer": "^1.7.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^7.0.2-canary.9",
     "next-page-transitions": "^1.0.0-alpha.4",
@@ -24,13 +31,16 @@
     "react": "^16.5.2",
     "react-apollo": "^2.1.11",
     "react-dom": "^16.5.2",
+    "react-i18next": "^8.0.7",
     "react-redux": "^5.0.7",
+    "recompose": "^0.30.0",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "styled-components": "^4.0.0-beta.11.3",
     "styled-icons": "^3.1.0",
-    "subscriptions-transport-ws": "^0.9.15"
+    "subscriptions-transport-ws": "^0.9.15",
+    "victory": "^30.5.0"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +49,8 @@
     "@babel/runtime": "^7.1.2",
     "babel-plugin-graphql-tag": "^1.6.0",
     "babel-plugin-import-graphql": "^2.6.2",
-    "babel-plugin-styled-components": "^1.8.0"
+    "babel-plugin-styled-components": "^1.8.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6"
   }
 }
