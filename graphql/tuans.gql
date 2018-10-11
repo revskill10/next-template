@@ -1,0 +1,7 @@
+query queryTuans {
+  tuans {
+    id
+    tu_ngay
+    den_ngay
+  }
+}

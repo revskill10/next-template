@@ -3,7 +3,8 @@ import React from 'react'
 import withApolloClient from '../lib/with-apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { PageTransition } from 'next-page-transitions'
-
+import withReduxStore from '../lib/with-redux-store'
+import { Provider as ReduxProvider } from 'react-redux'
 
 class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -17,13 +18,15 @@ class MyApp extends App {
   }
 
   render () {
-    const {Component, pageProps, apolloClient, router} = this.props
+    const {Component, pageProps, apolloClient, router, reduxStore} = this.props
     return <Container>
-      <ApolloProvider client={apolloClient}>
-        <PageTransition timeout={300} classNames="page-transition">
-          <Component key={router.route} {...pageProps} />
-        </PageTransition>
-      </ApolloProvider>
+      <ReduxProvider store={reduxStore}>
+        <ApolloProvider client={apolloClient}>
+          <PageTransition timeout={300} classNames="page-transition">
+            <Component key={router.route} {...pageProps} />
+          </PageTransition>
+        </ApolloProvider>
+      </ReduxProvider>
       <style jsx global>{`
         .page-transition-enter {
           opacity: 0;
@@ -44,4 +47,4 @@ class MyApp extends App {
   }
 }
 
-export default withApolloClient(MyApp)
+export default withApolloClient(withReduxStore(MyApp))
