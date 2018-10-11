@@ -9,7 +9,7 @@ import {connect} from 'react-redux'
 import {startClock, serverRenderClock} from '../data/store'
 import Examples from '../components/Examples'
 import { Flexrow, Flexcolumn } from '../components/Grid'
-import { withI18next } from '../lib/withI18next'
+import { withI18next } from '../lib/with-i18next'
 import { compose } from 'recompose'
 import Head from 'next/head'
 import { VictoryBar , VictoryChart, VictoryTheme } from 'victory';
