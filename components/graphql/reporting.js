@@ -1,4 +1,4 @@
-import { Flexrow, Flexcolumn } from '../../layouts/Grid'
+import { Flexrow, Flexcolumn } from 'layouts/Grid'
 import { VictoryBar , VictoryChart } from 'victory';
 import NoSSR from 'react-no-ssr';
 

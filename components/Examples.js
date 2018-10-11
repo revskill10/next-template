@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
-import Clock from './clock'
-import Counter from './counter'
+import Clock from 'components/clock'
+import Counter from 'components/counter'
 
 function Examples ({ lastUpdate, light }) {
   return (

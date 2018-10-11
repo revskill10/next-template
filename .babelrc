@@ -3,6 +3,16 @@
   "plugins": [
     "import-graphql",
     "graphql-tag",
-    "styled-components"
+    "styled-components",
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "containers": "./containers",
+        "data": "./data",
+        "graphql": "./graphql",
+        "layouts": "./layouts",
+        "lib": "./lib"
+      }
+    }]
   ]
 }

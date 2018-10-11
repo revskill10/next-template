@@ -1,5 +1,5 @@
-import App from '../layouts/App'
-import Header from '../components/Header'
+import App from 'layouts/App'
+import Header from 'components/Header'
 
 export default () => (
   <App>
