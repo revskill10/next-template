@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "rm -rf ./node_modules/.cache/babel-loader && node server.js",
     "build": "next build",
+    "export": "next export",
     "start": "NODE_ENV=production node server.js",
     "test": "jest"
   },

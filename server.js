@@ -20,8 +20,8 @@ i18n
     preload: ['en', 'vi'], // preload all langages
     ns: ['common'], // need to preload all the namespaces
     backend: {
-      loadPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.json'),
-      addPath: path.join(__dirname, '/locales/{{lng}}/{{ns}}.missing.json')
+      loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
+      addPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.missing.json')
     }
   }, () => {
     // loaded translations we can bootstrap our routes
@@ -33,7 +33,7 @@ i18n
         server.use(i18nextMiddleware.handle(i18n))
 
         // serve locales for client
-        server.use('/locales', express.static(path.join(__dirname, '/locales')))
+        server.use('/locales', express.static(path.join(__dirname, '/static/locales')))
 
         // missing keys
         server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n))

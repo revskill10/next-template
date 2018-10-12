@@ -1,9 +1,25 @@
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import styled from 'styled-components'
+import LanguageSwitch from 'components/languageSwitch'
 
-const StyledHeader = styled.header`
-* {
+const Header = ({ router: { pathname }, className }) => (
+  <div className={className}>
+    <header >
+      <Link prefetch href='/'>
+        <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
+      </Link>
+      <Link prefetch href='/about'>
+        <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
+      </Link>
+      <LanguageSwitch />
+    </header>
+  </div>
+  
+)
+
+const StyledHeader = styled(Header)`
+header {
   margin-bottom: 25px;
   float: left;
 }
@@ -17,15 +33,4 @@ a {
 }
 `
 
-const Header = ({ router: { pathname } }) => (
-  <StyledHeader>
-    <Link prefetch href='/'>
-      <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
-    </Link>
-    <Link prefetch href='/about'>
-      <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
-    </Link>
-  </StyledHeader>
-)
-
-export default withRouter(Header)
+export default withRouter(StyledHeader)

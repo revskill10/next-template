@@ -87,19 +87,18 @@ class Index extends React.Component {
     return (
       <React.Fragment>
         <Head>
-          <title>{t('title.home')}</title>
+          <title>{t ? t('title.home') : 'Home' }</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
         <Test {...this.props} />
       </React.Fragment>
     )
   }
-}  
+}
 
 export default compose(
   connect(),
   withI18next(['common']),
 )(Index)
-
 
 
