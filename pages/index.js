@@ -11,8 +11,10 @@ import { withI18next } from 'lib/with-i18next'
 import { compose } from 'recompose'
 import Head from 'next/head'
 import { KhoasList, TuansList, TotalTeacherInWeek } from 'components/graphql/reporting'
+import withConnectionType from 'lib/with-connection-type'
+import NoSSR from 'react-no-ssr';
 
-const Layout = ({tuans}) =>
+const Layout = ({tuans, connectionType}) =>
   <App>
     <Flexrow>
       <Flexcolumn size={12}>
@@ -47,6 +49,9 @@ const Layout = ({tuans}) =>
       <Flexcolumn size={4}>
         <React.Fragment>
           <h1>4</h1>
+          <NoSSR>
+            Connection: {connectionType}
+          </NoSSR>
         </React.Fragment>
       </Flexcolumn>
     </Flexrow>  
@@ -60,6 +65,8 @@ const Layout = ({tuans}) =>
     </Flexrow>  
   </App>
 
+const ConnectionLayout = withConnectionType(Layout)
+
 const Index = (props) => {
   const { t } = props
   return (
@@ -68,7 +75,7 @@ const Index = (props) => {
         <title>{t ? t('title.home') : 'Home' }</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Layout {...props} />
+      <ConnectionLayout {...props} />
     </React.Fragment>
   )
 }

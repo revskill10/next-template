@@ -5,7 +5,7 @@ import AppContainer from 'containers/app'
 import { compose } from "recompose";
 
 export default compose(
-  withApolloClient,
-  withReduxStore,  
-  withApp,
-)(AppContainer)
+    withApolloClient,
+    withReduxStore,  
+    withApp,
+  )(AppContainer)
