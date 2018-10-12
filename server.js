@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 const next = require('next')
+const { join } = require('path')
+const { parse } = require('url')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -39,7 +41,17 @@ i18n
         server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n))
 
         // use next.js
-        server.get('*', (req, res) => handle(req, res))
+        server.get('*', (req, res) => {
+          const parsedUrl = parse(req.url, true)
+          const { pathname } = parsedUrl
+
+          if (pathname === '/service-worker.js') {
+            const filePath = join(__dirname, '.next', pathname)
+            app.serveStatic(req, res, filePath)
+          } else {
+            handle(req, res, parsedUrl)
+          }
+        })
 
         server.listen(3000, (err) => {
           if (err) throw err

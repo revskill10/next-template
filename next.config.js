@@ -1,4 +1,5 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 const nextConfig = {
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -13,7 +14,20 @@ const nextConfig = {
       reportFilename: './bundles/client.html'
     }
   },
-  webpack (config) {
+  webpack: (config) => {
+    config.plugins.push(
+      new SWPrecacheWebpackPlugin({
+        verbose: true,
+        staticFileGlobsIgnorePatterns: [/\.next\//],
+        runtimeCaching: [
+          {
+            handler: 'networkFirst',
+            urlPattern: /^https?.*/
+          }
+        ]
+      })
+    )
+
     return config
   },
   exportPathMap: function () {
