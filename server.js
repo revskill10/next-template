@@ -54,6 +54,10 @@ i18n
         server.get('/about', (req, res) => {
           renderAndCache(req, res, '/about')
         })
+
+        server.get('/admin', (req, res) => {
+          renderAndCache(req, res, '/admin')
+        })
         // use next.js
         server.get('*', (req, res) => {
           const parsedUrl = parse(req.url, true)

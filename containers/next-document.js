@@ -1,6 +1,6 @@
 import { Head, Main, NextScript } from 'next/document'
 
-const DocumentContainer = ({styleTags, pageContext}) =>
+const Document = ({styleTags, pageContext}) =>
   <html lang="en" dir="ltr">
     <Head>
       <meta charSet="utf-8" />
@@ -23,4 +23,4 @@ const DocumentContainer = ({styleTags, pageContext}) =>
     </body>
   </html>
 
-export default DocumentContainer
+export default Document

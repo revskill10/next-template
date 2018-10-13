@@ -9,8 +9,7 @@
       "alias": {
         "containers": "./containers",
         "data": "./data",
-        "graphql": "./graphql",
-        "layouts": "./layouts",
+        "components": "./components",
         "lib": "./lib"
       }
     }]
