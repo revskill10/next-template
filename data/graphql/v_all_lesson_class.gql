@@ -1,0 +1,22 @@
+fragment A on v_all_lesson_class {
+  tuan
+  don_vi
+  giang_vien
+  ma_lop
+  ma_mon_hoc
+  phong
+  si_so
+  so_tiet
+}
+
+query QueryAllLessonClass {
+  v_all_lesson_class{
+    ...A
+  }
+}
+
+query SubscribeAllLessonClass {
+  v_all_lesson_class{
+    ...A
+  }
+}

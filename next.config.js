@@ -27,7 +27,9 @@ const nextConfig = {
         ]
       })
     )
-
+    config.node = {
+      fs: 'empty'
+    }
     return config
   },
   exportPathMap: function () {

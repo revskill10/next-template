@@ -10,7 +10,9 @@
         "containers": "./containers",
         "data": "./data",
         "components": "./components",
-        "lib": "./lib"
+        "lib": "./lib",
+        "packages": "./packages",
+        "modules": "./modules"
       }
     }]
   ]
