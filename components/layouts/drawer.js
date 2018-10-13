@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { mailFolderListItems, otherMailFolderListItems } from "components/tile-data";
+import { MailFolderListItems, OtherMailFolderListItems } from "components/tile-data";
 
 const Component = ({ classes, theme, isOpen, isClose, handleDrawerClose }) => (
   <Drawer
@@ -25,9 +25,9 @@ const Component = ({ classes, theme, isOpen, isClose, handleDrawerClose }) => (
       </IconButton>
     </div>
     <Divider />
-    <List>{mailFolderListItems}</List>
+    <List><MailFolderListItems /></List>
     <Divider />
-    <List>{otherMailFolderListItems}</List>
+    <List><OtherMailFolderListItems /></List>
   </Drawer>
 );
 
