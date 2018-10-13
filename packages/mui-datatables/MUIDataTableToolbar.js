@@ -86,11 +86,11 @@ class MUIDataTableToolbar extends React.Component {
   };
 
   handleExcelDownload = () => {
-    const { data, columns } = this.props;
+    const { displayData, columns } = this.props;
 
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.aoa_to_sheet(
-      [columns.map(r => r.name)].concat(data.map(r => r.data))
+      [columns.map(r => r.name)].concat(displayData.map(r => r.data))
     );
     XLSX.utils.book_append_sheet(workbook, worksheet, "Tabela Exportada");
     XLSX.writeFile(workbook, "TabelaExportada.xls", { compression: true });

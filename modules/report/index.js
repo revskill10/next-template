@@ -11,6 +11,7 @@ const options = {
   filterType: 'dropdown',
   responsive: 'stacked',
   rowsPerPage: 10,
+/*  
   onRowsSelect: (rowsSelected, allRows) => {
     console.log(rowsSelected, allRows);
   },
@@ -38,6 +39,11 @@ const options = {
   onRowClick: (rowData, rowState) => {
     console.log(rowData, rowState);
   }
+  onTableChange: (action, tableState) => {
+    console.log(`action ${action}`)
+    console.log(tableState)
+  }
+*/
 };
 
 const DataTable = ({v_all_lesson_class}) => {
