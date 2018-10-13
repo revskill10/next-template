@@ -1,6 +1,5 @@
 import { Flexrow, Flexcolumn } from 'layouts/Grid'
 import { VictoryBar , VictoryChart } from 'victory';
-import NoSSR from 'react-no-ssr';
 
 export const KhoasList = ({khoas}) =>
   <ul>
@@ -20,32 +19,30 @@ export const TuansList = ({tuans}) =>
     })}
   </ul>
 
-export const TotalTeacherInWeek = ({v_get_total_teacher_in_week}) =>
+export const TotalTeacherInWeek = ({v_total_teacher_in_week}) =>
     <Flexrow>
       <Flexcolumn size={3}>
         <ul>
-          {v_get_total_teacher_in_week.map(item => {
+          {v_total_teacher_in_week.map(item => {
             return (
               <li key={item.tuan}>
-                Tuan {item.tuan} - Slgv: {item.slg_gv}
+                Tuan {item.tuan} - Slgv: {item.total_teacher_in_week}
               </li>
             )
           })}
         </ul>
       </Flexcolumn>
       <Flexcolumn size={3}>
-        <NoSSR>
           <VictoryChart
             domainPadding={20}
           >
             <VictoryBar
-              data={v_get_total_teacher_in_week.map(item => { return {tuan: item.tuan, slg_gv: Number(item.slg_gv) } })}
+              data={v_total_teacher_in_week.map(item => { return {tuan: item.tuan, slg_gv: Number(item.total_teacher_in_week) } })}
               // data accessor for x values
               x="tuan"
               // data accessor for y values
               y="slg_gv"
             />
           </VictoryChart>
-        </NoSSR>
       </Flexcolumn>
     </Flexrow>

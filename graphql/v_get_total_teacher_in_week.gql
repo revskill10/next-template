@@ -1,13 +1,15 @@
+fragment A on v_total_teacher_in_week {
+  tuan,
+  total_teacher_in_week
+}
 query queryTotalTeacherInWeek {
-  v_get_total_teacher_in_week {
-    tuan
-    slg_gv
+  v_total_teacher_in_week {
+    ...A
   }
 }
 
 subscription subscribeTotalTeacherInWeek {
-  v_get_total_teacher_in_week {
-    tuan
-    slg_gv
+  v_total_teacher_in_week {
+    ...A
   }
 }
