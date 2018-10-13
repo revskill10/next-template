@@ -11,12 +11,26 @@ fragment A on v_all_lesson_class {
 
 query QueryAllLessonClass {
   v_all_lesson_class{
-    ...A
+    tuan
+    don_vi
+    giang_vien
+    ma_lop
+    ma_mon_hoc
+    phong
+    si_so
+    so_tiet
   }
 }
 
 query SubscribeAllLessonClass {
   v_all_lesson_class{
-    ...A
+    tuan
+    don_vi
+    giang_vien
+    ma_lop
+    ma_mon_hoc
+    phong
+    si_so
+    so_tiet
   }
 }

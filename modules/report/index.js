@@ -1,6 +1,4 @@
 import MUIDataTable from 'packages/mui-datatables';
-import LiveComponent from 'containers/live-component'
-import {QueryAllLessonClass as query, SubscribeAllLessonClass as subscription} from 'data/graphql/v_all_lesson_class.gql'
 import convertDataToArray from 'lib/convert-data-to-array'
 
 const columns = ["Tuan", "Don vi", "Giang vien",
@@ -42,7 +40,7 @@ const options = {
   }
 };
 
-const dataTable = ({v_all_lesson_class}) => {
+const DataTable = ({v_all_lesson_class}) => {
   return (
     <MUIDataTable 
     title={"Employee List"} 
@@ -55,12 +53,6 @@ const dataTable = ({v_all_lesson_class}) => {
   )
 }
 
-const Report = () =>
-  <LiveComponent
-  query={query}
-  subscription={subscription}
-  >
-    {dataTable}
-  </LiveComponent>
 
-export default Report
+
+export default DataTable

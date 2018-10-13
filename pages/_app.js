@@ -5,7 +5,7 @@ import AppContainer from 'containers/next-app'
 import { compose } from "recompose";
 
 export default compose(
-    withApp,
     withApolloClient,
     withReduxStore,  
+    withApp,
   )(AppContainer)

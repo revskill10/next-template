@@ -25,7 +25,7 @@ function QueryComponent({query, subscription, children}) {
   }
   if (process.browser) {
     return (
-      <Subscription subscription={subscription} ssr={false} fetchPolicy={'cache-and-network'}>
+      <Subscription subscription={subscription} ssr={false} fetchPolicy={'cache-first'}>
         {({ loading, error, data }) => {
           return (
             <DataGraphQL loading={loading} error={error} data={data} query={query}>
