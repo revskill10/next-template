@@ -2,9 +2,10 @@ import React from 'react'
 import AppLayout from 'containers/layouts/app'
 import DataTable from 'modules/report'
 import LiveComponent from 'containers/cache-component'
-import {QueryAllLessonClass as query, SubscribeAllLessonClass as subscription} from 'data/graphql/v_all_lesson_class.gql'
+import {SubscribeAllLessonClass as subscription} from 'data/graphql/v_all_lesson_class.gql'
 import { compose } from 'recompose'
 import { withI18next } from 'lib/with-i18next'
+import getIndexData from 'lib/pages/index'
 
 const Index = ({t, data}) =>
   <AppLayout
@@ -20,9 +21,7 @@ const Index = ({t, data}) =>
   </AppLayout>
 
 Index.getInitialProps = async ({ apolloClient }) => {
-  const { data } = await apolloClient.query({query})
-
-  return { data }
+  const data = await getIndexData(apolloClient)
 }
 
 export default compose(
