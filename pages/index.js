@@ -6,6 +6,7 @@ import {SubscribeAllLessonClass as subscription} from 'data/graphql/v_all_lesson
 import { compose } from 'recompose'
 import { withI18next } from 'lib/with-i18next'
 import getIndexData from 'lib/pages/index'
+import withInitialProps from 'lib/with-initial-props'
 
 const Index = ({t, data}) =>
   <AppLayout
@@ -20,11 +21,7 @@ const Index = ({t, data}) =>
     >{DataTable}</LiveComponent>
   </AppLayout>
 
-Index.getInitialProps = async ({ apolloClient }) => {
-  const data = await getIndexData(apolloClient)
-  return data
-}
-
 export default compose(
-  withI18next(['common']),
+  withInitialProps(getIndexData),
+  withI18next(['common']),  
 )(Index)
