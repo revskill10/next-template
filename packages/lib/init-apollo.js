@@ -51,13 +51,14 @@ function create (initialState, { getToken, store }) {
   let link = ApolloLink.from([errorLink, contextLink, httpLink])
 
   if (!ssrMode) {
-    const wsClient = createSubscriptionClient({
-      wsUrl: WS_URL,
-      store,
-      getToken,
-    })
 
-    const wsLink = new WebSocketLink(wsClient)
+    const wsLink = new WebSocketLink(
+      createSubscriptionClient({
+        wsUrl: WS_URL,
+        store,
+        getToken,
+      })
+    )
     const subscriptionLink = ApolloLink.from([errorLink, wsLink])
     
     const hasSubscriptionOperation = ({ query: { definitions } }) =>

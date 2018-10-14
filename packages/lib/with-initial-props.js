@@ -1,4 +1,4 @@
-const withInitialProps = callback => Component => {
+export const withInitialProps = callback => Component => {
 
   Component.getInitialProps = async (ctx) => {
     const res = await callback(ctx)
