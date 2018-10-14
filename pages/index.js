@@ -22,6 +22,7 @@ const Index = ({t, data}) =>
 
 Index.getInitialProps = async ({ apolloClient }) => {
   const data = await getIndexData(apolloClient)
+  return data
 }
 
 export default compose(
