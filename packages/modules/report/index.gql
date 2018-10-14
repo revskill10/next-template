@@ -1,0 +1,7 @@
+#import "../../fragments/all-lesson-class.gql"
+
+query SubscribeAllLessonClass {
+  v_all_lesson_class{
+    ...AllLessonClass
+  }
+}

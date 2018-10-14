@@ -7,12 +7,14 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
-        "containers": "./containers",
-        "data": "./data",
-        "components": "./components",
-        "lib": "./lib",
-        "packages": "./packages",
-        "modules": "./modules"
+        "containers": "./packages/containers",
+        "data": "./packages/data",
+        "components": "./packages/components",
+        "lib": "./packages/lib",
+        "mui-datatables": "./packages/mui-datatables",
+        "modules": "./packages/modules",
+        "pages": "./packages/pages",
+        "fragments": "./packages/fragments"
       }
     }]
   ]

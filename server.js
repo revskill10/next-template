@@ -11,7 +11,7 @@ const handle = app.getRequestHandler()
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
-const i18n = require('./lib/i18n')
+const i18n = require('./packages/lib/i18n')
 const ssrCache = new LRUCache({
   max: 100,
   maxAge: 1000 * 60 * 60 // 1hour

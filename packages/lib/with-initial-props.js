@@ -1,8 +1,8 @@
 const withInitialProps = callback => Component => {
 
   Component.getInitialProps = async (ctx) => {
-    const data = await callback(ctx)
-    return data
+    const res = await callback(ctx)
+    return res
   }
 
   return Component;
