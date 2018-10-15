@@ -21,12 +21,12 @@ const withApp = AppContainer =>
       if (process.env.NODE_ENV === 'production') {
         registerSw()
       }
-      /*
-        const jssStyles = document.querySelector('#jss-server-side');
+      
+      const jssStyles = document.querySelector('#jss-server-side');
       if (jssStyles && jssStyles.parentNode) {
         jssStyles.parentNode.removeChild(jssStyles);
       }
-      */
+      
     }
     render () {
       return (

@@ -1,25 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 140,
-    width: 100,
-  },
-  control: {
-    padding: theme.spacing.unit * 2,
-  },
-});
 // fake data generator
+const foo =
+    'lorem ipsum dolor sit amet consectutrtpoyu sklhfdlkfh dklfh lkdhflhdflkh dlkfhdlkhflkd fldhflh';
 const getItems = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
         id: `item-${k + offset}`,
-        content: `item ${k + offset}`
+        content: `item ${k + offset}${k + offset >= 10 ? foo : ''}`
     }));
 
 // a little function to help us with reordering the result
@@ -65,8 +54,10 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    overflow: 'auto',
     padding: grid,
-    width: 250
+    width: 250,
+    height: 300
 });
 
 class App extends Component {
@@ -128,11 +119,11 @@ class App extends Component {
     // But in this example everything is just done in one place for simplicity
     render() {
         return (
+          <Grid container justify="center" spacing={8}>
             <DragDropContext onDragEnd={this.onDragEnd}>
-              <Grid container justify="center" spacing={8}>
-                <Grid key={1} item>
-                  <Droppable droppableId="droppable">
+                <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
+                      <Grid key={1} item>
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
@@ -157,12 +148,12 @@ class App extends Component {
                             ))}
                             {provided.placeholder}
                         </div>
-                      )}
-                    </Droppable>
-                </Grid>
-                <Grid key={2} item>
-                  <Droppable droppableId="droppable2">
+                      </Grid>
+                    )}
+                </Droppable>
+                <Droppable droppableId="droppable2">
                     {(provided, snapshot) => (
+                      <Grid key={1} item>
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
@@ -187,13 +178,14 @@ class App extends Component {
                             ))}
                             {provided.placeholder}
                         </div>
+                      </Grid>
                     )}
-                  </Droppable>
-                </Grid>
-              </Grid>
+                </Droppable>
             </DragDropContext>
+          </Grid>
         );
     }
 }
 
-export default withStyles(styles)(App)
+// Put the things into the DOM!
+export default App
