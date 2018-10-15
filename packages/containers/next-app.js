@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { PageTransition } from 'next-page-transitions'
 import { Provider as ReduxProvider } from 'react-redux'
@@ -7,12 +7,14 @@ import initialI18nInstance from 'lib/i18n'
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
+import NProgressStyles from "next-nprogress/styles";
 
 const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, pageContext}) => {
   const { i18n, initialI18nStore, initialLanguage } = pageProps || {}
   return (
     <ReduxProvider store={reduxStore}>
       <ApolloProvider client={apolloClient}>
+        
         <PageTransition timeout={300} classNames="page-transition">
           <I18nextProvider
           i18n={i18n || initialI18nInstance}
@@ -30,8 +32,11 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
             sheetsManager={pageContext.sheetsManager}
           >
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Component key={router.route} {...pageProps} pageContext={pageContext} />
+            <Fragment>
+              <NProgressStyles color="#ddd" spinner={true} />
+              <CssBaseline />
+              <Component key={router.route} {...pageProps} pageContext={pageContext} />
+            </Fragment>
           </MuiThemeProvider>
           </JssProvider>
           </I18nextProvider>
