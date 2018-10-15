@@ -1,0 +1,11 @@
+fragment AllTeacherDoNotWrite on v_all_teacher_do_not_write {
+  tuan
+  code
+  donvi
+  ma_lop
+  ten_mon_hoc
+  ma_mon_hoc
+  tengiangvien
+  phong
+  so_tiet
+}

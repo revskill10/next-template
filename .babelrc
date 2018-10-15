@@ -13,7 +13,7 @@
         "data": "./packages/data",
         "components": "./packages/components",
         "lib": "./packages/lib",
-        "mui-datatables": "./packages/mui-datatables",
+        "mui-datatables": "./packages/vendor/mui-datatables",
         "modules": "./packages/modules",
         "pages": "./packages/pages",
         "fragments": "./packages/fragments"
