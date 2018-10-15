@@ -1,4 +1,4 @@
-#import "../fragments/all-lesson-class.gql"
+#import "../../fragments/all-lesson-class.gql"
 
 query QueryAllLessonClass {
   v_all_lesson_class{

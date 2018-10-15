@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import MUIDataTable from 'mui-datatables';
 import convertDataToArray from 'lib/convert-data-to-array'
 import LiveComponent from 'containers/cache-component'
-import {SubscribeAllLessonClass as subscription} from 'modules/report/index.gql'
+import {SubscribeAllLessonClass as subscription} from 'modules/report/lesson-class.gql'
 
 const columns = ["Tuan", "Don vi", "Giang vien",
   "Ma lop", "Ma mon hoc",

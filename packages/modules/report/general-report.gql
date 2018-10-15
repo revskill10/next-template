@@ -1,0 +1,7 @@
+#import "../../fragments/general-report-in-week.gql"
+
+query SubscribeGeneralReport {
+  v_general_report_in_week{
+    ...GeneralReport
+  }
+}

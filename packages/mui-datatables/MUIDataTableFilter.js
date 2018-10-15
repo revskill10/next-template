@@ -143,7 +143,7 @@ class MUIDataTableFilter extends React.Component {
         column.filter ? (
           <div className={classes.checkboxList} key={index}>
             <FormGroup>
-              <Typography variant="caption" className={classes.checkboxListTitle}>
+              <Typography variant="caption" >
                 {column.name}
               </Typography>
               {filterData[index].map((filterColumn, filterIndex) => (

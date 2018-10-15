@@ -1,0 +1,14 @@
+fragment AllTeacherDoNotFinish on v_all_teacher_do_not_finish {
+    tuan
+    thu
+    thoi_gian
+    tiet_bat_dau
+    tengiangvien    
+    donvi
+    ma_lop    
+    ma_mon_hoc
+    ten_mon_hoc
+    phong
+    so_tiet
+    trangthai    
+  }
