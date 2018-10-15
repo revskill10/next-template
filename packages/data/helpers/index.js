@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { closeDrawer } from "data/actions";
+import { closeDrawer, openDrawer } from "data/actions";
 import { openSelector, closeSelector } from "data/selectors";
 
 /*
@@ -12,11 +12,12 @@ import { openSelector, closeSelector } from "data/selectors";
 
 const mapStateToProps = state => ({
   isOpen: openSelector(state),
-  isClose: closeSelector(state)
+  isClose: closeSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDrawerClose: () => dispatch(closeDrawer())
+  handleDrawerClose: () => dispatch(closeDrawer()),
+  handleDrawerOpen: () => dispatch(openDrawer()),
 });
 
 export const withDrawerState = connect(
