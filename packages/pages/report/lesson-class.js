@@ -1,6 +1,7 @@
 import {QueryAllLessonClass as query} from 'pages/report/lesson-class.gql'
 import AppLayout from 'containers/layouts/app'
 import LessonClassReport from 'modules/report/lesson-class'
+import { withI18next } from 'lib/with-i18next'
 
 export const getIndexProps = async ({apolloClient}) => {
   const { data } = await apolloClient.query({query})
@@ -16,4 +17,4 @@ const LessonClassPage = ({t, data}) =>
     <LessonClassReport data={data} />
   </AppLayout>
 
-export default LessonClassPage
+export default withI18next(['common'])(LessonClassPage)

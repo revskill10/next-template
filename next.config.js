@@ -1,5 +1,5 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const withCSS = require('@zeit/next-css')
 
 const nextConfig = {
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -15,18 +15,6 @@ const nextConfig = {
     }
   },
   webpack: (config) => {
-    config.plugins.push(
-      new SWPrecacheWebpackPlugin({
-        verbose: true,
-        staticFileGlobsIgnorePatterns: [/\.next\//],
-        runtimeCaching: [
-          {
-            handler: 'networkFirst',
-            urlPattern: /^https?.*/
-          }
-        ]
-      })
-    )
     config.node = {
       fs: 'empty'
     }
@@ -39,4 +27,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = withCSS(withBundleAnalyzer(nextConfig))

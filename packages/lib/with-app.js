@@ -18,9 +18,6 @@ const withApp = AppContainer =>
       this.pageContext = getPageContext();
     }
     componentDidMount(){
-      if (process.env.NODE_ENV === 'production') {
-        registerSw()
-      }
       /*
       const jssStyles = document.querySelector('#jss-server-side');
       if (jssStyles && jssStyles.parentNode) {

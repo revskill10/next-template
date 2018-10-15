@@ -5,7 +5,6 @@ import Manifest from 'components/manifest'
 
 const App = ({ children, title, description }) =>
   <Drawer>
-    <Fragment>
     <Head>
       <title>{ title }</title>
       <meta name="description" content={ description } />
@@ -13,7 +12,6 @@ const App = ({ children, title, description }) =>
       <Manifest />
     </Head>
     {children}
-    </Fragment>
   </Drawer>
 
 export default App;
