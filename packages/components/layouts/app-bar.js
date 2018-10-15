@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton"
 import MenuIcon from "@material-ui/icons/Menu"
 import Link from 'next/link'
 
-const MainAppBar = ({ classes, handleDrawerOpen, isOpen, isClose, title }) => (
+const MainAppBar = ({ classes, handleDrawerOpen, isOpen, isClose }) => (
   <AppBar
     position="absolute"
     className={classNames(classes.appBar, isOpen && classes.appBarShift)}
@@ -22,7 +22,7 @@ const MainAppBar = ({ classes, handleDrawerOpen, isOpen, isClose, title }) => (
       <div style={{ flex: 1 }}>
         <Link prefetch href='/' >
           <a style={{textDecoration: 'none', color: 'white'}}>
-            {title}
+            Reporting
           </a>
         </Link>
       </div>      

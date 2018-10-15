@@ -2,10 +2,12 @@ import Document from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 import flush from 'styled-jsx/server';
 import PropTypes from 'prop-types';
+import { resetServerContext } from 'react-beautiful-dnd';
 
 export const withDocument = Container =>
   class extends Document {
     static async getInitialProps({renderPage}) {
+      resetServerContext();
       // Resolution order
       //
       // On the server:
