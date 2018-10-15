@@ -22,7 +22,7 @@ i18n
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
   .init({
-    fallbackLng: 'en',
+    fallbackLng: 'vi',
     preload: ['en', 'vi'], // preload all langages
     ns: ['common'], // need to preload all the namespaces
     backend: {

@@ -6,7 +6,7 @@ const options = {
   backend: {
     loadPath: '/static/locales/{{lng}}/{{ns}}.json'
   },
-  fallbackLng: 'en',
+  fallbackLng: 'vi',
   load: 'languageOnly', // we only provide en, de -> no region specific locals like en-US, de-DE
 
   // have a common namespace used around the full app
