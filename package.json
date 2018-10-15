@@ -48,7 +48,7 @@
     "prop-types": "15.6.2",
     "react": "16.5.2",
     "react-apollo": "2.2.4",
-    "react-beautiful-dnd": "^9.0.2",
+    "react-beautiful-dnd": "9.0.2",
     "react-dom": "16.5.2",
     "react-event-timeline": "1.5.4",
     "react-i18next": "8.0.7",
