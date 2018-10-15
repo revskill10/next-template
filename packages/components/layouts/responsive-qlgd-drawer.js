@@ -8,7 +8,6 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerItems from 'components/layouts/qlgd-report-drawer-data'
 import Link from 'next/link'
-import Ripple from 'rippl'
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -80,18 +79,14 @@ class ResponsiveDrawer extends React.Component {
             <div style={{ flex: 1 }}>
               <Link prefetch href='/' >
                 <a style={{textDecoration: 'none', color: 'white'}}>
-                  <Ripple>
                     Reporting
-                  </Ripple>
                 </a>
               </Link>
             </div>      
             <div style={{ marginRight: '1rem'}}>
               <Link prefetch href='/account' >
                 <a style={{textDecoration: 'none', color: 'white'}}>
-                <Ripple>
                 Login
-                </Ripple>
                 </a>
               </Link>
             </div>
