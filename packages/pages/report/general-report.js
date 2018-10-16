@@ -11,8 +11,8 @@ export const getIndexProps = async ({apolloClient}) => {
 
 const GeneralReportPage = ({t, data}) =>
   <AppLayout
-    title={t('v_general_report_in_week')}
-    description={t('v_general_report_in_week')}
+    title={t('report.v_general_report_in_week')}
+    description={t('report.v_general_report_in_week')}
   >
     <>
       <div style={{height: '400px'}}>

@@ -11,8 +11,8 @@ export const getIndexProps = async ({apolloClient}) => {
 
 const LessonClassPage = ({t, data}) =>
   <AppLayout
-    title={t('v_all_lesson_class')}
-    description={t('v_all_lesson_class')}
+    title={t('report.v_all_lesson_class')}
+    description={t('report.v_all_lesson_class')}
   >        
     <LessonClassReport data={data} />
   </AppLayout>

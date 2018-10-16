@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import Drawer from "components/layouts/responsive-qlgd-drawer";
 import Head from 'next/head'
 import Manifest from 'components/manifest'

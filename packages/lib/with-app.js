@@ -1,8 +1,5 @@
 import App, { Container } from 'next/app'
 import getPageContext from 'lib/get-page-context';
-import { I18nextProvider} from 'react-i18next';
-import initialI18nInstance from 'lib/i18n';
-
 
 const withApp = AppContainer =>
   class extends App {
@@ -28,19 +25,10 @@ const withApp = AppContainer =>
       }
     }
     */
-    render () {
-      const { pageProps } = this.props;
-      const { i18n, initialI18nStore, initialLanguage } = pageProps || {}
-
+    render () {          
       return (
         <Container>
-          <I18nextProvider
-            i18n={i18n || initialI18nInstance}
-            initialI18nStore={initialI18nStore}
-            initialLanguage={initialLanguage}
-          >
-            <AppContainer {...this.props} {...pageProps} pageContext={this.pageContext} />
-          </I18nextProvider>
+            <AppContainer {...this.props} pageContext={this.pageContext} />
           <style jsx>{`
             .page-transition-enter {
               opacity: 0;
