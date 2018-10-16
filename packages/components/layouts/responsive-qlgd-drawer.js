@@ -8,8 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerItems from 'components/layouts/qlgd-report-drawer-data'
 import Link from 'next/link'
-import NoSSR from 'react-no-ssr'
-import Delayed from 'components/delayed'
+import {compose} from 'recompose'
 
 const drawerWidth = 240;
 
@@ -108,11 +107,7 @@ class ResponsiveDrawer extends React.Component {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            <NoSSR>
-            <Delayed waitBeforeShow={60}>
             {drawer}
-            </Delayed>              
-            </NoSSR>
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -123,11 +118,7 @@ class ResponsiveDrawer extends React.Component {
               paper: classes.drawerPaper,
             }}
           >
-            <NoSSR>
-            <Delayed waitBeforeShow={60}>
             {drawer}
-            </Delayed> 
-            </NoSSR>
           </Drawer>
         </Hidden>
         <main className={classes.content}>
@@ -139,4 +130,6 @@ class ResponsiveDrawer extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default compose(
+  withStyles(styles, { withTheme: true })
+)(ResponsiveDrawer);
