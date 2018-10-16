@@ -1,5 +1,21 @@
-import { createSelector } from "reselect";
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 
-export const openSelector = state => state.drawer.open;
-export const closeSelector = createSelector(openSelector, isOpen => !isOpen);
-export const titleSelector = () => "Home";
+const websocketSelector = state => state.websocket.status;
+
+const isConnectedSelector = createSelector(
+  websocketSelector,
+  status => status === 'Connected'
+)
+
+const mapStateToWebsocketStatus = (state) => {
+  return {
+    isConnected: isConnectedSelector(state),
+    isDisconnected: !isConnectedSelector(state)
+  }
+}
+
+export const withWebsocketStatus = connect(mapStateToWebsocketStatus)
+
+
+

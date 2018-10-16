@@ -8,7 +8,10 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerItems from 'components/layouts/qlgd-report-drawer-data'
 import Link from 'next/link'
-import {compose} from 'recompose'
+import {Home} from 'styled-icons/fa-solid/Home.cjs'
+import {LogIn} from 'styled-icons/feather/LogIn.cjs'
+import {UserAgent} from '@quentin-sommer/react-useragent'
+import StyledLink from 'components/styled-link'
 
 const drawerWidth = 240;
 
@@ -80,17 +83,22 @@ class ResponsiveDrawer extends React.Component {
             </IconButton>
             <div style={{ flex: 1 }}>
               <Link prefetch href='/' >
-                <a style={{textDecoration: 'none', color: 'white'}}>
-                    Reporting
-                </a>
+                <a><Home size={30} title={'Home'} color={'white'} /></a>
               </Link>
             </div>      
             <div style={{ marginRight: '1rem'}}>
-              <Link prefetch href='/account' >
-                <a style={{textDecoration: 'none', color: 'white'}}>
-                Login
-                </a>
-              </Link>
+              <>
+                <UserAgent mobile>
+                  <Link prefetch href='/account' >
+                    <a><LogIn size={30} title={'Login'} color={'white'} /></a>
+                  </Link>
+                </UserAgent>
+                <UserAgent computer>
+                  <Link prefetch href='/account' >
+                    <StyledLink>Login</StyledLink>
+                  </Link>
+                </UserAgent>
+              </>
             </div>
           </Toolbar>
         </AppBar>
@@ -130,6 +138,4 @@ class ResponsiveDrawer extends React.Component {
   }
 }
 
-export default compose(
-  withStyles(styles, { withTheme: true })
-)(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);

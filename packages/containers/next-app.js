@@ -8,8 +8,9 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import NProgressStyles from "next-nprogress/styles";
 import { I18nextProvider} from 'react-i18next';
 import initialI18nInstance from 'lib/i18n';
+import {UserAgentProvider} from '@quentin-sommer/react-useragent'
 
-const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, pageContext}) => {
+const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, pageContext, ua}) => {
   const { i18n, initialI18nStore, initialLanguage } = pageProps || {}
   return (
     <I18nextProvider
@@ -28,9 +29,11 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
               theme={pageContext.theme}
               sheetsManager={pageContext.sheetsManager}
             >
-              <NProgressStyles color="#ddd" spinner={true} />
+              <NProgressStyles color="#fff" spinner={true} />
               <CssBaseline />
-              <Component key={router.route} {...pageProps} pageContext={pageContext} />
+              <UserAgentProvider ua={ua}>
+                <Component key={router.route} {...pageProps} pageContext={pageContext} />
+              </UserAgentProvider>
             </MuiThemeProvider>
             </JssProvider>
           </PageTransition>
