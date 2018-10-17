@@ -3,6 +3,7 @@ import MUIDataTable from 'mui-datatables';
 import convertDataToArray from 'lib/convert-data-to-array'
 import LiveComponent from 'containers/cache-component'
 import {SubscribeGeneralReport as subscription} from 'modules/report/general-report.gql'
+import TableCell from "@material-ui/core/TableCell";
 /*
 tuan
   total_class
@@ -19,12 +20,16 @@ const columns = [
   "tuan",
   { 
     name: "TC", 
-    customHeadRender: (value, tableMeta, updateValue) => {
-      return (
-        <Tooltip title={'Tong so lop'}>
-          Tong so lop
-        </Tooltip>
-      )
+    options: {
+      customHeadRender: ({index, ...column}) => {
+        console.log(column)
+        return (
+          <TableCell key={index}>
+            Hello {column.name}
+          </TableCell>
+          
+        )
+      }
     }
   },
   "TLC",
