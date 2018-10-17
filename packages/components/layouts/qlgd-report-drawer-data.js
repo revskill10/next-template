@@ -26,9 +26,7 @@ export const MailFolderListItems = ({t}) =>
           <ChartBar size={30} title={t('report.v_general_report_in_week')} />
         </ListItemIcon>
       </StyledBarLink>
-      <StyledBarLink href={routesMap['report.v_general_report_in_week']}>
-        {t('report.v_general_report_in_week')}
-      </StyledBarLink>
+      <StyledBarLink href={routesMap['report.v_general_report_in_week']}>{t('report.v_general_report_in_week')}</StyledBarLink>
     </ListItem>
       <ListItem button>
         <StyledBarLink href={routesMap['report.v_all_lesson_class']}>
@@ -36,9 +34,7 @@ export const MailFolderListItems = ({t}) =>
             <GrinTongueWink size={30} title={t('report.v_all_lesson_class')} />
           </ListItemIcon>
         </StyledBarLink>
-        <StyledBarLink href={routesMap['report.v_all_lesson_class']}>
-          {t('report.v_all_lesson_class')}
-        </StyledBarLink>
+        <StyledBarLink href={routesMap['report.v_all_lesson_class']}>{t('report.v_all_lesson_class')}</StyledBarLink>
       </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -52,10 +48,6 @@ export const MailFolderListItems = ({t}) =>
       </ListItemIcon>
       {t('report.v_all_teacher_do_not_write')}
     </ListItem>
-  </List>
-
-export const OtherMailFolderListItems = ({t}) =>
-  <List>
     <ListItem button>
       <ListItemIcon>
         <MailIcon />
@@ -107,14 +99,5 @@ export const OtherMailFolderListItems = ({t}) =>
   </List>
 
 const ExtendedA = withI18next(['common'])(MailFolderListItems)
-const ExtendedB = withI18next(['common'])(OtherMailFolderListItems)
 
-const QlgdDrawerItems = () =>
-  <Fragment>
-    <Divider />
-    <ExtendedA />
-    <Divider />
-    <ExtendedB />
-  </Fragment>
-
-export default QlgdDrawerItems
+export default ExtendedA

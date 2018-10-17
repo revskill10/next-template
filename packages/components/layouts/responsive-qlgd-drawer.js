@@ -13,19 +13,18 @@ import StyledUserAgent from 'components/styled-user-agent'
 import {Blogger} from 'styled-icons/fa-brands/Blogger.cjs'
 import {ViewModule} from 'styled-icons/material/ViewModule.cjs'
 import StyledNav from 'components/styled-nav'
-import { StyledNavLink } from 'components/styled-link'
+import { StyledNavLink, IconLink } from 'components/styled-link'
+import StyledRoot from 'components/styled-root'
+import StyledContent from 'components/styled-content'
+import Divider from "@material-ui/core/Divider";
+import Button from '@material-ui/core/Button';
+import StyledAuthWrapper from 'components/styled-auth-wrapper'
+
+import i18n from 'lib/i18n';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-  },
   appBar: {
     position: 'absolute',
     marginLeft: drawerWidth,
@@ -45,12 +44,14 @@ const styles = theme => ({
       position: 'relative',
     },
   },
-  content: {
+  content1: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
 });
+
+
 
 class ResponsiveDrawer extends React.Component {
   state = {
@@ -66,13 +67,20 @@ class ResponsiveDrawer extends React.Component {
 
     const drawer = (
       <div>
+        
+        <Button variant="outlined" onClick={() => {
+            i18n.changeLanguage(i18n.languages[0] === 'en' ? 'vi' : 'en');
+          }} >
+          Change locale
+        </Button>
         <div className={classes.toolbar} />
+        <Divider />
         <DrawerItems />
       </div>
     );
 
     return (
-      <div className={classes.root}>
+      <StyledRoot>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
@@ -90,18 +98,18 @@ class ResponsiveDrawer extends React.Component {
                 <StyledNavLink href='/modules'>Modules</StyledNavLink>
               </StyledUserAgent>
               <StyledUserAgent mobile>
-                <StyledNavLink href='/'>
-                  <Home size={30} title={'Home'} color={'white'} />
-                </StyledNavLink>
-                <StyledNavLink href='/blog'>
-                  <Blogger size={30} title={'Blog'} color={'white'} />
-                </StyledNavLink>
-                <StyledNavLink href='/modules'>
-                  <ViewModule size={40} title={'Modules'} color={'white'} />
-                </StyledNavLink>
+                <IconLink href='/'>
+                  <Home size={theme.spacing.unit * 4} title={'Home'} color={'white'} />
+                </IconLink>
+                <IconLink href='/blog'>
+                  <Blogger size={theme.spacing.unit * 4} title={'Blog'} color={'white'} />
+                </IconLink>
+                <IconLink href='/modules'>
+                  <ViewModule size={theme.spacing.unit * 6} title={'Modules'} color={'white'} />
+                </IconLink>
               </StyledUserAgent>
             </StyledNav>
-            <div style={{ marginRight: '1rem'}}>
+            <StyledAuthWrapper>
               <StyledUserAgent computer>
                 <StyledNavLink href='/account'>Login</StyledNavLink>
               </StyledUserAgent>
@@ -110,7 +118,7 @@ class ResponsiveDrawer extends React.Component {
                   <LogIn size={30} title={'Login'} color={'white'} />
                 </StyledNavLink>
               </StyledUserAgent>
-            </div>
+            </StyledAuthWrapper>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -140,11 +148,13 @@ class ResponsiveDrawer extends React.Component {
             {drawer}
           </Drawer>
         </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
+        <StyledContent>
+          <>
+            <div className={classes.toolbar} />
             {children}
-        </main>
-      </div>
+          </>
+        </StyledContent>
+      </StyledRoot>
     );
   }
 }

@@ -3,9 +3,10 @@
   "plugins": [
     "import-graphql",
     "graphql-tag",
-    ["babel-plugin-styled-components", {
-      "pure": true
-    }],
+    ["babel-plugin-styled-components", { 
+      "pure": true,
+      "displayName": true
+    } ],
     ["module-resolver", {
       "root": ["./"],
       "alias": {
