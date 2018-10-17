@@ -1,8 +1,13 @@
 import styled from 'styled-components'
+import Link from 'components/link'
 
-const StyledLink = styled.a`
+export const StyledNavLink = styled(Link)`
   text-decoration: none;
+  color: white;
+  margin: 5px;
 `
 
-export default StyledLink
-
+export const StyledBarLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`

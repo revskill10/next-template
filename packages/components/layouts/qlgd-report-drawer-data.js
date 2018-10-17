@@ -6,7 +6,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import {ChartBar} from "styled-icons/fa-regular/ChartBar.cjs";
 import {GrinTongueWink} from 'styled-icons/fa-regular/GrinTongueWink.cjs'
 import DraftsIcon from "@material-ui/icons/Drafts";
-import StarIcon from "@material-ui/icons/Star";
 import SendIcon from "@material-ui/icons/Send";
 import MailIcon from "@material-ui/icons/Mail";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -14,38 +13,32 @@ import ReportIcon from "@material-ui/icons/Report";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import { withI18next } from 'lib/with-i18next'
-import Tooltip from '@material-ui/core/Tooltip';
-import Link from 'next/link'
-import StyledLink from 'components/styled-link'
 import routesMapFn from 'components/routes-map'
+import {StyledBarLink} from 'components/styled-link'
 
 const routesMap = routesMapFn('/report')
 
 export const MailFolderListItems = ({t}) =>
   <List>
     <ListItem button>
-      <Link prefetch href={routesMap['report.v_general_report_in_week']} >
+      <StyledBarLink href={routesMap['report.v_general_report_in_week']}>
         <ListItemIcon>
           <ChartBar size={30} title={t('report.v_general_report_in_week')} />
         </ListItemIcon>
-      </Link>
-      <Link prefetch href={routesMap['report.v_general_report_in_week']} >
-        <StyledLink>
-          {t('report.v_general_report_in_week')}
-        </StyledLink>
-      </Link>
+      </StyledBarLink>
+      <StyledBarLink href={routesMap['report.v_general_report_in_week']}>
+        {t('report.v_general_report_in_week')}
+      </StyledBarLink>
     </ListItem>
       <ListItem button>
-        <Link prefetch href={routesMap['report.v_all_lesson_class']} >
+        <StyledBarLink href={routesMap['report.v_all_lesson_class']}>
           <ListItemIcon>
             <GrinTongueWink size={30} title={t('report.v_all_lesson_class')} />
           </ListItemIcon>
-        </Link>
-        <Link prefetch href={routesMap['report.v_all_lesson_class']} >
-            <StyledLink>
-        {t('report.v_all_lesson_class')}
-        </StyledLink>
-        </Link>
+        </StyledBarLink>
+        <StyledBarLink href={routesMap['report.v_all_lesson_class']}>
+          {t('report.v_all_lesson_class')}
+        </StyledBarLink>
       </ListItem>
     <ListItem button>
       <ListItemIcon>

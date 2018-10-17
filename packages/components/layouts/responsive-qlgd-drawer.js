@@ -7,11 +7,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerItems from 'components/layouts/qlgd-report-drawer-data'
-import Link from 'next/link'
 import {Home} from 'styled-icons/fa-solid/Home.cjs'
 import {LogIn} from 'styled-icons/feather/LogIn.cjs'
-import {UserAgent} from '@quentin-sommer/react-useragent'
-import StyledLink from 'components/styled-link'
+import StyledUserAgent from 'components/styled-user-agent'
+import {Blogger} from 'styled-icons/fa-brands/Blogger.cjs'
+import {ViewModule} from 'styled-icons/material/ViewModule.cjs'
+import StyledNav from 'components/styled-nav'
+import { StyledNavLink } from 'components/styled-link'
 
 const drawerWidth = 240;
 
@@ -81,24 +83,33 @@ class ResponsiveDrawer extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <div style={{ flex: 1 }}>
-              <Link prefetch href='/' >
-                <a><Home size={30} title={'Home'} color={'white'} /></a>
-              </Link>
-            </div>      
+            <StyledNav>
+              <StyledUserAgent computer>
+                <StyledNavLink href='/'>Home</StyledNavLink>
+                <StyledNavLink href='/blog'>Blog</StyledNavLink>
+                <StyledNavLink href='/modules'>Modules</StyledNavLink>
+              </StyledUserAgent>
+              <StyledUserAgent mobile>
+                <StyledNavLink href='/'>
+                  <Home size={30} title={'Home'} color={'white'} />
+                </StyledNavLink>
+                <StyledNavLink href='/blog'>
+                  <Blogger size={30} title={'Blog'} color={'white'} />
+                </StyledNavLink>
+                <StyledNavLink href='/modules'>
+                  <ViewModule size={40} title={'Modules'} color={'white'} />
+                </StyledNavLink>
+              </StyledUserAgent>
+            </StyledNav>
             <div style={{ marginRight: '1rem'}}>
-              <>
-                <UserAgent mobile>
-                  <Link prefetch href='/account' >
-                    <a><LogIn size={30} title={'Login'} color={'white'} /></a>
-                  </Link>
-                </UserAgent>
-                <UserAgent computer>
-                  <Link prefetch href='/account' >
-                    <StyledLink>Login</StyledLink>
-                  </Link>
-                </UserAgent>
-              </>
+              <StyledUserAgent computer>
+                <StyledNavLink href='/account'>Login</StyledNavLink>
+              </StyledUserAgent>
+              <StyledUserAgent mobile>
+                <StyledNavLink href='/account'>
+                  <LogIn size={30} title={'Login'} color={'white'} />
+                </StyledNavLink>
+              </StyledUserAgent>
             </div>
           </Toolbar>
         </AppBar>
@@ -131,7 +142,7 @@ class ResponsiveDrawer extends React.Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {children}
+            {children}
         </main>
       </div>
     );

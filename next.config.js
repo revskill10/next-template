@@ -1,7 +1,11 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withCSS = require('@zeit/next-css')
+const withMDX = require('@zeit/next-mdx')({
+  extension: /\.mdx?$/
+})
 
 const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx'],
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
@@ -27,4 +31,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withCSS(withBundleAnalyzer(nextConfig))
+module.exports = withMDX(withCSS(withBundleAnalyzer(nextConfig)))

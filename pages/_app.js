@@ -13,7 +13,7 @@ import { compose } from "recompose";
 export default compose(
   withReduxStore,  
   withApolloClient,
-  withNProgress(msDelay, configOptions),
   withUserAgent,
+  withNProgress(msDelay, configOptions),
   withApp,
 )(AppContainer)

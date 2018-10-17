@@ -14,6 +14,7 @@
         "components": "./packages/components",
         "lib": "./packages/lib",
         "mui-datatables": "./packages/vendor/mui-datatables",
+        "mui-breadcrumbs": "./packages/vendor/mui-breadcrumbs",
         "modules": "./packages/modules",
         "pages": "./packages/pages",
         "fragments": "./packages/fragments"

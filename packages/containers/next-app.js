@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { PageTransition } from 'next-page-transitions'
 import { Provider as ReduxProvider } from 'react-redux'
@@ -20,23 +20,23 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
     >
       <ReduxProvider store={reduxStore}>
         <ApolloProvider client={apolloClient}>
-          <PageTransition timeout={300} classNames="page-transition">
-            <JssProvider
-            registry={pageContext.sheetsRegistry}
-            generateClassName={pageContext.generateClassName}
-          >
-            <MuiThemeProvider
-              theme={pageContext.theme}
-              sheetsManager={pageContext.sheetsManager}
+          <UserAgentProvider ua={ua}> 
+            <PageTransition timeout={300} classNames="page-transition">
+              <JssProvider
+              registry={pageContext.sheetsRegistry}
+              generateClassName={pageContext.generateClassName}
             >
-              <NProgressStyles color="#fff" spinner={true} />
-              <CssBaseline />
-              <UserAgentProvider ua={ua}>
-                <Component key={router.route} {...pageProps} pageContext={pageContext} />
-              </UserAgentProvider>
-            </MuiThemeProvider>
-            </JssProvider>
-          </PageTransition>
+                <MuiThemeProvider
+                  theme={pageContext.theme}
+                  sheetsManager={pageContext.sheetsManager}
+                >
+                  <NProgressStyles color="#fff" spinner={true} />
+                  <CssBaseline />
+                  <Component key={router.route} {...pageProps} pageContext={pageContext} />
+                </MuiThemeProvider>
+              </JssProvider>
+            </PageTransition>
+          </UserAgentProvider>
         </ApolloProvider>
       </ReduxProvider>
     </I18nextProvider>
