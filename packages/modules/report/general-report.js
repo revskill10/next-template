@@ -22,7 +22,6 @@ const columns = [
     name: "TC", 
     options: {
       customHeadRender: ({index, ...column}) => {
-        console.log(column)
         return (
           <TableCell key={index}>
             Hello {column.name}
