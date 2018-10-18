@@ -2,7 +2,7 @@ import React from 'react';
 import { NamespacesConsumer } from 'react-i18next';
 import i18nInstance from 'lib/i18n';
 
-export const withI18next = (namespaces = ['translation']) => ComposedComponent => {
+export const withI18next = (namespaces = ['common']) => ComposedComponent => {
   const reportedNamespaces = typeof namespaces === 'string' ? [namespaces] : namespaces;
 
   const addReportedNamespace = ns => {
@@ -33,7 +33,6 @@ export const withI18next = (namespaces = ['translation']) => ComposedComponent =
       : {};
 
     const i18nInitialProps = i18nInstance.getInitialProps(ctx.req, reportedNamespaces);
-
     return {
       ...composedInitialProps,
       ...i18nInitialProps,

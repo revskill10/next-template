@@ -18,7 +18,7 @@ if (enableSubpaths) {
   Router.events.on('routeChangeStart', originalRoute => {
     const correctedPath = languagePathCorrection(originalRoute);
     if (correctedPath !== originalRoute) {
-      Router.replace(correctedPath, correctedPath, { shallow: true });
+      Router.push(correctedPath, correctedPath, { shallow: true });
     }
   });
 
@@ -27,7 +27,7 @@ if (enableSubpaths) {
       const originalRoute = window.location.pathname;
       const correctedPath = languagePathCorrection(originalRoute, lng);
       if (correctedPath !== originalRoute) {
-        Router.replace(correctedPath, correctedPath, { shallow: true });
+        Router.push(correctedPath, correctedPath, { shallow: true });
       }
     }
   });
