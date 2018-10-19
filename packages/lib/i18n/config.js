@@ -1,11 +1,11 @@
 module.exports = {
   translation: {
     // default / fallback language
-    defaultLanguage: 'en',
+    defaultLanguage: 'vi',
     localesPath: './static/locales/',
 
     // needed for serverside preload
-    allLanguages: ['en', 'vi'],
+    allLanguages: ['vi', 'en'],
 
     // optional settings needed for subpath (/de/page1) handling
     enableSubpaths: false,

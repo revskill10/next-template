@@ -12,7 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ReportIcon from "@material-ui/icons/Report";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import { withI18next } from 'lib/with-i18next'
+import { withNamespaces } from 'react-i18next';
 import routesMapFn from 'components/routes-map'
 import {StyledBarLink} from 'components/styled-link'
 
@@ -98,6 +98,6 @@ export const MailFolderListItems = ({t}) =>
     </ListItem>
   </List>
 
-const ExtendedA = withI18next(['common'])(MailFolderListItems)
+const ExtendedA = withNamespaces(['report'])(MailFolderListItems)
 
 export default ExtendedA

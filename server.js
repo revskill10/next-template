@@ -23,17 +23,23 @@ const serverSideOptions = {
     loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
     addPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.missing.json'),
   },
+  detection: {
+    order: ['cookie'],
+    lookupPath: 'lng',
+    lookupFromPathIndex: 0,
+  }
 };
 
 // using subpaths like /de/page2 set whitelist and detection to allow path
-if (enableSubpaths) {
+//if (enableSubpaths) {
   serverSideOptions.detection = {
     order: ['path', 'session', 'querystring', 'cookie', 'header'], // all
-    lookupPath: 'lng',
-    lookupFromPathIndex: 0,
+    //lookupPath: 'i18next',
+    //lookupFromPathIndex: 0,
+    caches: ['localStorage', 'cookie']
   };
   serverSideOptions.whitelist = allLanguages;
-}
+//}
 
 // init i18next with serverside settings
 // using i18next-express-middleware

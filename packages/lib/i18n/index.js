@@ -11,7 +11,7 @@ const options = {
   load: 'languageOnly', // we only provide en, de -> no region specific locals like en-US, de-DE
 
   // have a common namespace used around the full app
-  ns: ['common'],
+  ns: ['common', 'report'],
   defaultNS: 'common',
 
   debug: false, // process.env.NODE_ENV !== 'production',

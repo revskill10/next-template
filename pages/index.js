@@ -1,3 +1,3 @@
 import IndexPage from 'pages'
-
-export default IndexPage
+import { withI18next } from 'lib/with-i18next'
+export default withI18next(['common', 'report'])(IndexPage)

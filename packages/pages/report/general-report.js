@@ -1,7 +1,7 @@
 import {QueryGeneralReport as query} from 'pages/report/general-report.gql'
 import AppLayout from 'containers/layouts/app'
 import GeneralReportModule from 'modules/report/general-report'
-import { withI18next } from 'lib/with-i18next'
+import { withNamespaces } from 'react-i18next'
 import LineChart from 'components/charts/line-chart'
 export const getIndexProps = async ({apolloClient}) => {
   const { data } = await apolloClient.query({query})
@@ -22,4 +22,4 @@ const GeneralReportPage = ({t, data}) =>
     </>
   </AppLayout>
 
-export default withI18next(['common'])(GeneralReportPage)
+export default withNamespaces(['report'])(GeneralReportPage)

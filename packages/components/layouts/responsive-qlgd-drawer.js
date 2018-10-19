@@ -19,6 +19,7 @@ import StyledContent from 'components/styled-content'
 import Divider from "@material-ui/core/Divider";
 import Button from '@material-ui/core/Button';
 import StyledAuthWrapper from 'components/styled-auth-wrapper'
+import cookie from 'cookie'
 
 import i18n from 'lib/i18n';
 
@@ -69,7 +70,9 @@ class ResponsiveDrawer extends React.Component {
       <div>
         
         <Button variant="outlined" onClick={() => {
-            i18n.changeLanguage(i18n.languages[0] === 'en' ? 'vi' : 'en');
+            const lng = i18n.languages[0] === 'vi' ? 'en' : 'vi'
+            document.cookie = cookie.serialize('i18next', lng)
+            i18n.changeLanguage(lng)
           }} >
           Change locale
         </Button>

@@ -1,0 +1,16 @@
+{
+    "report": {
+        "v_general_report_in_week": "General Report",
+        "v_all_lesson_class": "All Lesson Class",
+        "v_all_teacher_do_not_finish": "All Teachers who did not finish",
+        "v_all_teacher_do_not_write": "All Teachers who did not write lecture",
+        "v_detail_register_day_bo_sung": "Detail Register for additional class hours",
+        "v_detail_register_nghi_day": "Detail Register for absent from teaching",
+        "v_detail_student_absent_greater_20_percent": "Students who are absent greater than 20 percent",
+        "v_detail_student_absent_in_week": "Students who are absent",
+        "v_total_student_absent_department_in_week": "Total Student absent per department",
+        "v_total_student_absent_greater_20_percent": "Total Student absent greater than 20 percent",
+        "v_total_teacher_do_not_write_in_week": "Total Teacher who did not write lecture",
+        "v_total_teacher_in_week": "Total teacher"
+      }
+}
