@@ -4,10 +4,12 @@ export class NumericRangeFilter extends Component {
   constructor(props) {
     super(props)
 
-    this.input = React.createRef();
+    this.fromInput = React.createRef();
+    this.toInput = React.createRef();
 
     this.state = {
-        filter: ''
+      fromFilter: '',
+      toFilter: '',
     };
 
     this.valueGetter = this.props.valueGetter;
@@ -16,38 +18,51 @@ export class NumericRangeFilter extends Component {
   }
 
   doesFilterPass(params) {
-    const filter = this.state.filter.split('-');
-    const gt = Number(filter[0]);
-    const lt = Number(filter[1]);
+    //const filter = this.state.filter.split('-');
+    const gt = Number(this.state.fromFilter);
+    const lt = Number(this.state.toFilter);
     const value = this.valueGetter(params.node);
 
     return value >= gt && value <= lt;
   }
 
   getModel() {
-    return {filter: this.state.filter};
+    return {
+      fromFilter: this.state.fromFilter,
+      toFilter: this.state.toFilter,
+    };
   }
 
   setModel(model) {
-    const filter = model ? model.filter : '';
-    this.setState({filter: filter});
+    const fromFilter = model ? model.fromFilter : '';
+    const toFilter = model ? model.toFilter : '';
+    this.setState({
+      fromFilter: fromFilter,
+      toFilter: toFilter,
+    });
   }
 
   afterGuiAttached(params) {
-    this.input.current.focus();
+    this.fromInput.current.focus();
   }
 
   isFilterActive() {
-    return this.state.filter !== '';
+    return (this.state.fromFilter !== '' || this.state.toFilter !== '');
   }
 
   onSubmit(event) {
     event.preventDefault();
 
-    let filter = event.target.elements.filter.value;
+    let fromFilter = event.target.elements.fromFilter.value;
+    let toFilter = event.target.elements.toFilter.value;
 
-    if (this.state.filter !== filter) {
-      this.setState({filter: filter}, () => {
+    if (this.state.fromFilter !== fromFilter) {
+      this.setState({fromFilter: fromFilter}, () => {
+        this.props.filterChangedCallback();
+      });
+    }
+    if (this.state.toFilter !== toFilter) {
+      this.setState({toFilter: toFilter}, () => {
         this.props.filterChangedCallback();
       });
     }
@@ -57,10 +72,17 @@ export class NumericRangeFilter extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <input 
-          name="filter" 
-          ref={this.input} 
-          defaultValue={this.state.filter}
-          placeholder={'from - to'}
+          name="fromFilter" 
+          ref={this.fromInput} 
+          defaultValue={this.state.fromFilter}
+          placeholder={'from'}
+        />
+        - 
+        <input 
+          name="toFilter" 
+          ref={this.toInput} 
+          defaultValue={this.state.toFilter}
+          placeholder={'to'}
         />
         <button>Apply</button>
       </form>

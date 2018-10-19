@@ -10,6 +10,7 @@ export class NumericCellEditor extends Component {
         <input 
           ref={this.textInput} 
           onKeyPress={this.onKeyPress}
+          defaultValue={this.props.value}
         />
       );
   }
