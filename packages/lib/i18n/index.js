@@ -25,7 +25,7 @@ const options = {
       return value;
     },
   },
-
+  caches: ['localStorage', 'cookie'],
   // we load the from the static folder which is avaiable on npm run export
   backend: {
     loadPath: '/static/locales/{{lng}}/{{ns}}.json',

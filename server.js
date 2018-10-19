@@ -24,11 +24,19 @@ const serverSideOptions = {
     addPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.missing.json'),
   },
   detection: {
-    order: ['path', 'session', 'querystring', 'cookie', 'header'], // all
-    caches: ['localStorage', 'cookie']
+    caches: ['cookie'] // default: false
   },
-  whitelist: allLanguages,
 };
+
+if (enableSubpaths) {
+  serverSideOptions.detection = {
+    order: ['path', 'session', 'querystring', 'cookie', 'header'], // all
+    caches: ['cookie'], // default false
+    lookupPath: 'lng',
+    lookupFromPathIndex: 0,
+  };
+  serverSideOptions.whitelist = allLanguages;
+}
 
 // init i18next with serverside settings
 // using i18next-express-middleware
