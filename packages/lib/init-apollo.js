@@ -8,10 +8,10 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error';
 import { createSubscriptionClient } from 'lib/create-subscription-client'
 
-const GRAPHQL_URL=`https://api-qdhhebsjkn.now.sh`
-const WS_URL=`wss://api-qdhhebsjkn.now.sh`
-//const GRAPHQL_URL=`http://localhost:4000`
-//const WS_URL=`ws://localhost:4000`
+//const GRAPHQL_URL=`https://api-qdhhebsjkn.now.sh`
+//const WS_URL=`wss://api-qdhhebsjkn.now.sh`
+const GRAPHQL_URL= process.env.NODE_ENV === 'production' ? `https://web.ihs.edu.vn/graphql` : `http://localhost:3000/graphql`
+const WS_URL = process.env.NODE_ENV === 'production' ? `wss://web.ihs.edu.vn/subscriptions` :`ws://localhost:3000/subscriptions`
 
 let apolloClient = null
 

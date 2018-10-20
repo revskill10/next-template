@@ -12,7 +12,10 @@ export const createSubscriptionClient = ({
     connectionParams: async () => {
       const token = getToken()
       return {
-        authorization: token ? `Bearer ${token}` : ''
+        headers: {
+          authorization: token ? `Bearer ${token}` : '',
+          'Content-Type': 'application/json',
+        }
       }
     }
   });
