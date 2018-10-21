@@ -71,7 +71,7 @@
     "react-dom": "16.5.2",
     "react-event-timeline": "1.5.4",
     "react-google-login": "3.2.1",
-    "react-i18next": "8.0.8",
+    "react-i18next": "8.1.0",
     "react-jss": "8.6.1",
     "react-no-ssr": "1.1.0",
     "react-redux": "5.0.7",
