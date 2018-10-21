@@ -9,9 +9,9 @@ const handle = app.getRequestHandler();
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
-const config = require('./packages/lib/i18n/config');
-const i18n = require('./packages/lib/i18n');
-const getAllNamespaces = require('./packages/lib/i18n/get-all-namespaces');
+const config = require('../lib/i18n/config');
+const i18n = require('../lib/i18n');
+const getAllNamespaces = require('../lib/i18n/get-all-namespaces');
 
 const { localesPath, allLanguages, defaultLanguage, enableSubpaths } = config.translation;
 
@@ -20,8 +20,8 @@ const serverSideOptions = {
   preload: allLanguages, // preload all langages
   ns: getAllNamespaces(`${localesPath}${defaultLanguage}`), // need to preload all the namespaces
   backend: {
-    loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
-    addPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.missing.json'),
+    loadPath: path.join(__dirname, '/../../static/locales/{{lng}}/{{ns}}.json'),
+    addPath: path.join(__dirname, '/../../static/locales/{{lng}}/{{ns}}.missing.json'),
   },
   detection: {
     caches: ['cookie'] // default: false
@@ -48,11 +48,19 @@ i18n
   .init(serverSideOptions, () => {
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
-      const { createServer, startServer } = require('./packages/lib/graphql-server/create-graphql-server')
+      const { createServer, startServer } = require('./create-graphql-server')
       const graphqlServer = await createServer()
       
       const server = graphqlServer.express;
+      const cookieParser = require('cookie-parser');
+      server.use(cookieParser());
+/*
 
+      server.use('/logout', function(req, res){
+        res.clearCookie('Authorization')
+        res.redirect(301, '/')
+      })
+*/
       // Force trailing slash on language subpaths
       if (enableSubpaths) {
         server.get(/\/((?!graphql|playground).)*/, (req, res, cb) => {

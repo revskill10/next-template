@@ -20,6 +20,7 @@ import Divider from "@material-ui/core/Divider";
 import Button from '@material-ui/core/Button';
 import StyledAuthWrapper from 'components/styled-auth-wrapper'
 import cookie from 'cookie'
+import GoogleLogin from 'components/auth/google-login'
 
 import i18n from 'lib/i18n';
 
@@ -114,7 +115,9 @@ class ResponsiveDrawer extends React.Component {
             </StyledNav>
             <StyledAuthWrapper>
               <StyledUserAgent computer>
-                <StyledNavLink href='/account'>Login</StyledNavLink>
+                <StyledNavLink href='/account'>
+                  <GoogleLogin />
+                </StyledNavLink>
               </StyledUserAgent>
               <StyledUserAgent mobile>
                 <StyledNavLink href='/account'>

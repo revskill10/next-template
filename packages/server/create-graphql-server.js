@@ -4,34 +4,70 @@ const { mergeSchemas } = require('graphql-tools')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
+const { createLink } = require('./create-link')
 dotenv.config()
 
-async function createServer() {
-  const reportingSchema = await getRemoteSchema(process.env.REPORTING_SERVICE_GRAPHQL_URL, process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, 'reportingService');
-  const userSchema = await getRemoteSchema(process.env.USER_SERVICE_GRAPHQL_URL, process.env.USER_SERVICE_SUBSCRIPTION_URL, 'userService');
 
+function isJsonReq(req) {
+  const contype = req.headers['content-type'];
+  return (contype && contype.indexOf('application/json') === 0)
+}
+
+async function createServer() {
+  const reportingLink = createLink(
+    process.env.REPORTING_SERVICE_GRAPHQL_URL, 
+    process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, 
+    'reportingService'
+  )
+  const userLink = createLink(
+    process.env.USER_SERVICE_GRAPHQL_URL, 
+    process.env.USER_SERVICE_SUBSCRIPTION_URL, 
+    'userService')
+
+  const reportingSchema = await getRemoteSchema(reportingLink)
+  const userSchema = await getRemoteSchema(userLink)
+  const customSchema = `
+  type AuthPayload {
+    token: String
+  }
+  
+  type Mutation {
+    login(id_token: String!): AuthPayload
+  }
+  `
+  const resolvers = require('./resolvers')
   const schema = mergeSchemas({
-    schemas: [userSchema, reportingSchema],
+    schemas: [
+      userSchema, 
+      reportingSchema,
+      customSchema,
+    ],
+    resolvers
   });
 
   const server = new GraphQLServer({
     schema,
     introspection: true,
     playground: true,
+    /*
     cors: {
       origin: "*",
       credentials: 'include',
     },
+    */
     
-    context: function({connection, request}) {
+    context: function({connection, request, response}) {
       if (connection && connection.context) {
         return connection.context
       }
       if (request) {
         return {
-          headers: request.headers
+          headers: request.headers,
+          cookies: request.cookies,
+          isJson: isJsonReq(request),
+          response,         
         }
-      }  
+      }
     },
   });
 
@@ -46,11 +82,6 @@ function createWsClient(subUrl, connectionParams) {
 }
 
 function startServer(server, port = 3000) {
-  const urlMaps = {
-    reportingService: process.env.REPORTING_SERVICE_SUBSCRIPTION_URL,
-    userService: process.env.USER_SERVICE_SUBSCRIPTION_URL,
-  }
-
   server.start({
     port: process.env.PORT || port,
     endpoint: '/graphql',
