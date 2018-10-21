@@ -81,7 +81,7 @@
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0",
-    "reuse": "^1.2.0",
+    "reuse": "1.2.0",
     "rippl": "1.1.0",
     "styled-components": "4.0.2",
     "styled-icons": "3.3.0",
