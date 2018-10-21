@@ -51,7 +51,7 @@ function createJwtToken({user_id, name, roles}){
       'x-hasura-user-id': user_id,
     }
   }
-  return jwt.sign(data, '013be1690a9ab2c2a50b4c86aceef5d7fb09bdbd12c099ed55073bc528be6dcb');
+  return jwt.sign(data, process.env.JWT_SECRET);
 }
 
 function googleVerifyUri(id_token){
