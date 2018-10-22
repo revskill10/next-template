@@ -9,6 +9,7 @@ import i18n from 'lib/i18n';
 import languagePathCorrection from 'lib/i18n/language-path-correction';
 import { translation } from 'lib/i18n/config';
 import Router from 'next/router';
+import withCurrentUser from 'lib/with-current-user'
 
 const { enableSubpaths } = translation;
 const msDelay = 100; // default is 300
@@ -33,10 +34,11 @@ if (enableSubpaths) {
   });
 }
 
-export default compose(
+export default compose(  
   withReduxStore,  
   withApolloClient,
+  withCurrentUser,
   withUserAgent,
-  withNProgress(msDelay, configOptions),
+  withNProgress(msDelay, configOptions),  
   withApp,
 )(AppContainer)

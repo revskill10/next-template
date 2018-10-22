@@ -1,6 +1,17 @@
+import React from 'react'
 import { graphql } from 'react-apollo';
 import { compose, mapProps, branch, renderNothing } from 'recompose';
-import { currentUser as query } from 'data/graphql/current-user.gql'
+import gql from 'graphql-tag'
+import { inspect } from 'util'
+
+const query = gql`
+  query {
+    currentUser {
+      name
+      roles
+    }
+  }
+`
 
 const defaultPolloOptions = {
   options: ({ fetchPolicy = 'cache-only' }) => {
@@ -10,7 +21,7 @@ const defaultPolloOptions = {
   }
 }
 
-const withCurrentUser = compose(
+export const withCurrentUser = compose(
   graphql(query, defaultPolloOptions),
   mapProps(({ data, ...rest }) => {
     return {
@@ -24,7 +35,7 @@ const withCurrentUser = compose(
   }, renderNothing)
 );
 
-export default withCurrentUser
+
 
 /*
 function ComponentThatIsDeepInTheTree({ currentUser }) {
@@ -39,3 +50,32 @@ function ComponentThatIsDeepInTheTree({ currentUser }) {
     
 export default withCurrentUser(ComponentThatIsDeepInTheTree);
 */
+
+export default (App) => {
+  return class AppWithCurrentUser extends React.Component {
+    static async getInitialProps (context) {
+      const { ctx } = context
+
+      // Get or Create the store with `undefined` as initialState
+      // This allows you to set a custom default initialState
+      
+      const { data } = await ctx.apolloClient.query({query})
+      ctx.currentUser = data.currentUser
+      // Provide the store to getInitialProps of pages
+
+      let appProps = {}
+      if (typeof App.getInitialProps === 'function') {
+        appProps = await App.getInitialProps(context)
+      }
+
+      return {
+        ...appProps,
+        currentUser: data.currentUser,
+      }
+    }
+
+    render () {
+      return <App {...this.props} />
+    }
+  }
+}

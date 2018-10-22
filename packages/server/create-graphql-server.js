@@ -1,12 +1,13 @@
 const dotenv = require('dotenv')
+dotenv.config()
 const { GraphQLServer } = require('graphql-yoga')
 const { mergeSchemas } = require('graphql-tools')
+const { importSchema } = require('graphql-import')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
 const { createLink } = require('./create-link')
-dotenv.config()
-
+const { inspect } = require('util')
 
 function isJsonReq(req) {
   const contype = req.headers['content-type'];
@@ -26,21 +27,13 @@ async function createServer() {
 
   const reportingSchema = await getRemoteSchema(reportingLink)
   const userSchema = await getRemoteSchema(userLink)
-  const customSchema = `
-  type AuthPayload {
-    token: String
-  }
-  
-  type Mutation {
-    login(id_token: String!): AuthPayload
-  }
-  `
+  const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
   const schema = mergeSchemas({
     schemas: [
       userSchema, 
       reportingSchema,
-      customSchema,
+      localSchema,
     ],
     resolvers
   });
@@ -49,21 +42,20 @@ async function createServer() {
     schema,
     introspection: true,
     playground: true,
-    /*
     cors: {
       origin: "*",
       credentials: 'include',
     },
-    */
     
     context: function({connection, request, response}) {
       if (connection && connection.context) {
         return connection.context
       }
       if (request) {
+        console.log(`Cookies: ${inspect(request.headers)}`)
         return {
           headers: request.headers,
-          cookies: request.cookies,
+          cookies: request.cookie,
           isJson: isJsonReq(request),
           response,         
         }

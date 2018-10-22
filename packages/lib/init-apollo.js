@@ -25,6 +25,7 @@ function create (initialState, { getToken, store }) {
 
   const httpLink = createHttpLink({
     uri: GRAPHQL_URL,
+    credentials: 'same-origin',
   })
 
   const contextLink = setContext(

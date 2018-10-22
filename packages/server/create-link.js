@@ -4,6 +4,8 @@ const { setContext } = require('apollo-link-context')
 const fetch = require('node-fetch')
 const { onError } = require('apollo-link-error')
 const { ApolloLink, split } = require('apollo-link')
+const { inspect } = require('util')
+const jwt = require('jsonwebtoken')
 
 function createWsLink(clientName, graphqlContext) {
   return new ApolloLink(function(operation, forward) {
@@ -20,6 +22,34 @@ function createWsLink(clientName, graphqlContext) {
         && subscriptionClients[clientName].request(operation);
     }
   })
+}
+
+function getCurrentUser(context) {
+  const { isJson, headers, cookies } = context
+  
+  try {
+    if (isJson) {
+      const token = headers.authorization.split(' ')[1]
+      const data = jwt.verify(token, process.env.JWT_SECRET)
+      console.log(`JSON ${inspect(data)}`)
+      return {
+        name: data.name,
+        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
+      }
+    } else {
+      const token = cookies['token']
+      const data = jwt.verify(token, process.env.JWT_SECRET)
+      return {
+        name: data.name,
+        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
+      }
+    }
+  } catch (_e) {
+    return {
+      name: 'Anonymous',
+      roles: ['anonymous'],
+    }
+  }
 }
 
 function createLink(uri, subUri, clientName, graphqlContext){
@@ -82,5 +112,6 @@ function createLink(uri, subUri, clientName, graphqlContext){
 }
 
 module.exports = {
-  createLink
+  createLink,
+  getCurrentUser,
 }
