@@ -34,11 +34,13 @@ if (enableSubpaths) {
   });
 }
 
+const withProgressBar = withNProgress(msDelay, configOptions)
+
 export default compose(  
   withReduxStore,  
   withApolloClient,
   withCurrentUser,
   withUserAgent,
-  withNProgress(msDelay, configOptions),  
+  withProgressBar,  
   withApp,
 )(AppContainer)
