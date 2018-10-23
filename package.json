@@ -65,7 +65,7 @@
     "next": "7.0.2",
     "next-nprogress": "1.2.0",
     "next-page-transitions": "1.0.0-canary.1",
-    "nprogress": "^0.2.0",
+    "nprogress": "0.2.0",
     "prop-types": "15.6.2",
     "react": "16.5.2",
     "react-apollo": "2.2.4",
