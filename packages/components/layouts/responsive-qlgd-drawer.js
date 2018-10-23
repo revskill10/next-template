@@ -115,14 +115,10 @@ class ResponsiveDrawer extends React.Component {
             </StyledNav>
             <StyledAuthWrapper>
               <StyledUserAgent computer>
-                <StyledNavLink href='/account'>
-                  <GoogleLogin />
-                </StyledNavLink>
+                <GoogleLogin />
               </StyledUserAgent>
               <StyledUserAgent mobile>
-                <StyledNavLink href='/account'>
-                  <LogIn size={30} title={'Login'} color={'white'} />
-                </StyledNavLink>
+                <GoogleLogin />
               </StyledUserAgent>
             </StyledAuthWrapper>
           </Toolbar>

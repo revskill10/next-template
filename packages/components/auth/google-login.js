@@ -1,6 +1,8 @@
 import { GoogleLogin } from 'react-google-login';
 import gql from 'graphql-tag'
 import { Mutation } from "react-apollo";
+import { withCurrentUser } from 'lib/with-current-user'
+import Button from '@material-ui/core/Button';
 
 const LOGIN = gql`
   mutation Login($id_token: String!) {
@@ -10,19 +12,30 @@ const LOGIN = gql`
   }
 `;
 
+const LOGOUT = gql`
+  mutation Logout {
+    logout
+  }
+`
 
 const responseGoogle = async (response, loginMutation) => {
-  console.log(response.tokenId)
   const { data } = await loginMutation({variables: {id_token: response.tokenId}})
   if (data.login) {
-    // client.query(CURRENT_USER)
-    // set Redux
     localStorage.setItem("Authorization", `Bearer ${data.login.token}`)
     window.location.reload()
   }
 }
 
-const Google = () =>
+const logout = async (logoutMutation) => {
+  console.log('logout')
+  const { data } = await logoutMutation()
+  if (data.logout) {
+    localStorage.removeItem("Authorization")
+    window.location.reload()
+  }
+}
+
+const Login = () =>
   <Mutation 
     mutation={LOGIN}    
   >  
@@ -36,4 +49,26 @@ const Google = () =>
     )}
   </Mutation>
 
-export default Google
+const Logout = () =>
+  <Mutation
+      mutation={LOGOUT}
+  >
+    {logoutMutation => (
+      <Button variant="contained" color="primary"
+        onClick={() => logout(logoutMutation)}
+      >
+        Logout
+      </Button>
+    )}
+  </Mutation>
+
+const GoogleAuth = ({ currentUser }) => {
+  const roles = currentUser.roles
+  if (roles.includes('anonymous')) {
+    return <Login />
+  } else {
+    return <Logout />
+  }
+}
+
+export default withCurrentUser(GoogleAuth)

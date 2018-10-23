@@ -9,6 +9,7 @@ type UserInfoPayload {
 
 type Mutation {
   login(id_token: String!): AuthPayload
+  logout: Boolean
 }
 
 type Query {

@@ -40,6 +40,10 @@ function setCookie(context, token) {
   context.response.cookie('token', token, { maxAge: 900000, httpOnly: true });    
 }
 
+function clearCookie(context) {
+  context.response.clearCookie('token')
+}
+
 module.exports = {
   getUserClient,
   query,
@@ -47,4 +51,5 @@ module.exports = {
   createJwtToken,
   googleVerifyUri,
   setCookie,
+  clearCookie,
 }

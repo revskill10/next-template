@@ -6,6 +6,7 @@ const {
   createJwtToken,
   googleVerifyUri, 
   setCookie,
+  clearCookie,
 } = require('../utils')
 
 const upsertUser = gql`
@@ -86,6 +87,12 @@ async function login(parent, { id_token }, context, info) {
   }
 }
 
+function logout(parent, { id_token }, context, info) {
+  clearCookie(context)
+  return true
+}
+
 module.exports = {
   login,
+  logout,
 }

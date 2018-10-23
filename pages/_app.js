@@ -2,7 +2,7 @@ import withApolloClient from 'lib/with-apollo-client'
 import withReduxStore from 'lib/with-redux-store'
 import withApp from 'lib/with-app'
 import AppContainer from 'containers/next-app'
-import withNProgress from "next-nprogress";
+import withNProgress from "lib/with-nprogress";
 import withUserAgent from 'lib/with-user-agent'
 import { compose } from "recompose";
 import i18n from 'lib/i18n';
@@ -14,6 +14,7 @@ import withCurrentUser from 'lib/with-current-user'
 const { enableSubpaths } = translation;
 const msDelay = 100; // default is 300
 const configOptions = { trickleSpeed: 70 };
+const withProgressBar = withNProgress(msDelay, configOptions)
 
 if (enableSubpaths) {
   Router.events.on('routeChangeStart', originalRoute => {
@@ -34,7 +35,7 @@ if (enableSubpaths) {
   });
 }
 
-const withProgressBar = withNProgress(msDelay, configOptions)
+
 
 export default compose(  
   withReduxStore,  

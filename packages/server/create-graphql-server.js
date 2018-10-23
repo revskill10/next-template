@@ -52,7 +52,6 @@ async function createServer() {
         return connection.context
       }
       if (request) {
-        console.log(`Cookies: ${inspect(request.headers)}`)
         return {
           headers: request.headers,
           cookies: request.cookie,

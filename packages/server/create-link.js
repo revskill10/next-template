@@ -31,7 +31,6 @@ function getCurrentUser(context) {
     if (isJson) {
       const token = headers.authorization.split(' ')[1]
       const data = jwt.verify(token, process.env.JWT_SECRET)
-      console.log(`JSON ${inspect(data)}`)
       return {
         name: data.name,
         roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
