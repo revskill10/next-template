@@ -1,8 +1,8 @@
-const { createLink } = require('../create-link')
 const { createApolloClient } = require('../create-apollo-client')
 const jwt = require('jsonwebtoken')
 
 function getUserClient(context, admin) {
+  const { createLink } = require('../create-link')
   const userLink = createLink(
     process.env.USER_SERVICE_GRAPHQL_URL, 
     process.env.USER_SERVICE_SUBSCRIPTION_URL, 
@@ -19,12 +19,20 @@ function mutate(client, mutation, variables) {
   return client.mutate({mutation, variables})
 }
 
-function createJwtToken({user_id, name, roles}){
-  const defaultRole = user_id ? 'user' : 'anonymous'
+function createJwtToken({user_id, name, roles}, defaultRole = 'user'){
+  let allowedRoles = roles
+  if (!roles.includes('user') && !roles.includes('guest')) {
+    allowedRoles.push('user')
+  }
+
+  if (roles.includes('guest')) {
+    allowedRoles = ['guest']
+  }
+
   const data = {
     'name': name,
     'https://hasura.io/jwt/claims': {
-      "x-hasura-allowed-roles": roles,
+      "x-hasura-allowed-roles": allowedRoles,
       "x-hasura-default-role": defaultRole,
       'x-hasura-user-id': user_id,
     }
@@ -67,9 +75,9 @@ function getCurrentUser(context) {
     }
   } catch (_e) {
     return {
-      user_id: null,
-      name: 'Anonymous',
-      roles: ['anonymous'],
+      user_id: process.env.GUEST_ID,
+      name: 'Guest',
+      roles: ['guest'],
     }
   }
 }

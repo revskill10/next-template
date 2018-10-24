@@ -1,12 +1,11 @@
 import React from 'react'
-import { graphql } from 'react-apollo';
-import { compose, mapProps, branch, renderNothing } from 'recompose';
+import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { inspect } from 'util'
 
 const query = gql`
-  query {
-    currentUser {
+  query UserInfo {
+    user_info{
       name
       roles
     }
@@ -21,61 +20,44 @@ const defaultPolloOptions = {
   }
 }
 
-export const withCurrentUser = compose(
-  graphql(query, defaultPolloOptions),
-  mapProps(({ data, ...rest }) => {
-    return {
-      loading: data.loading,
-      currentUser: data.currentUser,
-      ...rest,
-    };
-  }),
-  branch(({ loading }) => {
-    return !!loading;
-  }, renderNothing)
-);
-
-
-
-/*
-function ComponentThatIsDeepInTheTree({ currentUser }) {
-  if (currentUser.permissions.role !== 'OWNER') {
-    return null; 
-  }
-  
-  return (
-    <h1> I am an owner! </h1>
-  );
+export const withCurrentUser = App => (props) => {
+  return (  
+    <Query query={query} fetchPolicy={'cache-only'} ssr={!process.browser}>
+      {
+        ({data}) => <App currentUser={data.user_info[0]} {...props} />
+      }
+    </Query>
+  )
 }
-    
-export default withCurrentUser(ComponentThatIsDeepInTheTree);
-*/
+
 
 export default (App) => {
   return class AppWithCurrentUser extends React.Component {
     static async getInitialProps (context) {
       const { ctx } = context
+      const { apolloClient } = ctx
 
       // Get or Create the store with `undefined` as initialState
       // This allows you to set a custom default initialState
+        const { data } = await apolloClient.query({query})        
+        ctx.currentUser = data.user_info[0]
+        console.log(`AppWithCurrentUser ${inspect(ctx.currentUser)}`)
       
-      const { data } = await ctx.apolloClient.query({query})
-      ctx.currentUser = data.currentUser
       // Provide the store to getInitialProps of pages
 
       let appProps = {}
       if (typeof App.getInitialProps === 'function') {
         appProps = await App.getInitialProps(context)
       }
-
       return {
         ...appProps,
-        currentUser: data.currentUser,
       }
     }
 
     render () {
-      return <App {...this.props} />
+      return (
+        <App {...this.props} />
+      )
     }
   }
 }

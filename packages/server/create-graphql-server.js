@@ -6,20 +6,18 @@ const { importSchema } = require('graphql-import')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
-
 function isJsonReq(req) {
   const contype = req.headers['content-type'];
   return (contype && contype.indexOf('application/json') === 0)
 }
-
 async function createServer() {
   const { 
-    reportingLink, 
+  //  reportingLink, 
     userLink,
     cmsLink,
   } = require('./create-link')
 
-  const reportingSchema = await getRemoteSchema(reportingLink)
+ // const reportingSchema = await getRemoteSchema(reportingLink)
   const userSchema = await getRemoteSchema(userLink)
   const cmsSchema = await getRemoteSchema(cmsLink)
   const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
@@ -27,12 +25,13 @@ async function createServer() {
   const schema = mergeSchemas({
     schemas: [
       userSchema, 
-      reportingSchema,
+ //     reportingSchema,
       cmsSchema,
       localSchema,
     ],
     resolvers
   });
+  console.log(schema)
 
   const pubsub = new PubSub()
 
@@ -53,6 +52,7 @@ async function createServer() {
         }
       }
       if (request) {
+        console.log(request.headers)
         return {
           headers: request.headers,
           cookies: request.cookie,
@@ -81,16 +81,20 @@ function startServer(server, port = 3000) {
     subscriptions: {
       path: '/subscriptions',
       onConnect: function(connectionParams, websocket, context) {
+        const { 
+          anonymousJwt,
+        } = require('./create-link')
+
         const connParams = {
           headers: {
-            "Authorization": connectionParams['Authorization'],
+            "Authorization": `Bearer ${connectionParams['token'] || anonymousJwt()}`,
             "Content-Type": "application/json"
           }
         }
         return {
           connectionParams,
           subscriptionClients: {
-            reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
+            //reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
             userService: createWsClient(process.env.USER_SERVICE_SUBSCRIPTION_URL, connParams),
           },
         };

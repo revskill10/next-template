@@ -23,7 +23,7 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
                 sheetsManager={pageContext.sheetsManager}
               >
                 <NProgress color="#fff" spinner />
-                <CssBaseline />                
+                <CssBaseline />
                 <Component key={router.route} {...pageProps} pageContext={pageContext} />
               </MuiThemeProvider>
             </JssProvider>

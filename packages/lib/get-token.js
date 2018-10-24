@@ -12,15 +12,6 @@ const parseCookies = (req, options = {}) => {
   )
 }
 
-const parseLocalStorage = () => {
-  const authorization = localStorage.getItem("Authorization")
-  if (authorization) {
-    return authorization.split(' ')[1]
-  } else {
-    return null
-  }
-}
-
 export const getToken = (req) => {
-  return process.browser ? parseLocalStorage() : parseCookies(req).token
+  return process.browser ? localStorage.getItem("token") : parseCookies(req).token
 }

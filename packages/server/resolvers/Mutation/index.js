@@ -7,6 +7,7 @@ const {
   googleVerifyUri, 
   setCookie,
   clearCookie,
+  anonymousJwt,
 } = require('../utils')
 
 const upsertUser = gql`
@@ -76,14 +77,51 @@ async function login(parent, { id_token }, context, info) {
     }
   } else {
     const token = createJwtToken({
-      user_id: null,
-      roles: ["anonymous"],
-      name: 'Anonymous'
+      user_id: process.env.GUEST_ID,
+      roles: ["guest"],
+      name: 'Guest'
     })
     setCookie(context, token)
     return {
       token,
     }
+  }
+}
+
+const query = gql`
+  query UserInfo($userId:uuid!){
+    user_info(where:{
+      user_id:{
+        _eq:$userId
+      }
+    }){
+    	user_id
+      name
+      roles
+    }
+  }
+`
+
+async function refresh(parent, args, context, info) {
+  const { getCurrentUser } = require('../utils')
+  const { user_id } =  getCurrentUser(context)
+  const variables = { userId: user_id}
+  const client = getUserClient(context, true)
+  let token = null;
+  try {
+    const { data } = await client.query({query, variables})
+    if (data.user_info && data.user_info.length === 1) {
+      const userInfo = data.user_info[0]
+      token = createJwtToken(userInfo)
+    } else {
+      token = anonymousJwt()
+    }
+  } catch (e) {
+    token = anonymousJwt()
+  }
+  setCookie(context, token)
+  return {
+    token,
   }
 }
 
@@ -95,4 +133,5 @@ function logout(parent, { id_token }, context, info) {
 module.exports = {
   login,
   logout,
+  refresh,
 }

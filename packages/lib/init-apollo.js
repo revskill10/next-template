@@ -38,17 +38,18 @@ function create (initialState, { getToken, store }) {
 
   const httpLink = createHttpLink({
     uri: GRAPHQL_URL,
-    credentials: 'same-origin',
+    credentials: 'include',
   })
 
   const contextLink = setContext(
     async () => {
       const token = getToken()
       return {
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
+        headers: {
+          authorization: token ? `Bearer ${token}` : ''
+        }
       }
-    }}
+    }
   )
 
   const errorLink = onError(

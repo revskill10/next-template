@@ -21,7 +21,7 @@ const LOGOUT = gql`
 const responseGoogle = async (response, loginMutation) => {
   const { data } = await loginMutation({variables: {id_token: response.tokenId}})
   if (data.login) {
-    localStorage.setItem("Authorization", `Bearer ${data.login.token}`)
+    localStorage.setItem("token", data.login.token)
     window.location.reload()
   }
 }
@@ -30,7 +30,7 @@ const logout = async (logoutMutation) => {
   console.log('logout')
   const { data } = await logoutMutation()
   if (data.logout) {
-    localStorage.removeItem("Authorization")
+    localStorage.removeItem("token")
     window.location.reload()
   }
 }
@@ -64,7 +64,7 @@ const Logout = () =>
 
 const GoogleAuth = ({ currentUser }) => {
   const roles = currentUser.roles
-  if (roles.includes('anonymous')) {
+  if (roles.includes('guest')) {
     return <Login />
   } else {
     return <Logout />

@@ -4,7 +4,16 @@ const { setContext } = require('apollo-link-context')
 const fetch = require('node-fetch')
 const { onError } = require('apollo-link-error')
 const { ApolloLink, split } = require('apollo-link')
+const { inspect } = require('util')
+const { createJwtToken } = require('./resolvers/utils')
 
+function anonymousJwt() {
+  return createJwtToken({
+    user_id: process.env.GUEST_ID,
+    roles: ["guest"],
+    name: 'Guest'
+  }, 'guest')
+}
 
 function createWsLink(clientName, graphqlContext) {
   return new ApolloLink(function(operation, forward) {
@@ -40,22 +49,23 @@ function createLink(uri, subUri, clientName, graphqlContext){
       }
     );
     if (networkError) {
-      //console.log(`[Network error]: ${inspect(networkError)}`);
+      console.log(`[Network error]: ${inspect(networkError)}`);
     }
   });
 
   const contextLink = setContext(function(_request, previousContext) {
     const { isJson, headers, cookies } = graphqlContext || previousContext.graphqlContext
+    
     if (isJson) {
       return {
         headers: {
-          authorization: headers.authorization,
+          authorization: headers.authorization ? headers.authorization : `Bearer ${anonymousJwt()}`,
         }
       }
     } else {
       return {
         headers: {
-          authorization: cookies['Authorization']
+          authorization: cookies['token'] || `Bearer ${anonymousJwt()}`,
         }
       }
     }
@@ -76,8 +86,8 @@ function createLink(uri, subUri, clientName, graphqlContext){
       return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
     },
     errorLink.concat(wsLink),
-    contextLink.concat(errorLink.concat(httpLink)),
-  ) : contextLink.concat(errorLink.concat(httpLink))
+    errorLink.concat(contextLink.concat(httpLink)),
+  ) : errorLink.concat(contextLink.concat(httpLink))
 
   const adminLink = adminContextLink.concat(httpLink)
   return {
@@ -107,4 +117,5 @@ module.exports = {
   reportingLink,
   userLink,
   cmsLink,
+  anonymousJwt,
 }
