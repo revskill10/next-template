@@ -1,6 +1,6 @@
-const { getCurrentUser } = require('../../create-link')
+const { getCurrentUser } = require('../utils')
 
-async function currentUser(parent, args, context, info) {
+function currentUser(parent, args, context, info) {
   return getCurrentUser(context)
 }
 

@@ -1,13 +1,11 @@
 const dotenv = require('dotenv')
 dotenv.config()
-const { GraphQLServer } = require('graphql-yoga')
+const { GraphQLServer, PubSub } = require('graphql-yoga')
 const { mergeSchemas } = require('graphql-tools')
 const { importSchema } = require('graphql-import')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
-const { createLink } = require('./create-link')
-const { inspect } = require('util')
 
 function isJsonReq(req) {
   const contype = req.headers['content-type'];
@@ -15,28 +13,28 @@ function isJsonReq(req) {
 }
 
 async function createServer() {
-  const reportingLink = createLink(
-    process.env.REPORTING_SERVICE_GRAPHQL_URL, 
-    process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, 
-    'reportingService'
-  )
-  const userLink = createLink(
-    process.env.USER_SERVICE_GRAPHQL_URL, 
-    process.env.USER_SERVICE_SUBSCRIPTION_URL, 
-    'userService')
+  const { 
+    reportingLink, 
+    userLink,
+    cmsLink,
+  } = require('./create-link')
 
   const reportingSchema = await getRemoteSchema(reportingLink)
   const userSchema = await getRemoteSchema(userLink)
+  const cmsSchema = await getRemoteSchema(cmsLink)
   const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
   const schema = mergeSchemas({
     schemas: [
       userSchema, 
       reportingSchema,
+      cmsSchema,
       localSchema,
     ],
     resolvers
   });
+
+  const pubsub = new PubSub()
 
   const server = new GraphQLServer({
     schema,
@@ -49,7 +47,10 @@ async function createServer() {
     
     context: function({connection, request, response}) {
       if (connection && connection.context) {
-        return connection.context
+        return {
+          ...connection.context,
+          pubsub,
+        }
       }
       if (request) {
         return {
@@ -87,6 +88,7 @@ function startServer(server, port = 3000) {
           }
         }
         return {
+          connectionParams,
           subscriptionClients: {
             reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
             userService: createWsClient(process.env.USER_SERVICE_SUBSCRIPTION_URL, connParams),

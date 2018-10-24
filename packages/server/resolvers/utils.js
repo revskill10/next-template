@@ -23,7 +23,7 @@ function createJwtToken({user_id, name, roles}){
   const defaultRole = user_id ? 'user' : 'anonymous'
   const data = {
     'name': name,
-    "https://hasura.io/jwt/claims": {
+    'https://hasura.io/jwt/claims': {
       "x-hasura-allowed-roles": roles,
       "x-hasura-default-role": defaultRole,
       'x-hasura-user-id': user_id,
@@ -44,6 +44,36 @@ function clearCookie(context) {
   context.response.clearCookie('token')
 }
 
+function getCurrentUser(context) {
+  const { isJson, headers, cookies } = context
+  
+  try {
+    if (isJson) {
+      const token = headers.authorization.split(' ')[1]
+      const data = jwt.verify(token, process.env.JWT_SECRET)
+      return {
+        user_id: data['https://hasura.io/jwt/claims']['x-hasura-user-id'],
+        name: data.name,
+        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
+      }
+    } else {
+      const token = cookies['token']
+      const data = jwt.verify(token, process.env.JWT_SECRET)
+      return {
+        user_id: data['https://hasura.io/jwt/claims']['x-hasura-user-id'],
+        name: data.name,
+        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
+      }
+    }
+  } catch (_e) {
+    return {
+      user_id: null,
+      name: 'Anonymous',
+      roles: ['anonymous'],
+    }
+  }
+}
+
 module.exports = {
   getUserClient,
   query,
@@ -52,4 +82,5 @@ module.exports = {
   googleVerifyUri,
   setCookie,
   clearCookie,
+  getCurrentUser,
 }

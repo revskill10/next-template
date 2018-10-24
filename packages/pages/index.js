@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import AppLayout from 'containers/layouts/app'
 import DndTest from 'components/dnd-test'
 import AgTest from 'components/datatables/ag-test'
@@ -24,4 +25,4 @@ const IndexPage = () =>
     
   </AppLayout>
 
-export default IndexPage
+export default memo(IndexPage)

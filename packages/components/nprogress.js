@@ -1,10 +1,10 @@
 import React from "react";
 import NProgress from "nprogress";
-import Router, { withRouter } from "next/router";
+import Router from "next/router";
 
 class NProgressContainer extends React.Component {
   static defaultProps = {
-    color: "#2299DD",
+    color: "#fff",
     showAfterMs: 300,
     spinner: true
   };
@@ -12,12 +12,11 @@ class NProgressContainer extends React.Component {
   timer = null;
 
   componentDidMount() {
-    const { options, router, showAfterMs } = this.props;
+    const { options, showAfterMs } = this.props;
 
     if (options) {
       NProgress.configure(options);
     }
-
     const previousChangeStartCallback = Router.onRouteChangeStart;
     const previousChangeCompleteCallback = Router.onRouteChangeComplete;
     const previousChangeErrorCallback = Router.onRouteChangeError;
@@ -126,4 +125,4 @@ class NProgressContainer extends React.Component {
   }
 }
 
-export default withRouter(NProgressContainer);
+export default NProgressContainer;

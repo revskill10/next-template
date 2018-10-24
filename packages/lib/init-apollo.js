@@ -7,7 +7,20 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error';
 import { createSubscriptionClient } from 'lib/create-subscription-client'
+import { createUploadLink } from 'apollo-upload-client'
+import { getMainDefinition } from 'apollo-utilities'
 
+const isFile = value => (
+  (typeof File !== 'undefined' && value instanceof File) ||
+  (typeof Blob !== 'undefined' && value instanceof Blob)
+);
+ const isUpload = ({ variables }) =>
+  Object.values(variables).some(isFile);
+
+ const isSubscriptionOperation = ({ query }) => {
+  const { kind, operation } = getMainDefinition(query);
+  return kind === 'OperationDefinition' && operation === 'subscription';
+};
 //const GRAPHQL_URL=`https://api-qdhhebsjkn.now.sh`
 //const WS_URL=`wss://api-qdhhebsjkn.now.sh`
 const GRAPHQL_URL= process.env.NODE_ENV === 'production' ? `https://web.ihs.edu.vn/graphql` : `http://localhost:3000/graphql`
@@ -61,19 +74,26 @@ function create (initialState, { getToken, store }) {
       })
     )
     const subscriptionLink = ApolloLink.from([errorLink, wsLink])
-    
-    const hasSubscriptionOperation = ({ query: { definitions } }) =>
-      definitions.some(
-        ({ kind, operation }) =>
-          kind === 'OperationDefinition' && operation === 'subscription',
-      )
-   
+        
     // using the ability to split links, you can send data to each link
     // depending on what kind of operation is being sent
     link = split(
-      hasSubscriptionOperation,
+      isSubscriptionOperation,
       subscriptionLink,
       link,
+    )
+
+    const uploadLink = createUploadLink({ 
+      uri: GRAPHQL_URL,
+      credentials: 'same-origin',
+    });
+
+    const uploadLinkWithContext = ApolloLink.from([
+      errorLink, contextLink, uploadLink
+    ])
+
+    link = split(
+      isUpload, uploadLinkWithContext, link
     )
   }
 

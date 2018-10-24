@@ -1,8 +1,11 @@
+scalar Upload
+
 type AuthPayload {
   token: String
 }
 
 type UserInfoPayload {
+  user_id: String
   name: String
   roles: [String]
 }

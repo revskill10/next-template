@@ -4,8 +4,7 @@ const { setContext } = require('apollo-link-context')
 const fetch = require('node-fetch')
 const { onError } = require('apollo-link-error')
 const { ApolloLink, split } = require('apollo-link')
-const { inspect } = require('util')
-const jwt = require('jsonwebtoken')
+
 
 function createWsLink(clientName, graphqlContext) {
   return new ApolloLink(function(operation, forward) {
@@ -24,37 +23,13 @@ function createWsLink(clientName, graphqlContext) {
   })
 }
 
-function getCurrentUser(context) {
-  const { isJson, headers, cookies } = context
-  
-  try {
-    if (isJson) {
-      const token = headers.authorization.split(' ')[1]
-      const data = jwt.verify(token, process.env.JWT_SECRET)
-      return {
-        name: data.name,
-        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
-      }
-    } else {
-      const token = cookies['token']
-      const data = jwt.verify(token, process.env.JWT_SECRET)
-      return {
-        name: data.name,
-        roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles']
-      }
-    }
-  } catch (_e) {
-    return {
-      name: 'Anonymous',
-      roles: ['anonymous'],
-    }
-  }
-}
-
 function createLink(uri, subUri, clientName, graphqlContext){
   const httpLink = new HttpLink({ uri, fetch, credentials: 'include' });
+  let wsLink = null
 
-  const wsLink = createWsLink(clientName, graphqlContext)
+  if (subUri) {
+    wsLink = createWsLink(clientName, graphqlContext)
+  }
   
   const errorLink = onError(function({ graphQLErrors, networkError }) {
     if (graphQLErrors)
@@ -94,14 +69,15 @@ function createLink(uri, subUri, clientName, graphqlContext){
     }
   })
    
-  const link = split(
+
+  const link = wsLink ? split(
     function({ query }) {
       const definition = getMainDefinition(query);
       return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
     },
     errorLink.concat(wsLink),
     contextLink.concat(errorLink.concat(httpLink)),
-  );
+  ) : contextLink.concat(errorLink.concat(httpLink))
 
   const adminLink = adminContextLink.concat(httpLink)
   return {
@@ -110,7 +86,25 @@ function createLink(uri, subUri, clientName, graphqlContext){
   }
 }
 
+const reportingLink = createLink(
+  process.env.REPORTING_SERVICE_GRAPHQL_URL, 
+  process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, 
+  'reportingService'
+)
+const userLink = createLink(
+  process.env.USER_SERVICE_GRAPHQL_URL, 
+  process.env.USER_SERVICE_SUBSCRIPTION_URL, 
+  'userService')
+
+const cmsLink = createLink(
+  process.env.CMS_GRAPHQL_URL,
+  null,
+  'cmsService'
+)
+
 module.exports = {
   createLink,
-  getCurrentUser,
+  reportingLink,
+  userLink,
+  cmsLink,
 }
