@@ -6,6 +6,7 @@ const { importSchema } = require('graphql-import')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
+
 function isJsonReq(req) {
   const contype = req.headers['content-type'];
   return (contype && contype.indexOf('application/json') === 0)
@@ -31,7 +32,6 @@ async function createServer() {
     ],
     resolvers
   });
-  console.log(schema)
 
   const pubsub = new PubSub()
 
@@ -49,6 +49,7 @@ async function createServer() {
         return {
           ...connection.context,
           pubsub,
+          schema,
         }
       }
       if (request) {
@@ -85,14 +86,17 @@ function startServer(server, port = 3000) {
           anonymousJwt,
         } = require('./create-link')
 
+        const token = connectionParams['token'] || anonymousJwt()
+
         const connParams = {
           headers: {
-            "Authorization": `Bearer ${connectionParams['token'] || anonymousJwt()}`,
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
           }
         }
+
         return {
-          connectionParams,
+          token,
           subscriptionClients: {
             //reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
             userService: createWsClient(process.env.USER_SERVICE_SUBSCRIPTION_URL, connParams),

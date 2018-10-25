@@ -12,24 +12,19 @@ const query = gql`
   }
 `
 
-const defaultPolloOptions = {
-  options: ({ fetchPolicy = 'cache-only' }) => {
-    return {
-      fetchPolicy,
-    };
-  }
-}
-
-export const withCurrentUser = App => (props) => {
-  return (  
-    <Query query={query} fetchPolicy={'cache-only'} ssr={!process.browser}>
-      {
-        ({data}) => <App currentUser={data.user_info[0]} {...props} />
+export const withCurrentUser = App => (props) =>
+  <Query query={query} fetchPolicy={'cache-only'}>
+    {
+      ({data, loading}) => {
+        if (data) {
+          return <App currentUser={data.user_info[0]} {...props} />
+        }
+        if (loading) {
+          return <span>...</span>
+        }
       }
-    </Query>
-  )
-}
-
+    }
+  </Query>
 
 export default (App) => {
   return class AppWithCurrentUser extends React.Component {

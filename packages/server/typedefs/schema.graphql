@@ -16,6 +16,6 @@ type Mutation {
   refresh: AuthPayload
 }
 
-type Query {
-  currentUser: UserInfoPayload!
+type Subscription {
+  currentUser: UserInfoPayload
 }

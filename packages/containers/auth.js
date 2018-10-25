@@ -27,7 +27,7 @@ const onSubscriptionData = async ({newData, refresh}) => {
     console.log(`New Data ${inspect(userInfo)}`)
     const res = await refresh()
     localStorage.setItem("token", res.data.refresh.token)
-    window.location.reload()
+    //window.location.reload()
   }
 }
 
