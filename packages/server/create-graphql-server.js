@@ -53,7 +53,6 @@ async function createServer() {
         }
       }
       if (request) {
-        console.log(request.headers)
         return {
           headers: request.headers,
           cookies: request.cookie,
@@ -86,7 +85,10 @@ function startServer(server, port = 3000) {
           anonymousJwt,
         } = require('./create-link')
 
+        const { inspect } = require('util')
+
         const token = connectionParams['token'] || anonymousJwt()
+        console.log(inspect(connectionParams))
 
         const connParams = {
           headers: {

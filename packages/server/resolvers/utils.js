@@ -19,7 +19,7 @@ function mutate(client, mutation, variables) {
   return client.mutate({mutation, variables})
 }
 
-function createJwtToken({user_id, name, roles}, defaultRole = 'user'){
+function processRoles(roles) {
   let allowedRoles = roles
   if (!roles.includes('user') && !roles.includes('guest')) {
     allowedRoles.push('user')
@@ -28,11 +28,14 @@ function createJwtToken({user_id, name, roles}, defaultRole = 'user'){
   if (roles.includes('guest')) {
     allowedRoles = ['guest']
   }
+  return allowedRoles
+}
 
+function createJwtToken({user_id, name, roles}, defaultRole = 'user'){
   const data = {
     'name': name,
     'https://hasura.io/jwt/claims': {
-      "x-hasura-allowed-roles": allowedRoles,
+      "x-hasura-allowed-roles": processRoles(roles),
       "x-hasura-default-role": defaultRole,
       'x-hasura-user-id': user_id,
     }
@@ -91,4 +94,5 @@ module.exports = {
   setCookie,
   clearCookie,
   getCurrentUser,
+  processRoles,
 }
