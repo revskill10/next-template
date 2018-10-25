@@ -52,7 +52,7 @@
     "i18next-express-middleware": "1.4.1",
     "i18next-node-fs-backend": "2.1.0",
     "i18next-xhr-backend": "1.5.1",
-    "immer": "1.7.2",
+    "immer": "1.7.3",
     "isomorphic-unfetch": "3.0.0",
     "jsonwebtoken": "8.3.0",
     "jss": "9.8.7",
