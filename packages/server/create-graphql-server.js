@@ -6,6 +6,7 @@ const { importSchema } = require('graphql-import')
 const { getRemoteSchema } = require('./get-remote-schema')
 const { SubscriptionClient } = require('subscriptions-transport-ws/dist/client')
 const WebSocket = require('ws')
+const { soapGraphqlSchema } = require('soap-graphql')
 
 function isJsonReq(req) {
   const contype = req.headers['content-type'];
@@ -13,20 +14,21 @@ function isJsonReq(req) {
 }
 async function createServer() {
   const { 
-  //  reportingLink, 
+    reportingLink, 
     userLink,
     cmsLink,
   } = require('./create-link')
-
- // const reportingSchema = await getRemoteSchema(reportingLink)
+  const eduSchema = await soapGraphqlSchema(process.env.EDU_URL)
+  const reportingSchema = await getRemoteSchema(reportingLink)
   const userSchema = await getRemoteSchema(userLink)
   const cmsSchema = await getRemoteSchema(cmsLink)
   const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
   const schema = mergeSchemas({
     schemas: [
+      eduSchema,
       userSchema, 
- //     reportingSchema,
+      reportingSchema,
       cmsSchema,
       localSchema,
     ],
@@ -85,10 +87,7 @@ function startServer(server, port = 3000) {
           anonymousJwt,
         } = require('./create-link')
 
-        const { inspect } = require('util')
-
         const token = connectionParams['token'] || anonymousJwt()
-        console.log(inspect(connectionParams))
 
         const connParams = {
           headers: {
@@ -100,7 +99,7 @@ function startServer(server, port = 3000) {
         return {
           token,
           subscriptionClients: {
-            //reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
+            reportingService: createWsClient(process.env.REPORTING_SERVICE_SUBSCRIPTION_URL, connParams),
             userService: createWsClient(process.env.USER_SERVICE_SUBSCRIPTION_URL, connParams),
           },
         };

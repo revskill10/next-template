@@ -8,9 +8,11 @@ const {
   setCookie,
   clearCookie,
   anonymousJwt,
+  query,
+  getCurrentUser,
 } = require('../utils')
 
-const upsertUser = gql`
+const upsertUserQuery = gql`
   mutation upsert_user($name:String!, $email:String!, $family_name:String,$given_name:String,$picture:String,$googleId:String!) {
     insert_users(
       objects: [
@@ -35,6 +37,44 @@ const upsertUser = gql`
   }
 `
 
+function onLoginData(data, context) {
+  let info1 = data.insert_users.returning[0].info
+  if (info1) {
+    const info2 = {
+      user_id: info1.user_id,
+      roles: info1.roles.concat(['user']),
+      name: info1.name
+    }
+    const token = createJwtToken(info2)
+    setCookie(context, token)
+    return {
+      token,
+    }
+  } else {
+    const token = createJwtToken({
+      user_id: data.insert_users.returning[0].id,
+      roles: ["user"],
+      name: test.data.insert_users.returning[0].name
+    })
+    setCookie(context, token)
+    return {
+      token,
+    }
+  }
+}
+
+function onLoginError(error, context) {
+  const token = createJwtToken({
+    user_id: process.env.GUEST_ID,
+    roles: ["guest"],
+    name: 'Guest'
+  })
+  setCookie(context, token)
+  return {
+    token,
+  }
+}
+
 async function login(parent, { id_token }, context, info) {
   const { 
     data: { 
@@ -47,48 +87,17 @@ async function login(parent, { id_token }, context, info) {
     } 
   } = await axios.get(googleVerifyUri(id_token))
   const variables = { name, email, family_name, given_name, picture, googleId:sub }
-  
-  const client = getUserClient(context, true)
-  
-  const test = await mutate(client, upsertUser, variables)
-  if (test.data) {
-    let info1 = test.data.insert_users.returning[0].info
-    if (info1) {
-      const info2 = {
-        user_id: info1.user_id,
-        roles: info1.roles.concat(['user']),
-        name: info1.name
-      }
-      const token = createJwtToken(info2)
-      setCookie(context, token)
-      return {
-        token,
-      }
-    } else {
-      const token = createJwtToken({
-        user_id: test.data.insert_users.returning[0].id,
-        roles: ["user"],
-        name: test.data.insert_users.returning[0].name
-      })
-      setCookie(context, token)
-      return {
-        token
-      }
-    }
-  } else {
-    const token = createJwtToken({
-      user_id: process.env.GUEST_ID,
-      roles: ["guest"],
-      name: 'Guest'
-    })
-    setCookie(context, token)
-    return {
-      token,
-    }
-  }
+
+  return mutate({
+    query: upsertUserQuery,
+    variables,
+    context,
+    onData: onLoginData,
+    onError: onLoginError
+  }, getUserClient, true)
 }
 
-const query = gql`
+const userInfoQuery = gql`
   query UserInfo($userId:uuid!){
     user_info(where:{
       user_id:{
@@ -102,27 +111,34 @@ const query = gql`
   }
 `
 
-async function refresh(parent, args, context, info) {
-  const { getCurrentUser } = require('../utils')
-  const { user_id } =  getCurrentUser(context)
-  const variables = { userId: user_id}
-  const client = getUserClient(context, true)
+function onRefreshData(data, context) {
   let token = null;
-  try {
-    const { data } = await client.query({query, variables})
-    if (data.user_info && data.user_info.length === 1) {
-      const userInfo = data.user_info[0]
-      token = createJwtToken(userInfo)
-    } else {
-      token = anonymousJwt()
-    }
-  } catch (e) {
+  if (data.user_info && data.user_info.length === 1) {
+    const userInfo = data.user_info[0]
+    token = createJwtToken(userInfo)
+  } else {
     token = anonymousJwt()
   }
   setCookie(context, token)
-  return {
-    token,
-  }
+  return { token }
+}
+
+function onRefreshError(error, context) {
+  const token = anonymousJwt();
+  setCookie(context, token)
+  return { token }
+}
+
+async function refresh(parent, args, context, info) {
+  const { user_id } =  getCurrentUser(context)
+  const variables = { userId: user_id }
+  return query({
+    query: userInfoQuery,
+    variables,
+    context,
+    onData: onRefreshData,
+    onError: onRefreshError,
+  }, getUserClient, true)
 }
 
 function logout(parent, { id_token }, context, info) {

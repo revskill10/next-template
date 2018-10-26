@@ -11,17 +11,61 @@ function getUserClient(context, admin) {
   return createApolloClient(userLink, admin)
 }
 
-function query(client, query, variables){
-  return client.query({query, variables})
+async function query({variables = {}, query, context, onData, onError }, getClient, isAdmin = false){
+  const client = getClient(context, isAdmin)
+  try {
+    const res = await client.query({query, variables})
+    if (onData && typeof(onData) === 'function') {
+      return onData(res.data, context)
+    } else {
+      return res.data
+    }
+  } catch (error) {
+    return onError(error, context)
+  }
 }
 
-function mutate(client, mutation, variables) {
-  return client.mutate({mutation, variables})
+async function mutate({variables = {}, query, context, onData, onError }, getClient, isAdmin = false){
+  const client = getClient(context, isAdmin)
+  try {
+    const res = await client.mutate({mutation: query, variables})
+    if (onData && typeof(onData) === 'function') {
+      return onData(res.data, context)
+    } else {
+      return res.data
+    }    
+  } catch (error) {
+    return onError(error, context)
+  }
+}
+
+function subscribe({variables = {}, query, context, onData }, getClient, isAdmin = false) {
+  const { 
+    pubsub,
+    token,
+  } = context
+  const apolloClient = getClient(context, isAdmin)
+  apolloClient.subscribe({
+    query,
+    variables,
+  }).subscribe({
+    next ({ data }) {
+      pubsub.publish(
+        token, 
+        onData(data, context)
+      )
+    }
+  });
+  return pubsub.asyncIterator(token)
+}
+
+function hasRole(roles, role) {
+  return roles.includes(role)
 }
 
 function processRoles(roles) {
   let allowedRoles = roles
-  if (!roles.includes('user') && !roles.includes('guest')) {
+  if (!hasRole(roles, 'user') && !hasRole(roles, 'guest')) {
     allowedRoles.push('user')
   }
 
@@ -85,14 +129,16 @@ function getCurrentUser(context) {
   }
 }
 
+
 module.exports = {
+  getCurrentUser,
   getUserClient,
   query,
   mutate,
+  subscribe,
   createJwtToken,
   googleVerifyUri,
   setCookie,
   clearCookie,
-  getCurrentUser,
   processRoles,
 }

@@ -1,0 +1,13 @@
+#import "../fragments/current-user.gql"
+
+subscription CURRENT_USER_SUBSCRIPTION {
+  currentUser {
+    ...CurrentUser
+  }
+}
+
+mutation REFRESH_TOKEN_MUTATION {
+  refresh {
+    token
+  }
+}

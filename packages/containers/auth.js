@@ -1,46 +1,34 @@
 import CacheComponent from 'containers/cache-component'
-import gql from 'graphql-tag'
-import {inspect} from 'util'
 import {withCurrentUser} from 'lib/with-current-user'
 import {Mutation} from 'react-apollo'
+import {CURRENT_USER_SUBSCRIPTION, REFRESH_TOKEN_MUTATION} from 'containers/auth.gql'
+import {CURRENT_USER_QUERY} from 'lib/with-current-user.gql'
 
-const subscription = gql`
-  subscription UserInfo {
-    user_info{
-      name
-      roles
-    }
-  }
-`
-
-const REFRESH = gql`
-  mutation {
-    refresh {
-      token
-    }
-  }
-`
-
-const onSubscriptionData = async ({newData, refresh}) => {
+const onSubscriptionData = async ({newData, refresh, client}) => {
   if (newData) {
-    const userInfo = newData.subscriptionData.data.user_info[0]
-    console.log(`New Data ${inspect(userInfo)}`)
+    const currentUser = newData.subscriptionData.data.currentUser
     const res = await refresh()
     localStorage.setItem("token", res.data.refresh.token)
+    client.writeQuery({
+      query: CURRENT_USER_QUERY,
+      data: {
+        currentUser,
+      }
+    })
     //window.location.reload()
   }
 }
 
 const Auth = ({currentUser, children}) =>
   <Mutation
-    mutation={REFRESH}
-  >{refresh => (
+    mutation={REFRESH_TOKEN_MUTATION}
+  >{(refresh, {client}) => (
       <CacheComponent
         cache={ 
           {currentUser} 
         }
-        subscription={subscription}
-        onSubscriptionData={newData => onSubscriptionData({newData, refresh})}
+        subscription={CURRENT_USER_SUBSCRIPTION}
+        onSubscriptionData={newData => onSubscriptionData({newData, refresh, client})}
       >
         {children}
       </CacheComponent>  

@@ -1,12 +1,12 @@
 const {
-  subscribe,
+  query,
   processRoles,
   getUserClient,
 } = require('../utils')
 const gql = require('graphql-tag')
 
-const query = gql`
-  subscription UserInfo {
+const currentUserQuery = gql`
+  query UserInfo {
     user_info {
       user_id
       name
@@ -15,27 +15,23 @@ const query = gql`
   }
 `
 
-function onSubscriptionData(data) {
+function onCurrentUserData(data) {
   const info = data.user_info[0]
   return {
-    currentUser: {
-      user_id: info.user_id,
-      roles: processRoles(info.roles),
-      name: info.name,
-    }
+    user_id: info.user_id,
+    roles: processRoles(info.roles),
+    name: info.name,
   }
 }
 
 async function currentUser(parents, args, context, info) {
-  return subscribe({
+  return query({
     context,
-    query,
-    onData: onSubscriptionData,
+    query: currentUserQuery,
+    onData: onCurrentUserData,
   }, getUserClient)
 }
 
 module.exports = {
-  currentUser: {
-    subscribe: currentUser,
-  },
+  currentUser,
 }

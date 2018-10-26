@@ -55,17 +55,21 @@ function createLink(uri, subUri, clientName, graphqlContext){
 
   const contextLink = setContext(function(_request, previousContext) {
     const { isJson, headers, cookies } = graphqlContext || previousContext.graphqlContext
+    let token = anonymousJwt()
     
     if (isJson) {
       return {
         headers: {
-          authorization: headers.authorization ? headers.authorization : `Bearer ${anonymousJwt()}`,
+          authorization: headers.authorization ? headers.authorization : `Bearer ${token}`,
         }
       }
     } else {
+      if (cookies && cookies['token']) {
+        token = cookies['token']
+      }
       return {
         headers: {
-          authorization: cookies['token'] || `Bearer ${anonymousJwt()}`,
+          authorization: `Bearer ${token}`,
         }
       }
     }

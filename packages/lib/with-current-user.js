@@ -1,23 +1,15 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
 import { inspect } from 'util'
+import {CURRENT_USER_QUERY} from 'lib/with-current-user.gql'
 
-const query = gql`
-  query UserInfo {
-    user_info{
-      name
-      roles
-    }
-  }
-`
 
 export const withCurrentUser = App => (props) =>
-  <Query query={query} fetchPolicy={'cache-only'}>
+  <Query query={CURRENT_USER_QUERY} fetchPolicy={'cache-only'}>
     {
       ({data, loading}) => {
         if (data) {
-          return <App currentUser={data.user_info[0]} {...props} />
+          return <App currentUser={data.currentUser} {...props} />
         }
         if (loading) {
           return <span>...</span>
@@ -34,8 +26,8 @@ export default (App) => {
 
       // Get or Create the store with `undefined` as initialState
       // This allows you to set a custom default initialState
-        const { data } = await apolloClient.query({query})        
-        ctx.currentUser = data.user_info[0]
+        const { data } = await apolloClient.query({query: CURRENT_USER_QUERY})        
+        ctx.currentUser = data.currentUser
         console.log(`AppWithCurrentUser ${inspect(ctx.currentUser)}`)
       
       // Provide the store to getInitialProps of pages

@@ -1,22 +1,8 @@
 import { GoogleLogin } from 'react-google-login';
-import gql from 'graphql-tag'
 import { Mutation } from "react-apollo";
 import { withCurrentUser } from 'lib/with-current-user'
 import Button from '@material-ui/core/Button';
-
-const LOGIN = gql`
-  mutation Login($id_token: String!) {
-    login(id_token: $id_token) {
-      token
-    }
-  }
-`;
-
-const LOGOUT = gql`
-  mutation Logout {
-    logout
-  }
-`
+import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
 
 const responseGoogle = async (response, loginMutation) => {
   const { data } = await loginMutation({variables: {id_token: response.tokenId}})

@@ -19,3 +19,7 @@ type Mutation {
 type Subscription {
   currentUser: UserInfoPayload
 }
+
+type Query {
+  currentUser: UserInfoPayload
+}

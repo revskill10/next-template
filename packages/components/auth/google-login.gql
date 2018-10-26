@@ -1,0 +1,9 @@
+mutation LOGIN($id_token: String!) {
+  login(id_token: $id_token) {
+    token
+  }
+}
+
+mutation LOGOUT {
+  logout
+}
