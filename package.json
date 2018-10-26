@@ -92,7 +92,7 @@
     "soap": "^0.25.0",
     "soap-graphql": "^0.1.0",
     "styled-components": "4.0.2",
-    "styled-icons": "3.3.0",
+    "styled-icons": "3.4.0",
     "subscriptions-transport-ws": "0.9.15",
     "sw-precache-webpack-plugin": "0.11.5",
     "victory": "30.5.1",
