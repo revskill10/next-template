@@ -45,7 +45,7 @@
     "graphiql": "0.12.0",
     "graphql": "14.0.2",
     "graphql-import": "0.7.1",
-    "graphql-tools": "4.0.2",
+    "graphql-tools": "4.0.3",
     "graphql-yoga": "1.16.7",
     "i18next": "12.0.0",
     "i18next-browser-languagedetector": "2.2.3",
