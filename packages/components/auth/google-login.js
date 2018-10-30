@@ -1,6 +1,5 @@
 import { GoogleLogin } from 'react-google-login';
 import { Mutation } from "react-apollo";
-import { withCurrentUser } from 'lib/with-current-user'
 import Button from '@material-ui/core/Button';
 import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
 import useAuth from 'lib/hooks/auth'
@@ -57,4 +56,4 @@ const GoogleAuth = () => {
   }
 }
 
-export default withCurrentUser(GoogleAuth)
+export default GoogleAuth

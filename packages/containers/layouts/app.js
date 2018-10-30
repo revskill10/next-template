@@ -10,18 +10,18 @@ const Wrapper = styled.div`
 `
 
 const App = ({ children, title, description }) =>
-  <Drawer>
-    <Head>
-      <title>{ title }</title>
-      <meta name="description" content={ description } />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <Manifest />
-    </Head>
-    <Wrapper>
-      <Authentication>
+  <Authentication>
+    <Drawer>
+      <Head>
+        <title>{ title }</title>
+        <meta name="description" content={ description } />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Manifest />
+      </Head>
+      <Wrapper>
         {children}
-      </Authentication>
-    </Wrapper>
-  </Drawer>
+      </Wrapper>
+    </Drawer>
+  </Authentication>
 
 export default App

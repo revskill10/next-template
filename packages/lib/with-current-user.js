@@ -1,11 +1,8 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { inspect } from 'util'
 import {CURRENT_USER_QUERY} from 'lib/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
-import {
-  UserContext
-} from 'containers/contexts'
+import {UserContext} from 'containers/contexts'
 
 export const withCurrentUser = App => (props) =>
   <Query query={CURRENT_USER_QUERY} fetchPolicy={'cache-only'}>
@@ -37,14 +34,14 @@ export default (App) => {
         const { data } = await apolloClient.query({query: CURRENT_USER_QUERY})        
         ctx.currentUser = data.currentUser
       } catch (err) {
-        const { data } = await apolloClient.mutate({mutation: LOGOUT})
-        if (data.logout) {
-          localStorage.removeItem("token")
-          window.location.reload()
+        if (!ctx.req) {
+          const { data } = await apolloClient.mutate({mutation: LOGOUT})
+          if (data.logout) {
+            localStorage.removeItem("token")
+            window.location.reload()
+          }
         }
       }
-      // Provide the store to getInitialProps of pages
-      console.log(`Ctx.currentUser: ${JSON.stringify(ctx.currentUser)}`)
 
       let appProps = {}
       if (typeof App.getInitialProps === 'function') {
