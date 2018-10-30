@@ -1,8 +1,5 @@
-import React, { Fragment } from 'react'
 import MUIDataTable from 'mui-datatables';
 import convertDataToArray from 'lib/convert-data-to-array'
-import LiveComponent from 'containers/cache-component'
-import {SubscribeGeneralReport as subscription} from 'modules/report/general-report.gql'
 import TableCell from "@material-ui/core/TableCell";
 /*
 tuan
@@ -70,16 +67,4 @@ const DataTable = ({v_general_report_in_week}) => {
   )
 }
 
-const GeneralReportModule = ({data}) => (
-  <Fragment>
-    <h1>General Report: </h1>
-    <LiveComponent
-      cache={data}
-      subscription={subscription}
-    >
-      {DataTable}
-    </LiveComponent>
-  </Fragment>
-)
-
-export default GeneralReportModule
+export default DataTable

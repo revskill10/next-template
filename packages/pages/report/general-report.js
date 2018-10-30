@@ -1,29 +1,51 @@
 import { memo } from 'react'
-import {QueryGeneralReport as query} from 'pages/report/general-report.gql'
-import AppLayout from 'containers/layouts/app'
+import Layout from 'containers/layouts/app'
 import GeneralReportModule from 'modules/report/general-report'
 import { withNamespaces } from 'react-i18next'
-import LineChart from 'components/charts/line-chart'
 import { compose } from 'recompose'
+import Authorization from 'containers/authorization'
+import LiveComponent from 'containers/live-component'
+import {
+  QueryGeneralReport as query, 
+  SubscribeGeneralReport as subscription
+} from 'modules/report/general-report.gql'
+import Suspense from 'containers/suspense'
 
-export const getIndexProps = async ({apolloClient}) => {
-  const { data } = await apolloClient.query({query})
-
-  return { data }
+export const getIndexProps = async ({apolloClient, currentUser}) => {
+  try {
+    if (currentUser.permissions.includes('view:qlgd_report')) {
+      await apolloClient.query({query})
+    }  
+  }  catch (e) {
+    console.log(`error general report: ${e}`)
+  }
 }
 
-const GeneralReportPage = ({t, data}) =>
-  <AppLayout
-    title={t('report.v_general_report_in_week')}
-    description={t('report.v_general_report_in_week')}
-  >
-    <>
-      <div style={{height: '400px'}}>
-        <LineChart />
-      </div>
-      <GeneralReportModule data={data} />
-    </>
-  </AppLayout>
+const GeneralReportPage = ({t}) => {
+  return (
+    <Layout
+      title={t('report.v_general_report_in_week')}
+      description={t('report.v_general_report_in_week')}
+    >
+      <>
+        <Suspense loadPath={() => import('components/charts/line-chart')} />
+            
+        <Authorization
+          allowedPermissions={['view:qlgd_report']}
+          >
+          <LiveComponent
+            query={query}
+            subscription={subscription}
+          >
+            {GeneralReportModule}
+          </LiveComponent>
+        </Authorization>
+        
+      </>
+    </Layout>
+  )
+}
+  
 
 export default compose(
   memo,

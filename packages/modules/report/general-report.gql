@@ -1,7 +1,13 @@
 #import "../../fragments/general-report-in-week.gql"
 
-query SubscribeGeneralReport {
+subscription SubscribeGeneralReport {
   v_general_report_in_week{
+    ...GeneralReport
+  }
+}
+
+query QueryGeneralReport {
+  v_general_report_in_week(limit: 10){
     ...GeneralReport
   }
 }

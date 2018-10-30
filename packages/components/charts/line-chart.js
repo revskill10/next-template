@@ -3,7 +3,7 @@ import sampleData from 'components/charts/sample-data'
 // make sure parent container have a defined height when using responsive component,
 // otherwise height will be 0 and no chart will be rendered.
 // website examples showcase many properties, you'll often use just a few of them.
-export default () =>
+const LineChart = () =>  
   <ResponsiveLine
       data={sampleData}
       margin={{
@@ -79,3 +79,8 @@ export default () =>
           }
       ]}
     />
+
+export default () => 
+  <div style={{height: '400px'}}>
+    <LineChart />
+  </div>

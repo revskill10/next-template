@@ -1,8 +1,5 @@
-import React, { Fragment } from 'react'
 import MUIDataTable from 'mui-datatables';
 import convertDataToArray from 'lib/convert-data-to-array'
-import LiveComponent from 'containers/cache-component'
-import {SubscribeAllLessonClass as subscription} from 'modules/report/lesson-class.gql'
 
 const columns = ["Tuan", "Don vi", "Giang vien",
   "Ma lop", "Ma mon hoc",
@@ -29,16 +26,4 @@ const DataTable = ({v_all_lesson_class}) => {
   )
 }
 
-const Module = ({data}) => (
-  <Fragment>
-    <h1>Danh sách buổi học theo tuần: </h1>
-    <LiveComponent
-      cache={data}
-      subscription={subscription}
-    >
-      {DataTable}
-    </LiveComponent>
-  </Fragment>
-)
-
-export default Module
+export default DataTable

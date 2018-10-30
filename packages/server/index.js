@@ -49,11 +49,13 @@ i18n
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
       const { createServer, startServer } = require('./create-graphql-server')
-      const graphqlServer = await createServer()
+      const graphqlServer = await createServer({dev})
       
       const server = graphqlServer.express;
       const cookieParser = require('cookie-parser');
       server.use(cookieParser());
+      
+
 /*
 
       server.use('/logout', function(req, res){

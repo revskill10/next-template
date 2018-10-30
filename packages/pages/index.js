@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, Placeholder } from 'react'
 import AppLayout from 'containers/layouts/app'
 import DndTest from 'components/dnd-test'
 import AgTest from 'components/datatables/ag-test'

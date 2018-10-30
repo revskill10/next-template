@@ -3,17 +3,17 @@ import { Mutation } from "react-apollo";
 import { withCurrentUser } from 'lib/with-current-user'
 import Button from '@material-ui/core/Button';
 import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
+import useAuth from 'lib/hooks/auth'
 
 const responseGoogle = async (response, loginMutation) => {
   const { data } = await loginMutation({variables: {id_token: response.tokenId}})
   if (data.login) {
     localStorage.setItem("token", data.login.token)
-    window.location.reload()
+    window.location.reload()    
   }
 }
 
-const logout = async (logoutMutation) => {
-  console.log('logout')
+const logout = async (logoutMutation) => {  
   const { data } = await logoutMutation()
   if (data.logout) {
     localStorage.removeItem("token")
@@ -48,9 +48,9 @@ const Logout = () =>
     )}
   </Mutation>
 
-const GoogleAuth = ({ currentUser }) => {
-  const roles = currentUser.roles
-  if (roles.includes('guest')) {
+const GoogleAuth = () => {
+  const {isAuthenticated} = useAuth()
+  if (!isAuthenticated) {
     return <Login />
   } else {
     return <Logout />

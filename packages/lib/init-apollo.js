@@ -44,9 +44,10 @@ function create (initialState, { getToken, store }) {
   const contextLink = setContext(
     async () => {
       const token = getToken()
+
       return {
         headers: {
-          authorization: token ? `Bearer ${token}` : ''
+          token,
         }
       }
     }

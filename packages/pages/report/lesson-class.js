@@ -5,17 +5,22 @@ import LessonClassReport from 'modules/report/lesson-class'
 import { withNamespaces } from 'react-i18next'
 import { compose } from 'recompose'
 export const getIndexProps = async ({apolloClient}) => {
-  const { data } = await apolloClient.query({query})
-
-  return { data }
+  try {
+    const { data } = await apolloClient.query({query})
+    return { data }
+  } catch (error) {
+    return {
+      data: null
+    }
+  }
 }
 
 const LessonClassPage = ({t, data}) =>
   <AppLayout
     title={t('report.v_all_lesson_class')}
     description={t('report.v_all_lesson_class')}
-  >        
-    <LessonClassReport data={data} />
+  > 
+  {data ? <LessonClassReport data={data} /> : null}
   </AppLayout>
 
 export default compose(

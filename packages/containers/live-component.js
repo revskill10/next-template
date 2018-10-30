@@ -9,7 +9,7 @@ function QueryComponent({query, subscription, children}) {
   function DataGraphQL({loading, error, data, children, query}) {
     if (loading) {
       return (
-        <Query query={query} ssr={true} fetchPolicy={'cache-first'}>
+        <Query query={query} ssr={true} fetchPolicy={'cache-only'}>
           {({ loading, error, data }) => {
             if (loading) return <Loading />
             if (error) return <Error {...error} />
@@ -37,7 +37,7 @@ function QueryComponent({query, subscription, children}) {
     )
   } else {
     return (
-      <Query query={query} ssr={true} fetchPolicy={'cache-first'}>
+      <Query query={query} ssr={true} fetchPolicy={'cache-only'}>
         {({ loading, error, data }) => {
           return (
             <DataGraphQL loading={loading} error={error} data={data} query={query}>

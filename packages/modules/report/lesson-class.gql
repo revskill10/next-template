@@ -1,7 +1,13 @@
 #import "../../fragments/all-lesson-class.gql"
 
-query SubscribeAllLessonClass {
+subscription SubscribeAllLessonClass {
   v_all_lesson_class{
+    ...AllLessonClass
+  }
+}
+
+query QueryAllLessonClass {
+  v_all_lesson_class(limit: 10){
     ...AllLessonClass
   }
 }
