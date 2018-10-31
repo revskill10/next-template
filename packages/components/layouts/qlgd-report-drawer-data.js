@@ -11,11 +11,10 @@ import MailIcon from "@material-ui/icons/Mail";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ReportIcon from "@material-ui/icons/Report";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import { withNamespaces } from 'react-i18next';
 import routesMapFn from 'components/routes-map'
 import {StyledBarLink} from 'components/styled-link'
-
+import Authorization from 'containers/authorization'
 const routesMap = routesMapFn('/report')
 
 export const MailFolderListItems = ({t}) =>
@@ -28,6 +27,7 @@ export const MailFolderListItems = ({t}) =>
       </StyledBarLink>
       <StyledBarLink href={routesMap['report.v_general_report_in_week']}>{t('report.v_general_report_in_week')}</StyledBarLink>
     </ListItem>
+    <Authorization allowedPermissions={['view:report.v_all_lesson_class']}>
       <ListItem button>
         <StyledBarLink href={routesMap['report.v_all_lesson_class']}>
           <ListItemIcon>
@@ -36,6 +36,7 @@ export const MailFolderListItems = ({t}) =>
         </StyledBarLink>
         <StyledBarLink href={routesMap['report.v_all_lesson_class']}>{t('report.v_all_lesson_class')}</StyledBarLink>
       </ListItem>
+    </Authorization>      
     <ListItem button>
       <ListItemIcon>
         <SendIcon />

@@ -8,7 +8,6 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerItems from 'components/layouts/qlgd-report-drawer-data'
 import {Home} from 'styled-icons/fa-solid/Home.cjs'
-import {LogIn} from 'styled-icons/feather/LogIn.cjs'
 import StyledUserAgent from 'components/styled-user-agent'
 import {Blogger} from 'styled-icons/fa-brands/Blogger.cjs'
 import {ViewModule} from 'styled-icons/material/ViewModule.cjs'
