@@ -23,6 +23,7 @@
 - Use exact disconnected status in websocket to reload page [\#66](https://github.com/revskill10/next-template/issues/66)
 - Use client side jwt decode for user data [\#65](https://github.com/revskill10/next-template/issues/65)
 - Role explanation [\#46](https://github.com/revskill10/next-template/issues/46)
+- Conditional rendering menu pane based on route and role [\#33](https://github.com/revskill10/next-template/issues/33)
 
 ## [1.0.0-alpha3](https://github.com/revskill10/next-template/tree/1.0.0-alpha3) (2018-10-23)
 [Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha2...1.0.0-alpha3)

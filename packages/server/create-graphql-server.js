@@ -6,6 +6,7 @@ const { importSchema } = require('graphql-import')
 const getCurrentUser = require('./get-current-user')
 const { rule, shield, and, or, not } = require('graphql-shield')
 const { applyMiddleware } = require('graphql-middleware')
+const { soapGraphqlSchema } = require('soap-graphql')
 
 const { 
   getApolloClient,
@@ -99,6 +100,7 @@ async function makeSchema(adminLinks) {
   if (urlMap['userService'].permissions) {
     userSchema = applyMiddleware(reportingSchema, urlMap['userService'].permissions)
   }
+  const eduSchema = await soapGraphqlSchema(process.env.EDU_URL)
   
   const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
@@ -106,6 +108,7 @@ async function makeSchema(adminLinks) {
     schemas: [
       userSchema, 
       reportingSchema,
+      eduSchema,
       localSchema,
     ],
     resolvers
