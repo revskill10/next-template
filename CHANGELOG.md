@@ -6,6 +6,7 @@
 
 **Implemented enhancements:**
 
+- SOAP endpoint integration. [\#93](https://github.com/revskill10/next-template/issues/93)
 - Use shield to protect stitched schema [\#82](https://github.com/revskill10/next-template/issues/82)
 - rbac with access control [\#78](https://github.com/revskill10/next-template/issues/78)
 - Use memo in React 16 [\#64](https://github.com/revskill10/next-template/issues/64)
