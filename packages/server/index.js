@@ -53,7 +53,7 @@ i18n
       
       const server = graphqlServer.express;
       const cookieParser = require('cookie-parser');
-      server.use(cookieParser());
+      server.use(cookieParser())
       
 
 /*

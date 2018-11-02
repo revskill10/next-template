@@ -4,8 +4,9 @@ import AppLayout from 'containers/layouts/app'
 import LessonClassReport from 'modules/report/lesson-class'
 import { withNamespaces } from 'react-i18next'
 import { compose } from 'recompose'
-export const getIndexProps = async ({apolloClient}) => {
+export const getIndexProps = async ({apolloClient, res}) => {
   try {
+    console.log(JSON.stringify(res))
     const { data } = await apolloClient.query({query})
     return { data }
   } catch (error) {
