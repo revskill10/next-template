@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/revskill10/next-template/tree/HEAD)
-
-[Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha3...HEAD)
+## [1.0.0-alpha4](https://github.com/revskill10/next-template/tree/1.0.0-alpha4) (2018-10-31)
+[Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha3...1.0.0-alpha4)
 
 **Implemented enhancements:**
 
