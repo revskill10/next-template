@@ -45,7 +45,7 @@
     "graphql": "14.0.2",
     "graphql-import": "0.7.1",
     "graphql-middleware": "2.0.2",
-    "graphql-shield": "4.0.1",
+    "graphql-shield": "4.1.0",
     "graphql-tools": "4.0.3",
     "graphql-yoga": "1.16.7",
     "i18next": "12.0.0",
