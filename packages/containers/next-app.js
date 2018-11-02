@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
 import NProgress from "components/nprogress";
 import {UserAgentProvider} from '@quentin-sommer/react-useragent'
+import {ThemeProvider} from 'styled-components';
 
 const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, pageContext, ua}) => {
   return (
@@ -22,9 +23,13 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
                 theme={pageContext.theme}
                 sheetsManager={pageContext.sheetsManager}
               >
-                <NProgress color="#fff" spinner />
-                <CssBaseline />
-                <Component key={router.route} {...pageProps} pageContext={pageContext} />
+                <ThemeProvider theme={pageContext.theme}>
+                  <>
+                    <NProgress color="#fff" spinner />
+                    <CssBaseline />
+                    <Component key={router.route} {...pageProps} pageContext={pageContext} />
+                  </>
+                </ThemeProvider>
               </MuiThemeProvider>
             </JssProvider>
           </PageTransition>
