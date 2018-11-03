@@ -1,7 +1,8 @@
 import { Head, Main, NextScript } from 'next/document'
 
-const Document = ({styleTags, pageContext}) =>
-  <html lang="en" dir="ltr">
+const Document = ({styleTags, pageContext}) => {  
+  return (
+    <html lang="en" dir="ltr">
     <Head>
       <meta charSet="utf-8" />
       {/* Use minimum-scale=1 to enable GPU rasterization */}
@@ -22,5 +23,8 @@ const Document = ({styleTags, pageContext}) =>
       <NextScript />
     </body>
   </html>
+  )
+}
+  
 
 export default Document

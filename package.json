@@ -9,9 +9,7 @@
     "test": "jest",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "release": "npx semantic-release",
-    "semantic-release": "semantic-release"
+    "analyze:browser": "BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@material-ui/core": "3.3.2",
@@ -36,6 +34,7 @@
     "axios": "0.18.0",
     "cookie": "0.3.1",
     "cookie-parser": "1.4.3",
+    "csso": "3.5.1",
     "dotenv": "6.1.0",
     "exceljs": "1.6.2",
     "express": "4.16.4",

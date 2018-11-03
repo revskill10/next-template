@@ -2,6 +2,7 @@ import Document from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 import flush from 'styled-jsx/server';
 import PropTypes from 'prop-types';
+import csso from 'csso'
 
 export const withDocument = Container =>
   class extends Document {
@@ -45,6 +46,10 @@ export const withDocument = Container =>
       });
 
       const styleTags = sheet.getStyleElement()
+      const css = pageContext.sheetsRegistry.toString()
+      const ast = csso.syntax.parse(css);
+      const compressedAst = csso.compress(ast).ast;
+      const minifiedCss = csso.syntax.generate(compressedAst);
       return { 
         ...page, 
         pageContext,
@@ -54,7 +59,7 @@ export const withDocument = Container =>
             <style
               id="jss-server-side"
               // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
+              dangerouslySetInnerHTML={{ __html: minifiedCss }}
             />
             {flush() || null}
           </React.Fragment>
