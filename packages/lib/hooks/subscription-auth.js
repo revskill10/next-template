@@ -27,7 +27,7 @@ const useSubscriptionAuth = () => {
             currentUser: newUser,
           }
         })
-        if (!isEqual(currentUser, newUser)) {
+        if (!isEqual(currentUser.user_id, newUser.user_id)) {
           window.location.reload()
         }
       }
