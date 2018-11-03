@@ -1,6 +1,9 @@
 import { useForm } from 'lib/hooks/form'
+
 import Input from 'components/forms/input'
 import {Form, Button} from 'components/forms/styled'
+import SlateEditor from 'components/editors/slate'
+
 const TestForm = () => {
 
   const initialState = {
@@ -60,6 +63,8 @@ const TestForm = () => {
           value={values.age}
           onChange={onChange}
         />
+        <label>Bio:</label>
+        <SlateEditor initialText={'Hello world'} />
         <Button type="submit">Submit</Button>
       </Form>
     </div>

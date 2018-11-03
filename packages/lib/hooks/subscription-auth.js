@@ -8,8 +8,8 @@ import isEqual from 'react-fast-compare'
 function sorted(user) {
   return {
     user_id: user.user_id,
-    roles: sort(user.roles),
-    permissions: sort(user.permissions)
+    roles: user.roles.sort(),
+    permissions: user.permissions.sort(),
   }
 }
 

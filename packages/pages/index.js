@@ -5,7 +5,6 @@ import Suspense from 'containers/suspense'
 import DndTest from 'components/dnd-test'
 import AgTest from 'components/datatables/ag-test'
 import UserTest from 'components/auth/user-info'
-import TestForm from 'components/forms/test-form'
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -28,7 +27,7 @@ const IndexPage = () =>
     </div>
     
     <DndTest />
-    <TestForm />
+    <Suspense loadPath={() => import('components/forms/test-form')} />
     </>
   </AppLayout>
 
