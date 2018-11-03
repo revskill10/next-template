@@ -31,6 +31,7 @@ const GeneralReportPage = ({t}) => {
         <Suspense loadPath={() => import('components/charts/line-chart')} />
             
         <Authorization
+          secure
           allowedPermissions={['view:qlgd_report']}
           >
           <LiveComponent
