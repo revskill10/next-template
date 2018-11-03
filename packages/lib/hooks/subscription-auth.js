@@ -5,6 +5,14 @@ import {LOGOUT} from 'components/auth/google-login.gql'
 import {CURRENT_USER_SUBSCRIPTION, REFRESH_TOKEN_MUTATION} from 'containers/authentication.gql'
 import isEqual from 'react-fast-compare'
 
+function sorted(user) {
+  return {
+    user_id: user.user_id,
+    roles: sort(user.roles),
+    permissions: sort(user.permissions)
+  }
+}
+
 const useSubscriptionAuth = () => {
   const { currentUser, isAuthenticated } = useAuth()
   const logout = useApolloMutation(LOGOUT)
@@ -27,7 +35,7 @@ const useSubscriptionAuth = () => {
             currentUser: newUser,
           }
         })
-        if (!isEqual(currentUser.user_id, newUser.user_id)) {
+        if (!isEqual(sorted(currentUser), sorted(newUser) )) {
           window.location.reload()
         }
       }
