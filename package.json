@@ -14,7 +14,7 @@
   "dependencies": {
     "@material-ui/core": "3.3.2",
     "@material-ui/icons": "3.0.1",
-    "@mdx-js/mdx": "0.15.6",
+    "@mdx-js/mdx": "0.15.7",
     "@nivo/line": "0.51.0",
     "@quentin-sommer/react-useragent": "2.0.0",
     "@zeit/next-bundle-analyzer": "0.1.2",
