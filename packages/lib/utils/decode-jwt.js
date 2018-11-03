@@ -1,5 +1,6 @@
-import permissions from 'lib/guest-permissions'
 import jwt from 'jsonwebtoken'
+
+import permissions from 'lib/utils/guest-permissions'
 
 function guestUser() {
   return {

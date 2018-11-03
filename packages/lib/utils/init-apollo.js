@@ -6,9 +6,10 @@ import { ApolloLink, split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error';
-import { createSubscriptionClient } from 'lib/create-subscription-client'
 import { createUploadLink } from 'apollo-upload-client'
 import { getMainDefinition } from 'apollo-utilities'
+
+import { createSubscriptionClient } from 'lib/utils/create-subscription-client'
 
 const isFile = value => (
   (typeof File !== 'undefined' && value instanceof File) ||

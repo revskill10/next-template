@@ -1,15 +1,19 @@
-import withApolloClient from 'lib/with-apollo-client'
-import withReduxStore from 'lib/with-redux-store'
-import withApp from 'lib/with-app'
-import AppContainer from 'containers/next-app'
-import withNProgress from "lib/with-nprogress";
-import withUserAgent from 'lib/with-user-agent'
 import { compose } from "recompose";
+import Router from 'next/router';
+
+import withApolloClient from 'lib/hocs/with-apollo-client'
+import withReduxStore from 'lib/hocs/with-redux-store'
+import withApp from 'lib/hocs/with-app'
+import withCurrentUser from 'lib/hocs/with-current-user'
+import withError from 'lib/hocs/with-error'
+import withNProgress from "lib/hocs/with-nprogress";
+import withUserAgent from 'lib/hocs/with-user-agent'
+
+import AppContainer from 'containers/next-app'
+
 import i18n from 'lib/i18n';
 import languagePathCorrection from 'lib/i18n/language-path-correction';
 import { translation } from 'lib/i18n/config';
-import Router from 'next/router';
-import withCurrentUser from 'lib/with-current-user'
 
 const { enableSubpaths } = translation;
 const msDelay = 100; // default is 300
@@ -35,9 +39,8 @@ if (enableSubpaths) {
   });
 }
 
-
-
 export default compose(  
+  withError,
   withReduxStore,  
   withApolloClient,
   withCurrentUser,

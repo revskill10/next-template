@@ -1,6 +1,6 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import {CURRENT_USER_QUERY} from 'lib/with-current-user.gql'
+import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
 import {UserContext} from 'containers/contexts'
 

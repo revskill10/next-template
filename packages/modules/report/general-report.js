@@ -1,5 +1,5 @@
 import MUIDataTable from 'mui-datatables';
-import convertDataToArray from 'lib/convert-data-to-array'
+import convertDataToArray from 'lib/utils/convert-data-to-array'
 import TableCell from "@material-ui/core/TableCell";
 /*
 tuan

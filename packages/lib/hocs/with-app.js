@@ -1,5 +1,5 @@
 import App, { Container } from 'next/app'
-import getPageContext from 'lib/get-page-context';
+import getPageContext from 'lib/utils/get-page-context';
 
 const withApp = AppContainer =>
   class extends App {

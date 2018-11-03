@@ -1,6 +1,6 @@
 import React from 'react'
-import initApollo from 'lib/init-apollo'
-import { getToken } from 'lib/get-token'
+import initApollo from 'lib/utils/init-apollo'
+import { getToken } from 'lib/utils/get-token'
 
 export default (App) =>
   class extends React.Component {

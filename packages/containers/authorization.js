@@ -1,5 +1,4 @@
 import useAuth from 'lib/hooks/auth'
-import { UserContext } from 'containers/contexts'
 
 const checkPermissions = (userPermissions, allowedPermissions) => {
     if (allowedPermissions.length === 0) {

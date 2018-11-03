@@ -4,16 +4,23 @@ import ErrorPage from 'next/error'
 export default Component => {
   return class WithError extends React.Component {
     static async getInitialProps(ctx) {
-      const props =
+      try {
+        const props =
         (Component.getInitialProps
           ? await Component.getInitialProps(ctx)
           : null) || {}
 
-      if (props.statusCode && ctx.res) {
-        ctx.res.statusCode = props.statusCode
-      }
+        if (props.statusCode && ctx.res) {
+          ctx.res.statusCode = props.statusCode
+        }
 
-      return props
+        return props
+      } catch (error) {
+        ctx.res.statusCode = 500
+        return {
+          statusCode: 500
+        }
+      }
     }
 
     render() {

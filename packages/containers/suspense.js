@@ -13,3 +13,7 @@ const NoSSRSuspense = ({loadPath}) => {
 }
 
 export default NoSSRSuspense
+
+/* Usage:
+  <Suspense loadPath={() => import('components/sms/facebook')} />
+*/

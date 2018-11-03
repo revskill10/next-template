@@ -1,5 +1,5 @@
 import MUIDataTable from 'mui-datatables';
-import convertDataToArray from 'lib/convert-data-to-array'
+import convertDataToArray from 'lib/utils/convert-data-to-array'
 
 const columns = ["Tuan", "Don vi", "Giang vien",
   "Ma lop", "Ma mon hoc",

@@ -1,5 +1,5 @@
 const { createJwtToken } = require('./resolvers/utils')
-const permissions = require('../lib/guest-permissions')
+const permissions = require('../lib/utils/guest-permissions')
 
 function anonymousJwt() {
   return createJwtToken({

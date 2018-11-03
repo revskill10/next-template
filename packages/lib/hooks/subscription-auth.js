@@ -1,6 +1,6 @@
 import useAuth from 'lib/hooks/auth'
 import {useApolloMutation} from 'lib/hooks/apollo'
-import {CURRENT_USER_QUERY} from 'lib/with-current-user.gql'
+import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
 import {CURRENT_USER_SUBSCRIPTION, REFRESH_TOKEN_MUTATION} from 'containers/authentication.gql'
 import isEqual from 'react-fast-compare'

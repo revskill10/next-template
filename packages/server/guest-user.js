@@ -1,4 +1,4 @@
-const permissions = require('../lib/guest-permissions')
+const permissions = require('../lib/utils/guest-permissions')
 
 function guestUser() {
   return {

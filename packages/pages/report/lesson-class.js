@@ -6,7 +6,6 @@ import { withNamespaces } from 'react-i18next'
 import { compose } from 'recompose'
 export const getIndexProps = async ({apolloClient, res}) => {
   try {
-    console.log(JSON.stringify(res))
     const { data } = await apolloClient.query({query})
     return { data }
   } catch (error) {

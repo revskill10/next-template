@@ -1,6 +1,6 @@
 import useSubscriptionAuth from 'lib/hooks/subscription-auth'
 import CacheComponent from 'containers/cache-component'
-import {withCurrentUser} from 'lib/with-current-user'
+import {withCurrentUser} from 'lib/hocs/with-current-user'
 import {Mutation} from 'react-apollo'
 
 const Auth = ({children}) => {
