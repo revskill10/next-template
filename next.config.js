@@ -3,6 +3,7 @@ const withCSS = require('@zeit/next-css')
 const withMDX = require('@zeit/next-mdx')({
   extension: /\.mdx?$/
 })
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const nextConfig = {
   publicRuntimeConfig: {
@@ -25,6 +26,15 @@ const nextConfig = {
   webpack: (config) => {
     config.node = {
       fs: 'empty'
+    }
+    config.module.rules.push({
+      test: /\.(raw)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      use: 'raw-loader',
+    });
+    if (config.mode === 'production') {
+      if (Array.isArray(config.optimization.minimizer)) {
+        config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+      }
     }
     return config
   },
