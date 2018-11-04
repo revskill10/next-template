@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import useAuth from 'lib/hooks/auth'
-import AccountKit from 'components/sms/account-kit';
 import guid from 'guid'
 import {Button} from 'components/forms/styled'
-import NoSSR from 'react-no-ssr'
+import dynamic from 'next/dynamic'
 
 const checkPermissions = (userPermissions, allowedPermissions) => {
     if (allowedPermissions.length === 0) {
@@ -62,28 +61,27 @@ const Authorization = ({secure = false, children, title="Please verify your acco
         </AccessControl>
       )
     } else {
+      const AccountKit = dynamic(import('components/sms/account-kit'));
       return (
         <AccessControl {...rest}>    
-          <NoSSR>
-            <AccountKit
-              appId="2338666273028813" // Update this!
-              version="v1.0" // Version must be in form v{major}.{minor}
-              onResponse={(response) => {
-                //console.log(resp)
-                if (response.status === "PARTIALLY_AUTHENTICATED") {
-                  setVerified(true)
-                } else {
-                  setVerified(false)
-                }
-              } }
-              csrf={guid.raw()} // Required for security
-              countryCode={'+84'} // eg. +60
-              phoneNumber={'794115322'} // eg. 12345678
-              emailAddress={'checkraiser11@gmail.com'} // eg. me@site.com
-            >
-              {p => <Button {...p}>{title}</Button>}
-            </AccountKit>
-          </NoSSR>
+          <AccountKit
+            appId="2338666273028813" // Update this!
+            version="v1.0" // Version must be in form v{major}.{minor}
+            onResponse={(response) => {
+              //console.log(resp)
+              if (response.status === "PARTIALLY_AUTHENTICATED") {
+                setVerified(true)
+              } else {
+                setVerified(false)
+              }
+            } }
+            csrf={guid.raw()} // Required for security
+            countryCode={'+84'} // eg. +60
+            phoneNumber={'794115322'} // eg. 12345678
+            emailAddress={'checkraiser11@gmail.com'} // eg. me@site.com
+          >
+            {p => <Button {...p}>{title}</Button>}
+          </AccountKit>
         </AccessControl>
       )
     }

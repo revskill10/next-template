@@ -12,7 +12,7 @@ const NavBar = ({theme}) => {
     <StyledNav>
       <StyledUserAgent computer>
         <>
-          <StyledNavLink route='home' prefetch>Home</StyledNavLink>
+          <StyledNavLink href='/' prefetch>Home</StyledNavLink>
           <StyledNavLink href='/blog'>Blog</StyledNavLink>
           <StyledNavLink href='/admin'>Admin</StyledNavLink>
           <StyledNavLink href='/report'>Report</StyledNavLink>
