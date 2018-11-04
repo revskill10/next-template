@@ -5,7 +5,6 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
-import NProgress from "components/nprogress";
 import {UserAgentProvider} from '@quentin-sommer/react-useragent'
 import {ThemeProvider} from 'styled-components';
 
@@ -25,7 +24,6 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
               >
                 <ThemeProvider theme={pageContext.theme}>
                   <>
-                    <NProgress color="#fff" spinner />
                     <CssBaseline />
                     <Component key={router.route} {...pageProps} pageContext={pageContext} />
                   </>

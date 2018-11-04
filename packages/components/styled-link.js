@@ -13,6 +13,12 @@ export const StyledBarLink = styled(Link)`
   color: black;
 `
 
-export const IconLink = ({children, ...props}) => <Link {...props}>
-  <IconButton>{children}</IconButton>
-</Link>
+export const StyledProfileLink = styled(Link)`
+  text-decoration: none;
+`
+
+export const IconLink = ({children, ...props}) => (
+  <Link {...props}>
+    <IconButton>{children}</IconButton>
+  </Link>
+)

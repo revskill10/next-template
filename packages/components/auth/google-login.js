@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import Button from '@material-ui/core/Button';
 import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
 import useAuth from 'lib/hooks/auth'
+import Menu from 'components/auth/menu'
 
 const responseGoogle = async (response, loginMutation) => {
   const { data } = await loginMutation({variables: {id_token: response.tokenId}})
@@ -52,7 +53,11 @@ const GoogleAuth = () => {
   if (!isAuthenticated) {
     return <Login />
   } else {
-    return <Logout />
+    return (
+      <Menu>
+        <Logout />
+      </Menu>
+    )
   }
 }
 

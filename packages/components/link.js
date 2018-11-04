@@ -1,11 +1,9 @@
 import Link from 'next/link'
-import { withRouter } from 'next/router'
 
-const NextLink = ({href, children, className }) => (
-  <Link href={href} passHref>
+const NextLink = ({href, children, className, ...props }) => (
+  <Link href={href} passHref {...props}>
     <a className={className}>{children}</a>
   </Link>
 );
 
-
-export default withRouter(NextLink)
+export default NextLink

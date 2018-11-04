@@ -9,7 +9,9 @@ import {
   QueryGeneralReport as query, 
   SubscribeGeneralReport as subscription
 } from 'modules/report/general-report.gql'
-import Suspense from 'containers/suspense'
+//import dynamic from 'next/dynamic'
+//const LineChart = dynamic(import('components/charts/line-chart'))
+import LineChart from 'components/charts/line-chart'
 
 export const getIndexProps = async ({apolloClient, currentUser}) => {
   try {
@@ -28,7 +30,7 @@ const GeneralReportPage = ({t}) => {
       description={t('report.v_general_report_in_week')}
     >
       <>
-        <Suspense loadPath={() => import('components/charts/line-chart')} />
+        <LineChart />
             
         <Authorization
           secure

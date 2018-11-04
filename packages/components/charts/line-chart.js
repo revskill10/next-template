@@ -6,6 +6,7 @@ import sampleData from 'components/charts/sample-data'
 const LineChart = () =>  
   <ResponsiveLine
       data={sampleData}
+
       margin={{
           "top": 50,
           "right": 110,
@@ -31,7 +32,7 @@ const LineChart = () =>
           "tickRotation": 0,
           "legend": "transportation",
           "legendOffset": 36,
-          "legendPosition": "center"
+          "legendPosition": "middle"
       }}
       axisLeft={{
           "orient": "left",
@@ -40,7 +41,7 @@ const LineChart = () =>
           "tickRotation": 0,
           "legend": "count",
           "legendOffset": -40,
-          "legendPosition": "center"
+          "legendPosition": "middle"
       }}
       dotSize={10}
       dotColor="inherit:darker(0.3)"
