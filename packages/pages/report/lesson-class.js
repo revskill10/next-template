@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import {QueryAllLessonClass as query} from 'pages/report/lesson-class.gql'
-import AppLayout from 'containers/layouts/app'
+import AppLayout from 'containers/layout-router'
 import LessonClassReport from 'modules/report/lesson-class'
 import { withNamespaces } from 'react-i18next'
 import { compose } from 'recompose'

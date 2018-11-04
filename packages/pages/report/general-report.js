@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import Layout from 'containers/layouts/app'
+import Layout from 'containers/layout-router'
 import GeneralReportModule from 'modules/report/general-report'
 import { withNamespaces } from 'react-i18next'
 import { compose } from 'recompose'

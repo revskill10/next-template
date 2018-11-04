@@ -1,5 +1,4 @@
 import React from "react";
-import Drawer from "components/layouts/app";
 import Head from 'next/head'
 import Manifest from 'components/manifest'
 import styled from 'styled-components'
@@ -9,7 +8,7 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `
 
-const App = ({ children, title, description }) => {
+const withAuth = Drawer => ({ children, title, description }) => {
   return (
     <>
       <Head>
@@ -29,4 +28,4 @@ const App = ({ children, title, description }) => {
   )
 }
 
-export default App
+export default withAuth

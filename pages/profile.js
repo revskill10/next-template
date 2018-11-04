@@ -1,4 +1,4 @@
-import AppLayout from 'containers/layouts/app'
+import AppLayout from 'containers/layout-router'
 
 const Profile = () => {
   return (

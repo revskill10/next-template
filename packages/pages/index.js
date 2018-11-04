@@ -1,4 +1,4 @@
-import AppLayout from 'containers/layouts/app'
+import AppLayout from 'containers/layout-router'
 import DndTest from 'components/dnd-test'
 import AgTest from 'components/datatables/ag-test'
 import UserTest from 'components/auth/user-info'

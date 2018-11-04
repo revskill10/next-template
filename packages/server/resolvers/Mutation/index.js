@@ -8,7 +8,6 @@ const {
   query,
 } = require('../utils')
 const anonymousJwt = require('../../anonymous-jwt')
-const {inspect} = require('util')
 
 const  {
   upsertUserQuery,

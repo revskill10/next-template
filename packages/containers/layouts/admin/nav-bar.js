@@ -5,16 +5,17 @@ import {ViewModule} from 'styled-icons/material/ViewModule.cjs'
 import StyledNav from 'components/styled-nav'
 import { StyledNavLink, IconLink } from 'components/styled-link'
 import StyledUserAgent from 'components/styled-user-agent'
-import styles from 'components/layouts/styles'
+import styles from 'containers/layouts/admin/styles'
 
 const NavBar = ({theme}) => {
   return (
     <StyledNav>
       <StyledUserAgent computer>
         <>
-          <StyledNavLink href='/' prefetch>Home</StyledNavLink>
+          <StyledNavLink href='/' native>Home</StyledNavLink>
           <StyledNavLink href='/blog'>Blog</StyledNavLink>
           <StyledNavLink href='/admin'>Admin</StyledNavLink>
+          <StyledNavLink href='/report'>Report</StyledNavLink>
         </>
       </StyledUserAgent>
       <StyledUserAgent mobile>

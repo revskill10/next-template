@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { inspect } = require('util')
+
 async function query({variables = {}, query, context, onData, onError }, client){
   try {
     const res = await client.query({query, variables})

@@ -2,11 +2,11 @@ import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 const SideBar = ({router}) => {
-  const ReportSideBar = dynamic(import('components/layouts/sidebars/report-sidebar'))
   switch (router.pathname) {
     case '/':
     case '/report':
     case '/report/lesson_class':
+      const ReportSideBar = dynamic(import('containers/layouts/admin/sidebars/report-sidebar'))
       return <ReportSideBar />
     default:
       return null

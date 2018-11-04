@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
-import DrawerItems from 'components/layouts/side-bar'
+import DrawerItems from 'containers/layouts/admin/side-bar'
 import StyledRoot from 'components/styled-root'
 import StyledContent from 'components/styled-content'
 import Divider from "@material-ui/core/Divider";
@@ -15,10 +15,11 @@ import StyledAuthWrapper from 'components/styled-auth-wrapper'
 import cookie from 'cookie'
 import GoogleLogin from 'components/auth/google-login'
 import MessengerCustomerChat from 'react-messenger-customer-chat';
-import NavBar from 'components/layouts/nav-bar'
-import styles from 'components/layouts/styles'
+import NavBar from 'containers/layouts/admin/nav-bar'
+import styles from 'containers/layouts/admin/styles'
 import i18n from 'lib/i18n';
 import getConfig from 'next/config'
+
 const {publicRuntimeConfig} = getConfig()
 const {FB_PAGE_ID, FB_APP_ID, FB_MESSENGER} = publicRuntimeConfig
 
@@ -102,5 +103,4 @@ const Layout = ({classes, theme, children}) => {
     </StyledRoot>
   );
 }
-
-export default withStyles(styles, { withTheme: true })(Layout);
+export default withStyles(styles, { withTheme: true })(Layout)
