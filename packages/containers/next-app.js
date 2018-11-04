@@ -18,17 +18,15 @@ const AppContainer = ({Component, pageProps, apolloClient, router, reduxStore, p
             registry={pageContext.sheetsRegistry}
             generateClassName={pageContext.generateClassName}
           >
-              <MuiThemeProvider
-                theme={pageContext.theme}
-                sheetsManager={pageContext.sheetsManager}
-              >
-                <ThemeProvider theme={pageContext.theme}>
-                  <>
-                    <CssBaseline />
-                    <Component key={router.route} {...pageProps} pageContext={pageContext} />
-                  </>
-                </ThemeProvider>
-              </MuiThemeProvider>
+              <ThemeProvider theme={pageContext.theme}>
+                <MuiThemeProvider
+                  theme={pageContext.theme}
+                  sheetsManager={pageContext.sheetsManager}
+                >
+                  <CssBaseline />
+                  <Component key={router.route} {...pageProps} pageContext={pageContext} />
+                </MuiThemeProvider>
+              </ThemeProvider>
             </JssProvider>
           </PageTransition>
         </UserAgentProvider>

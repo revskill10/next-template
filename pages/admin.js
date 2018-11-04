@@ -13,4 +13,4 @@ const Admin = ({t}) => {
   )
 }
 
-export default withI18next(['common', 'admin'])(Admin)
+export default withI18next(['admin'])(Admin)
