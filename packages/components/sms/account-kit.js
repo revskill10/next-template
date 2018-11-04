@@ -52,12 +52,6 @@ class AccountKit extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.setState({
-      isMounted: false,
-    })
-  }
-
   signIn() {
     if (this.state.disabled) {
       return;

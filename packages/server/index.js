@@ -2,10 +2,11 @@ const express = require('express');
 const path = require('path');
 const next = require('next');
 const parseURL = require('url').parse;
+const routes = require('../lib/utils/routes')
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-const handle = app.getRequestHandler();
+const handle = routes.getRequestHandler(app);
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')

@@ -1,17 +1,15 @@
-import Link from 'next/link'
+import {Link} from 'lib/utils/routes'
+import styled from 'styled-components'
 
-const NextLink = ({href, children, className, native, ...props }) => {
-  if (native) {
-    return (
-      <a className={className} {...props} href={href}>{children}</a>
-    )
-  } else {
-    return (
-      <Link href={href} passHref {...props}>
-        <a className={className}>{children}</a>
-      </Link>
-    )
-  }  
-}
+const StyledLink = styled.a`
+  //styles
+`
+const NextLink = ({ route, params, href, children, className }) => {
+  return (
+    <Link route={route} params={params} href={href} passHref>
+      <StyledLink className={className}>{children}</StyledLink>
+    </Link>
+  )
+};
 
 export default NextLink
