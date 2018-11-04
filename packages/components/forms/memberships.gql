@@ -1,0 +1,11 @@
+#import ../../fragments/current-user.gql
+
+query UserInfo($userId:uuid!){
+  v_user_info(where:{
+    user_id:{
+      _eq:$userId
+    }
+  }){
+    ...CurrentUser
+  }
+}

@@ -1,8 +1,4 @@
 import AccountKit from 'components/sms/account-kit';
-
-import getConfig from 'next/config'
-const {publicRuntimeConfig} = getConfig()
-const {FB_APP_ID} = publicRuntimeConfig
 import guid from 'guid'
 
 const Sms = () => {

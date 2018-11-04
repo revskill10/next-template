@@ -23,7 +23,7 @@ const nextConfig = {
       reportFilename: './bundles/client.html'
     }
   },
-  webpack: (config) => {
+  webpack: (config, options) => {
     config.node = {
       fs: 'empty'
     }
@@ -31,11 +31,13 @@ const nextConfig = {
       test: /\.(raw)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       use: 'raw-loader',
     });
+   
     if (config.mode === 'production') {
       if (Array.isArray(config.optimization.minimizer)) {
         config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
       }
     }
+    
     return config
   },
   exportPathMap: function () {

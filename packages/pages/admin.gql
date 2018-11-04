@@ -1,0 +1,28 @@
+query AdminPageQuery {
+  users:user_info{
+    value:user_id
+    label:name
+  }
+  roles(where:{_not:{name:{_in:["guest","user"]}}}){
+    value:id
+    label:name
+  }
+  permissions{
+    id
+    name
+  }
+  roles_details:roles(where:{_not:{name:{_eq:"guest"}}}){
+    id
+    name
+    permissions:rolePermissionssByroleId{
+      id:permission_id      
+      detail:permissionsBypermissionId{
+        name
+      }
+    }
+    memberships:membershipssByroleId{
+      user_id
+      active
+    }
+  }
+}
