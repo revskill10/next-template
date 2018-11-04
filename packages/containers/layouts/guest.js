@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import withAuth from 'containers/layouts/base'
 import Link from 'components/link'
+import GoogleLogin from 'components/auth/google-login'
 
 const styles = theme => ({
   '@global': {
@@ -85,9 +85,7 @@ const NavBar = ({classes}) => {
       <Link href={'/admin'}><Button>Admin</Button></Link>
       <Link href={'/report'}><Button>Report</Button></Link>
       <Link href={'/blog'}><Button>Blog</Button></Link>
-      <Button color="primary" variant="outlined">
-        Login
-      </Button>
+      <GoogleLogin />
     </Toolbar>
   )
 }
@@ -126,4 +124,4 @@ function Pricing(props) {
 }
 
 
-export default withAuth(withStyles(styles)(Pricing));
+export default withStyles(styles)(Pricing);
