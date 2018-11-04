@@ -21,7 +21,13 @@ export function useLocalStorage(key, initialValue) {
   const setValue = value => {
     setInnerValue(value);
     window.localStorage.setItem(key, JSON.stringify(item));
+    window.location.reload()
   };
+
+  const removeItem = () => {
+    window.localStorage.removeItem(key)
+    window.location.reload()
+  }
 
   // Alternatively we could update localStorage inside useEffect ...
   // ... but this would run every render and it really only needs ...
@@ -32,7 +38,7 @@ export function useLocalStorage(key, initialValue) {
   });
   */
 
-  return [item, setValue];
+  return [item, setValue, removeItem];
 }
 
 export default useLocalStorage

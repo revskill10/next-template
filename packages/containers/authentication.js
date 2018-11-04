@@ -14,11 +14,11 @@ const Auth = ({children}) => {
   return (
     <Mutation
       mutation={refreshTokenMutation}
-    >{(refresh, {client}) => (
+    >{refresh => (
         <CacheComponent
           cache={{currentUser}}
           subscription={currentUserSubscription}
-          onSubscriptionData={onSubscriptionData(client, refresh)}
+          onSubscriptionData={onSubscriptionData(refresh)}
         >{() => <>{children}</>}
         </CacheComponent>  
       )}

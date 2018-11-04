@@ -1,9 +1,9 @@
 import useAuth from 'lib/hooks/auth'
 import {useApolloMutation} from 'lib/hooks/apollo'
-import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
 import {CURRENT_USER_SUBSCRIPTION, REFRESH_TOKEN_MUTATION} from 'containers/authentication.gql'
 import isEqual from 'react-fast-compare'
+import useLocalStorage from 'lib/hooks/local-storage'
 
 function sorted(user) {
   return {
@@ -15,28 +15,24 @@ function sorted(user) {
 
 const useSubscriptionAuth = () => {
   const { currentUser, isAuthenticated } = useAuth()
+  const [_, setValue, removeItem] = useLocalStorage('token')
   const logout = useApolloMutation(LOGOUT)
   
-  const onSubscriptionData = (client, refresh) => async (newData) => {
+  const onSubscriptionData = (refresh) => async (newData) => {
     if (newData) {
       const newUser = newData.subscriptionData.data.currentUser
+      const isUser = newUser.roles.includes('user')
       const isGuest = newUser.roles.includes('guest')
-      if (isAuthenticated && isGuest){
-        await logout()
-        localStorage.removeItem("token")
-        window.location.reload()
-      } 
       if (!isGuest) {
-        const res = await refresh()
-        localStorage.setItem('token',res.data.refresh.token)
-        client.writeQuery({
-          query: CURRENT_USER_QUERY,
-          data: {
-            currentUser: newUser,
+        if (isAuthenticated && !isUser){
+          await logout()
+          removeItem("token")
+        } 
+        if (isUser) {
+          if (!isEqual(sorted(currentUser), sorted(newUser) )) {
+            const res = await refresh()
+            setValue(res.data.refresh.token)          
           }
-        })
-        if (!isEqual(sorted(currentUser), sorted(newUser) )) {
-          window.location.reload()
         }
       }
     }
