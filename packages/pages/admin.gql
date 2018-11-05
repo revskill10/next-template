@@ -1,5 +1,5 @@
 query AdminPageQuery {
-  users:user_info{
+  users:user_info(where:{_not:{name:{_in:["Guest"]}}}){
     value:user_id
     label:name
   }

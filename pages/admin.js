@@ -9,6 +9,8 @@ import Tabs from 'components/tabs/admin'
 
 const Admin = ({t}) => {
   const UserForm = dynamic(import('components/forms/memberships'))
+  const PermissionsForm = dynamic(import('components/forms/permissions'))
+  const RolesForm = dynamic(import('components/forms/roles'))
   return (
     <AppLayout
       title={t('admin.title')}
@@ -19,7 +21,11 @@ const Admin = ({t}) => {
         context={MembershipsContext}
       >
         <NoSSR>
-          <Tabs memberships={<UserForm /> } /> 
+          <Tabs 
+            memberships={<UserForm /> } 
+            permissions={<PermissionsForm />}
+            roles={<RolesForm />}
+          /> 
         </NoSSR>
       </ContextComponent>
     </AppLayout>

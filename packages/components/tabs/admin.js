@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   root: {
     flexGrow: 1,
-    maxWidth: 500,
   },
 };
 
@@ -28,7 +27,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const IconLabelTabs = ({classes, memberships}) => {
+const IconLabelTabs = ({classes, memberships, permissions, roles}) => {
   const [value, setValue] = useState(0)
 
   const onChange = (event, value) => {
@@ -44,13 +43,13 @@ const IconLabelTabs = ({classes, memberships}) => {
         indicatorColor="secondary"
         textColor="secondary"
       >
-        <Tab icon={<PhoneIcon />} label="RECENTS" />
-        <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-        <Tab icon={<PersonPinIcon />} label="NEARBY" />
+        <Tab icon={<PhoneIcon />} label="Memberships" />
+        <Tab icon={<FavoriteIcon />} label="Permissions" />
+        <Tab icon={<PersonPinIcon />} label="Roles" />
       </Tabs>
       {value === 0 && <TabContainer>{memberships}</TabContainer>}
-      {value === 1 && <TabContainer>Page Two</TabContainer>}
-      {value === 2 && <TabContainer>Page Three</TabContainer>}
+      {value === 1 && <TabContainer>{permissions}</TabContainer>}
+      {value === 2 && <TabContainer>{roles}</TabContainer>}
     </Paper>
   );
 }
