@@ -1,7 +1,22 @@
 query AdminPageQuery {
-  users:user_info(where:{_not:{name:{_in:["Guest"]}}}){
+  users:v_user_info(where:{_not:{name:{_in:["Guest"]}}}){
     value:user_id
     label:name
+    permissions
+    roles
+    detail{
+      email
+      familyName
+      givenName
+      imageUrl
+      memberships:membershipssByuserId{
+        active
+        roles:rolesByroleId{
+          id
+          name
+        }
+      }
+    }
   }
   roles(where:{_not:{name:{_in:["guest","user"]}}}){
     value:id
