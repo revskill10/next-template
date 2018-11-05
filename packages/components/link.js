@@ -1,12 +1,12 @@
-import {Link} from 'lib/utils/routes'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 const StyledLink = styled.a`
   //styles
 `
-const NextLink = ({ route, params, href, children, className }) => {
+const NextLink = ({ href, children, className }) => {
   return (
-    <Link route={route} params={params} href={href} passHref>
+    <Link href={href} passHref>
       <StyledLink className={className}>{children}</StyledLink>
     </Link>
   )

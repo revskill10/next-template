@@ -3,6 +3,7 @@ import useAuth from 'lib/hooks/auth'
 import guid from 'guid'
 import {Button} from 'components/forms/styled'
 import dynamic from 'next/dynamic'
+import NoSSR from 'react-no-ssr'
 
 const checkPermissions = (userPermissions, allowedPermissions) => {
     if (allowedPermissions.length === 0) {
@@ -63,6 +64,7 @@ const Authorization = ({secure = false, children, title="Please verify your acco
     } else {
       const AccountKit = dynamic(import('components/sms/account-kit'));
       return (
+        <NoSSR>
         <AccessControl {...rest}>    
           <AccountKit
             appId="2338666273028813" // Update this!
@@ -83,6 +85,7 @@ const Authorization = ({secure = false, children, title="Please verify your acco
             {p => <Button {...p}>{title}</Button>}
           </AccountKit>
         </AccessControl>
+        </NoSSR>
       )
     }
     
