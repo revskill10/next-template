@@ -13,6 +13,7 @@ const  {
   upsertUserQuery,
   userInfoQuery,
   setOnlineStatusMutation,
+  assignRolesMutation,
 } = require('./index.gql')
 
 function onLoginData(data, context) {
@@ -97,8 +98,53 @@ async function logout(parent, { id_token }, context, info) {
   return true
 }
 
+function onAssignRolesError(error, context) {
+  return false
+}
+
+function onAssignRolesData(data, context) {
+  if (data) {
+    return true
+  } else {
+    return false
+  }  
+}
+
+async function assignRoles(_, {user_id, role_ids}, context) {
+  const { adminClients } = context
+  const input = role_ids.map(function(role_id) {
+    return {
+      user_id,
+      role_id,
+    }
+  })
+  const variables = {
+    user_id,
+    role_ids,
+    input,
+  }
+  return mutate({
+    query: assignRolesMutation,
+    variables,
+    context,
+    onError: onAssignRolesError,
+    onData: onAssignRolesData,
+  }, adminClients['userService'])
+}
+
+const isAdmin = (root, args, context, info) => {
+  if (!context.currentUser.roles.includes('admin')) {
+    return new Error('Forbidden')
+  }
+}
+const { combineResolvers } = require('graphql-resolvers')
+
 module.exports = {
   login,
   logout,
   refresh,
+  assignRoles: combineResolvers(
+    isAdmin,
+    assignRoles
+  ),
 }

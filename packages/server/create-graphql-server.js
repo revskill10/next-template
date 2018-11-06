@@ -1,7 +1,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 const { GraphQLServer, PubSub } = require('graphql-yoga')
-const { mergeSchemas } = require('graphql-tools')
+const { mergeSchemas, } = require('graphql-tools')
 const { importSchema } = require('graphql-import')
 const getCurrentUser = require('./get-current-user')
 const { rule, shield, and, or, not } = require('graphql-shield')
@@ -26,6 +26,10 @@ const canViewReport = rule()(async function(parent, args, ctx, info) {
   return ctx.currentUser.roles.includes('staff')
 })
 
+const canAssignRoles = rule()(async function(parent, args, ctx, info) {
+  return ctx.currentUser.roles.includes('admin')
+})
+
 const urlMap = {
   'reportingService': {
     uri: process.env.REPORTING_SERVICE_GRAPHQL_URL,
@@ -37,7 +41,7 @@ const urlMap = {
     permissions: shield({
       'query_root': {
         v_all_lesson_class: canViewReport,
-      },
+      },      
       'subscription_root': {
         v_all_lesson_class: canViewReport,
       },
@@ -52,6 +56,13 @@ const urlMap = {
     },
     permissions: null
   },
+  'localService': {
+    permissions: shield({
+      Mutation: {
+        assignRoles: canAssignRoles,
+      },
+    })
+  }
 }
 
 function makeAdminClients(urlMap) {
@@ -102,7 +113,7 @@ async function makeSchema(adminLinks) {
   }
   const eduSchema = await soapGraphqlSchema(process.env.EDU_URL)
   
-  const localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
+  let localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
   return mergeSchemas({
     schemas: [

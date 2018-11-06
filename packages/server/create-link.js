@@ -78,7 +78,7 @@ function createLink(clientName, context){
 function createAdminLink(clientName, context){  
   const httpLink = makeHttpLink(clientName, context)
   const contextLink = makeContextLink(context)
-  const finalHttpLink = errorLink.concat(contextLink.concat(httpLink))
+  const finalHttpLink = contextLink.concat(httpLink)
   const wsLink = createWsAdminLink(clientName, context)
   const finallWsLink = errorLink.concat(wsLink)
   const finalLink = split(
