@@ -1,5 +1,35 @@
 # Change Log
 
+## [Unreleased](https://github.com/revskill10/next-template/tree/HEAD)
+
+[Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha4...HEAD)
+
+**Implemented enhancements:**
+
+- Hoc LayoutRouter [\#124](https://github.com/revskill10/next-template/issues/124)
+- Minify mui css [\#117](https://github.com/revskill10/next-template/issues/117)
+- Form with styled-component [\#116](https://github.com/revskill10/next-template/issues/116)
+- Minimize css for external lib [\#114](https://github.com/revskill10/next-template/issues/114)
+- Refactoring lib [\#113](https://github.com/revskill10/next-template/issues/113)
+- AccountKit server side verification [\#112](https://github.com/revskill10/next-template/issues/112)
+- Reuse websocket connection for user session, not resolver [\#106](https://github.com/revskill10/next-template/issues/106)
+- Reload when roles change [\#105](https://github.com/revskill10/next-template/issues/105)
+- Single source of Truth for routes, translated key [\#101](https://github.com/revskill10/next-template/issues/101)
+- Error page in nextjs [\#97](https://github.com/revskill10/next-template/issues/97)
+- Refactoring layout [\#51](https://github.com/revskill10/next-template/issues/51)
+
+**Fixed bugs:**
+
+- Use sort before deep equal currentUser [\#119](https://github.com/revskill10/next-template/issues/119)
+- Shallow diff currentUser [\#118](https://github.com/revskill10/next-template/issues/118)
+- Reload when roles change [\#105](https://github.com/revskill10/next-template/issues/105)
+
+**Closed issues:**
+
+- Slate for customized text-editor [\#120](https://github.com/revskill10/next-template/issues/120)
+- Admin dashboard to manage user, role and permission and system settings [\#94](https://github.com/revskill10/next-template/issues/94)
+- Profile menu [\#58](https://github.com/revskill10/next-template/issues/58)
+
 ## [1.0.0-alpha4](https://github.com/revskill10/next-template/tree/1.0.0-alpha4) (2018-10-31)
 [Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha3...1.0.0-alpha4)
 
