@@ -1,4 +1,4 @@
-fragment AllTeacherDoNotFinish on v_all_teacher_do_not_finish {
+fragment AllTeacherDoNotFinish on reporting_v_all_teacher_do_not_finish {
     tuan
     thu
     thoi_gian

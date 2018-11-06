@@ -1,4 +1,4 @@
-fragment AllTeacherDoNotWrite on v_all_teacher_do_not_write {
+fragment AllTeacherDoNotWrite on reporting_v_all_teacher_do_not_write {
   tuan
   code
   donvi

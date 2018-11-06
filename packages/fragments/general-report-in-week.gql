@@ -1,4 +1,4 @@
-fragment GeneralReport on v_general_report_in_week {
+fragment GeneralReport on reporting_v_general_report_in_week {
   tuan
   total_class
   total_lesson_class
