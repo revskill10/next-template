@@ -1,4 +1,4 @@
-#import ../../fragments/current-user.gql
+#import "../../fragments/current-user.gql"
 
 query UserInfo($userId:uuid!){
   v_user_info(where:{
@@ -8,4 +8,8 @@ query UserInfo($userId:uuid!){
   }){
     ...CurrentUser
   }
+}
+
+mutation AssignRoles($userId: String!, $roleIds: [String]){
+  assignRoles(user_id:$userId, role_ids: $roleIds)
 }

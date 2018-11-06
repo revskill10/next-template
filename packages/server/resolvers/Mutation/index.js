@@ -118,6 +118,7 @@ async function assignRoles(_, {user_id, role_ids}, context) {
       role_id,
     }
   })
+  console.log(JSON.stringify(input))
   const variables = {
     user_id,
     role_ids,
@@ -133,6 +134,7 @@ async function assignRoles(_, {user_id, role_ids}, context) {
 }
 
 const isAdmin = (root, args, context, info) => {
+  console.log(`currentUser: ${JSON.stringify(context.currentUser.roles)}`)
   if (!context.currentUser.roles.includes('admin')) {
     return new Error('Forbidden')
   }

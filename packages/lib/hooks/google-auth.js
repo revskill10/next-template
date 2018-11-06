@@ -1,12 +1,10 @@
-import useLocalStorage from 'lib/hooks/local-storage'
-
 const useGoogleAuth = (token) => {
-  const [_, setValue, removeItem] = useLocalStorage(token)
 
   const onSuccess = (loginMutation) =>  async (response) => {
     const { data } = await loginMutation({variables: {id_token: response.tokenId}})
     if (data.login) {
-      setValue(data.login.token)
+      localStorage.setItem(token, data.login.token)
+      window.location.reload()
     }
   }
 
@@ -17,7 +15,8 @@ const useGoogleAuth = (token) => {
   const logout = async (logoutMutation) => {  
     const { data } = await logoutMutation()
     if (data.logout) {
-      removeItem()
+      localStorage.removeItem(token)
+      window.location.reload()
     }
   }
 

@@ -4,26 +4,29 @@ import Select from 'react-select'
 import {MembershipsContext} from 'containers/contexts'
 import Button from '@material-ui/core/Button';
 import dynamic from 'next/dynamic'
-const RolesInfo = () => {
-  return (
-    <>
-
-    </>
-  )
-}
+import {AssignRoles as assignRolesMutation} from 'components/forms/memberships.gql'
+import {AdminPageQuery} from 'pages/admin.gql'
+import { graphql } from 'react-apollo'
+import {compose} from 'recompose'
 
 const formikEnhancer = withFormik({
   mapPropsToValues: props => ({
     user_id: '',
     role_ids: [],
   }),
-  handleSubmit: (values, { setSubmitting }) => {
-    const payload = {
-      user_id: values.user_id.value,
-      role_ids: values.role_ids.map(t => t.value),
+  handleSubmit: (values, { props, setSubmitting }) =>  {
+    const variables = {
+      userId: values.user_id.value,
+      roleIds: values.role_ids.map(t => t.value),
     };
-    setTimeout(() => {
-      alert(JSON.stringify(payload, null, 2));
+    
+    setTimeout(async () => {
+      //alert(JSON.stringify(variables, null, 2));
+      const res = await props.assignRolesMutation({variables})
+      if (res.data) {
+        console.log(props)
+        await props.adminPageQuery.refetch()
+      }
       setSubmitting(false);
     }, 1000);
   },
@@ -140,4 +143,7 @@ class MySelect extends React.Component {
   }
 }
 
-export default formikEnhancer(MembershipsForm);
+export default compose(  
+  graphql(AdminPageQuery, {name: 'adminPageQuery'}),
+  graphql(assignRolesMutation, {name: 'assignRolesMutation'}),
+)(formikEnhancer(MembershipsForm));

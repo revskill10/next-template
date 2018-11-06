@@ -78,15 +78,17 @@ mutation SetOnlineStatus($userId: uuid!, $active:Boolean!){
 `
 
 const assignRolesMutation = gql`
-mutation UpsertMembership($user_id:uuid!, $role_ids:[uuid!]!,$input:[memberships_insert_input!]!){
+mutation UpsertMembership($user_id:uuid!, $role_ids:[uuid!]!,$input:[memberships_insert_input!]!){ 
   delete_memberships(
     where:{
-      user_id:{_eq:$user_id},
-      role_id:{_in:$role_ids}
+      _and:{
+      	user_id:{_eq:$user_id},
+      	_not:{role_id:{_in:$role_ids}}  
+      }      
     }
   ){
     affected_rows
-  }
+  } 
   insert_memberships(
     objects:$input
     on_conflict:{
@@ -96,6 +98,7 @@ mutation UpsertMembership($user_id:uuid!, $role_ids:[uuid!]!,$input:[memberships
   ){
     affected_rows
   }
+  
 }
 `
 
