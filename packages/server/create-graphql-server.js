@@ -1,7 +1,9 @@
 const dotenv = require('dotenv')
 dotenv.config()
 const { GraphQLServer, PubSub } = require('graphql-yoga')
-const { mergeSchemas, } = require('graphql-tools')
+const { mergeSchemas,transformSchema,
+  RenameTypes,
+  RenameRootFields } = require('graphql-tools')
 const { importSchema } = require('graphql-import')
 const getCurrentUser = require('./get-current-user')
 const { rule, shield, and, or, not } = require('graphql-shield')
@@ -21,6 +23,15 @@ const {
   makeRemoteExecutableSchema,
 } = require('graphql-tools')
 
+function renameSchema(remoteExecSchema, prefix) {
+  return transformSchema(
+    remoteExecSchema,
+    [
+      new RenameTypes((type) => `${prefix}_${type}`),
+      new RenameRootFields((operation, name) => `${prefix}_${name}`)
+    ]
+  );
+} 
 
 const canViewReport = rule()(async function(parent, args, ctx, info) {
   return ctx.currentUser.roles.includes('staff')
@@ -38,12 +49,13 @@ const urlMap = {
       "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
       "Content-Type": "application/json",
     },
+    prefix: 'reporting',
     permissions: shield({
       'query_root': {
-        v_all_lesson_class: canViewReport,
+        reporting_v_all_lesson_class: canViewReport,
       },      
       'subscription_root': {
-        v_all_lesson_class: canViewReport,
+        reporting_v_all_lesson_class: canViewReport,
       },
     })
   },
@@ -54,6 +66,7 @@ const urlMap = {
       "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
       "Content-Type": "application/json",
     },
+    prefix: null,
     permissions: null
   },
   'localService': {
@@ -104,9 +117,13 @@ async function getRemoteSchema ({link}) {
 
 async function makeSchema(adminLinks) {
   let reportingSchema = await getRemoteSchema(adminLinks['reportingService'])
+  if (urlMap['reportingService'].prefix) {
+    reportingSchema = renameSchema(reportingSchema, urlMap['reportingService'].prefix)
+  }
   if (urlMap['reportingService'].permissions) {
     reportingSchema = applyMiddleware(reportingSchema, urlMap['reportingService'].permissions)
   }
+  
   let userSchema = await getRemoteSchema(adminLinks['userService'])
   if (urlMap['userService'].permissions) {
     userSchema = applyMiddleware(reportingSchema, urlMap['userService'].permissions)
