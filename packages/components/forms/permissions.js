@@ -13,14 +13,14 @@ const RowDetail = ({ row }) => (
   <div>
     Details for
     {' '}
-    {row.name}
+    {row.label}
   </div>
 );
 
 const Demo = () => {
   const [expandedRowIds, setExpandedRowIds] = useState([])
   const columns = [
-    { name: 'name', title: 'Name' },
+    { name: 'label', title: 'Name' },
   ]
   const {permissions} = useContext(MembershipsContext)
 

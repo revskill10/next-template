@@ -1,0 +1,3 @@
+mutation AssignPermissions($roleId: String!, $permissionIds: [Int]){
+  assignPermissions(role_id:$roleId, permission_ids: $permissionIds)
+}

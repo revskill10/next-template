@@ -14,6 +14,7 @@ const  {
   userInfoQuery,
   setOnlineStatusMutation,
   assignRolesMutation,
+  assignPermissionsMutation,
 } = require('./index.gql')
 
 function onLoginData(data, context) {
@@ -118,7 +119,6 @@ async function assignRoles(_, {user_id, role_ids}, context) {
       role_id,
     }
   })
-  console.log(JSON.stringify(input))
   const variables = {
     user_id,
     role_ids,
@@ -133,8 +133,44 @@ async function assignRoles(_, {user_id, role_ids}, context) {
   }, adminClients['userService'])
 }
 
+// permissions
+
+
+function onAssignPermissionsError(error, context) {
+  return false
+}
+
+function onAssignPermissionsData(data, context) {
+  if (data) {
+    return true
+  } else {
+    return false
+  }  
+}
+
+async function assignPermissions(_, {role_id, permission_ids}, context) {
+  const { adminClients } = context
+  const input = permission_ids.map(function(permission_id) {
+    return {
+      role_id,
+      permission_id,
+    }
+  })
+  const variables = {
+    role_id,
+    permission_ids,
+    input,
+  }
+  return mutate({
+    query: assignPermissionsMutation,
+    variables,
+    context,
+    onError: onAssignPermissionsError,
+    onData: onAssignPermissionsData,
+  }, adminClients['userService'])
+}
+
 const isAdmin = (root, args, context, info) => {
-  console.log(`currentUser: ${JSON.stringify(context.currentUser.roles)}`)
   if (!context.currentUser.roles.includes('admin')) {
     return new Error('Forbidden')
   }
@@ -149,4 +185,8 @@ module.exports = {
     isAdmin,
     assignRoles
   ),
+  assignPermissions: combineResolvers(
+    isAdmin,
+    assignPermissions
+  )
 }

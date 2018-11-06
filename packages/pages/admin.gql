@@ -1,30 +1,50 @@
+fragment userDetailFragment on users {
+  name
+  email
+  familyName
+  givenName
+  imageUrl
+  memberships:membershipssByuserId{
+    active
+    roles:rolesByroleId{
+      id
+      name
+    }
+  }
+}
 query AdminPageQuery {
-  users:v_user_info(where:{_not:{name:{_in:["Guest"]}}}){
+  users:v_user_info_3(where:{_not:{detail:{name:{_eq:"Guest"}}}}){
     value:user_id
     label:name
     permissions
     roles
     detail{
-      email
-      familyName
-      givenName
-      imageUrl
-      memberships:membershipssByuserId{
+      ...userDetailFragment
+    }
+  }
+  roles:v_role_info{
+    value:role_id
+    label:role_name
+    permissions
+    permission_ids
+    memberships:memberships_r_aggregate{
+      aggregate{
+        count
+      }
+      nodes{
+        id
         active
-        roles:rolesByroleId{
-          id
-          name
+        user_info_2{
+          detail{
+            ...userDetailFragment
+          }
         }
       }
     }
   }
-  roles(where:{_not:{name:{_in:["guest","user"]}}}){
+  permissions{
     value:id
     label:name
-  }
-  permissions{
-    id
-    name
   }
   roles_details:roles(where:{_not:{name:{_eq:"guest"}}}){
     id

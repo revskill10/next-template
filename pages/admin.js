@@ -10,7 +10,7 @@ import Tabs from 'components/tabs/admin'
 const Admin = ({t}) => {
   const UserForm = dynamic(import('components/forms/memberships'))
   const PermissionsForm = dynamic(import('components/forms/permissions'))
-  const RolesForm = dynamic(import('components/forms/roles'))
+  const RolesForm = dynamic(import('components/forms/roles_form'))
   return (
     <AppLayout
       title={t('admin.title')}

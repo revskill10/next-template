@@ -3,25 +3,25 @@ import { withFormik } from 'formik'
 import MySelect from 'components/forms/select'
 import {MembershipsContext} from 'containers/contexts'
 import Button from '@material-ui/core/Button';
-import dynamic from 'next/dynamic'
-import {AssignRoles as assignRolesMutation} from 'components/forms/memberships.gql'
+//import dynamic from 'next/dynamic'
+import {AssignPermissions as assignPermissionsMutation} from 'components/forms/roles_form.gql'
 import {AdminPageQuery} from 'pages/admin.gql'
 import { graphql } from 'react-apollo'
 import {compose} from 'recompose'
 
 const formikEnhancer = withFormik({
   mapPropsToValues: props => ({
-    user_id: '',
-    role_ids: [],
+    role_id: '',
+    permission_ids: [],
   }),
   handleSubmit: (values, { props, setSubmitting }) =>  {
     const variables = {
-      userId: values.user_id.value,
-      roleIds: values.role_ids.map(t => t.value),
+      roleId: values.role_id.value,
+      permissionIds: values.permission_ids.map(t => t.value),
     };
     
     setTimeout(async () => {
-      const res = await props.assignRolesMutation({variables})
+      const res = await props.assignPermissionsMutation({variables})
       try {
         if (res.data) {
           await props.adminPageQuery.refetch()
@@ -35,7 +35,7 @@ const formikEnhancer = withFormik({
   displayName: 'MyForm',
 });
 
-const MembershipsForm = props => {
+const RolesForm = props => {
   const {
     values,
     touched,
@@ -52,47 +52,47 @@ const MembershipsForm = props => {
 
 
   const onChange = (e, value) => {
-    const tmpRoles = options.roles.filter(function(item) {
-      return value.roles.includes(item.label)
+    const tmpPermissions = options.permissions.filter(function(item) {
+      return value.permissions.includes(item.label)
     })
-    values.role_ids = tmpRoles
+    values.permission_ids = tmpPermissions
     setFieldValue(e, value)
   }
 
-  let UserDetail = null
+  //let RoleDetail = null
 
-  if (values.user_id) {
-    UserDetail = dynamic(import('components/forms/user-detail'))
-  }
+  //if (values.role_id) {
+//    RoleDetail = dynamic(import('components/forms/role-detail'))
+  //}
 
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="user_id" style={{ display: 'block' }}>
-        Email
+        Role
       </label>
       <MySelect
-        value={values.user_id}
+        value={values.role_id}
         onChange={onChange}
         onBlur={setFieldTouched}
-        error={errors.user_id}
-        touched={touched.user_id}
-        options={options.users}
-        fieldName={'user_id'}
+        error={errors.role_id}
+        touched={touched.role_id}
+        options={options.roles}
+        fieldName={'role_id'}
       />
       
-      { values.user_id ? (
+      { values.role_id ? (
         <>
-        <label htmlFor="role_ids" style={{ display: 'block' }}>
-          Roles
+        <label htmlFor="permissions_ids" style={{ display: 'block' }}>
+          Permissions
         </label>
         <MySelect
-          value={values.role_ids}
+          value={values.permission_ids}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
-          error={errors.role_ids}
-          touched={touched.role_ids}
-          options={options.roles}
-          fieldName={'role_ids'}
+          error={errors.permission_ids}
+          touched={touched.permission_ids}
+          options={options.permissions}
+          fieldName={'permission_ids'}
           isMulti
         />
         </>)  : null }
@@ -107,12 +107,12 @@ const MembershipsForm = props => {
         Submit
       </Button>
 
-      { values.user_id ? <UserDetail detail={values.user_id.detail} /> : null}
+      {/* values.user_id ? <UserDetail detail={values.user_id.detail} /> : null */}
     </form>
   );
 };
 
 export default compose(  
   graphql(AdminPageQuery, {name: 'adminPageQuery'}),
-  graphql(assignRolesMutation, {name: 'assignRolesMutation'}),
-)(formikEnhancer(MembershipsForm));
+  graphql(assignPermissionsMutation, {name: 'assignPermissionsMutation'}),
+)(formikEnhancer(RolesForm));

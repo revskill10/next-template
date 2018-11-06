@@ -102,9 +102,35 @@ mutation UpsertMembership($user_id:uuid!, $role_ids:[uuid!]!,$input:[memberships
 }
 `
 
+
+const assignPermissionsMutation = gql`
+mutation UpsertRolePermissions($role_id:uuid!, $permission_ids:[Int!]!,$input:[role_permissions_insert_input!]!){ 
+  delete_role_permissions(
+    where:{
+      _and:{
+      	role_id:{_eq:$role_id},
+      	_not:{permission_id:{_in:$permission_ids}}  
+      }      
+    }
+  ){
+    affected_rows
+  } 
+  insert_role_permissions(
+    objects:$input
+    on_conflict:{
+      action:ignore,
+      constraint:role_permission_idx
+    }
+  ){
+    affected_rows
+  }
+}
+`
+
 module.exports = {
   upsertUserQuery,
   setOnlineStatusMutation,
   userInfoQuery,
   assignRolesMutation,
+  assignPermissionsMutation,
 }

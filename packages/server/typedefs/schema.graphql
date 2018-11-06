@@ -16,6 +16,7 @@ type Mutation {
   logout: Boolean
   refresh: AuthPayload
   assignRoles(user_id:String!, role_ids:[String]): Boolean
+  assignPermissions(role_id:String!, permission_ids:[Int]): Boolean
 }
 
 type Subscription {

@@ -40,16 +40,16 @@ const IconLabelTabs = ({classes, memberships, permissions, roles}) => {
         value={value}
         onChange={onChange}
         fullWidth
-        indicatorColor="secondary"
-        textColor="secondary"
+        indicatorColor="primary"
+        textColor="primary"
       >
-        <Tab icon={<PhoneIcon />} label="Memberships" />
-        <Tab icon={<FavoriteIcon />} label="Permissions" />
+        <Tab icon={<PhoneIcon />} label="Users" />
         <Tab icon={<PersonPinIcon />} label="Roles" />
+        <Tab icon={<FavoriteIcon />} label="Permissions" />
       </Tabs>
       {value === 0 && <TabContainer>{memberships}</TabContainer>}
-      {value === 1 && <TabContainer>{permissions}</TabContainer>}
-      {value === 2 && <TabContainer>{roles}</TabContainer>}
+      {value === 1 && <TabContainer>{roles}</TabContainer>}
+      {value === 2 && <TabContainer>{permissions}</TabContainer>}
     </Paper>
   );
 }
