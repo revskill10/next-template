@@ -1,38 +1,40 @@
 import useAuth from 'lib/hooks/auth'
+import {useContext} from 'react'
 import {useApolloMutation} from 'lib/hooks/apollo'
 import {LOGOUT} from 'components/auth/google-login.gql'
 import {CURRENT_USER_SUBSCRIPTION, REFRESH_TOKEN_MUTATION} from 'containers/authentication.gql'
-import isEqual from 'react-fast-compare'
-
-function sorted(user) {
-  return {
-    user_id: user.user_id,
-    roles: user.roles.sort(),
-    permissions: user.permissions.sort(),
-  }
-}
+import {CURRENT_USER_QUERY as query} from 'lib/hocs/with-current-user.gql'
+import {ApolloContext} from 'containers/contexts'
 
 const useSubscriptionAuth = () => {
   const { currentUser, isAuthenticated } = useAuth()
   const logout = useApolloMutation(LOGOUT)
+  const client = useContext(ApolloContext)
   
   const onSubscriptionData = (refresh) => async (newData) => {
-    if (newData) {
-      const newUser = newData.subscriptionData.data.currentUser
-      const isUser = newUser.roles.includes('user')
-      const isGuest = newUser.roles.includes('guest')
-      if (!isGuest) {
-        if (isAuthenticated && !isUser){
-          await logout()
-          localStorage.removeItem("token")
-          window.location.reload()
-        } 
-        if (isUser) {
-          if (!isEqual(sorted(currentUser), sorted(newUser) )) {
-            const res = await refresh()
-            localStorage.setItem('token', res.data.refresh.token)
-          }
+    if (newData && newData.subscriptionData.data.me) {
+      const me = newData.subscriptionData.data.me
+      const isUser = me.currentUser.roles.includes('user')
+      const currentToken = localStorage.getItem('token')
+
+      if (isAuthenticated && isUser) {
+        if (me.token !== currentToken) {
+          const res = await refresh()
+          window.localStorage.setItem('token', res.data.refresh.token)
+          client.writeQuery({
+            query,
+            data: {
+              currentUser: me.currentUser
+            }
+          })
         }
+      }
+      if (isAuthenticated && !isUser) {
+        await logout()
+        window.location.reload()
+      }
+      if (!isAuthenticated && isUser) {
+        window.location.reload()
       }
     }
   }

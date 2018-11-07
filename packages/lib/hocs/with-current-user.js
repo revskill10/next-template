@@ -1,26 +1,16 @@
 import React from 'react'
-import { Query } from 'react-apollo'
 import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
 import {UserContext} from 'containers/contexts'
+import ContextComponent from 'containers/context-component'
 
 export const withCurrentUser = App => (props) =>
-  <Query query={CURRENT_USER_QUERY} fetchPolicy={'cache-only'}>
-    {
-      ({data, loading}) => {
-        if (data) {
-          return (
-            <UserContext.Provider value={{currentUser: data.currentUser}}>
-              <App {...props} />
-            </UserContext.Provider>
-          )
-        }
-        if (loading) {
-          return <span>...</span>
-        }
-      }
-    }
-  </Query>
+  <ContextComponent
+    query={CURRENT_USER_QUERY}
+    context={UserContext}>
+    <App {...props} />  
+  </ContextComponent>
+  
 
 export default (App) => {
   return class AppWithCurrentUser extends React.Component {

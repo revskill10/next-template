@@ -11,6 +11,11 @@ type UserInfoPayload {
   permissions: [String]
 }
 
+type SubscriptionAuthPayload {
+  token: String
+  currentUser: UserInfoPayload
+}
+
 type Mutation {
   login(id_token: String!): AuthPayload
   logout: Boolean
@@ -20,7 +25,7 @@ type Mutation {
 }
 
 type Subscription {
-  currentUser: UserInfoPayload
+  me: SubscriptionAuthPayload
 }
 
 type Query {

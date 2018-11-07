@@ -1,22 +1,29 @@
 const {
   subscribe,
+  createJwtToken
 } = require('../utils')
 const {
   userInfoSubscription,
 } = require('./index.gql')
 const guestUser = require('../../guest-user')
+const {inspect} = require('util')
 
 function onSubscriptionData(data) {
-  const currentUser = data.v_user_info[0] 
-  return {
-    currentUser: currentUser ?  currentUser : guestUser(),
+  const currentUser = data.v_user_info[0] || guestUser()  
+  const me = {
+    token: createJwtToken(currentUser),
+    currentUser,
   }
+  return {me}
 }
 
 function onSubscriptionError(error) {
-  return {
-    currentUser: guestUser()
+  const currentUser = guestUser()
+  me = {
+    token: createJwtToken(currentUser),
+    currentUser,
   }
+  return {me}
 }
 
 async function currentUser(parents, args, context, info) {
@@ -34,7 +41,7 @@ async function currentUser(parents, args, context, info) {
 }
 
 module.exports = {
-  currentUser: {
+  me: {
     subscribe: currentUser,
   },
 }

@@ -1,8 +1,11 @@
 #import "../fragments/current-user.gql"
 
 subscription CURRENT_USER_SUBSCRIPTION {
-  currentUser {
-    ...CurrentUser
+  me {
+    token
+    currentUser {
+      ...CurrentUser
+    }
   }
 }
 

@@ -48,6 +48,7 @@ function subscribe({variables = {}, query, context, onData, onError }, client) {
       }
     });
   } catch (error) {
+    return onError(error, context)
   }
   
   return pubsub.asyncIterator(channel)
