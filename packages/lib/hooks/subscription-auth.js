@@ -33,9 +33,7 @@ const useSubscriptionAuth = () => {
         await logout()
         window.location.reload()
       }
-      if (!isAuthenticated && isUser) {
-        window.location.reload()
-      }
+      
     }
   }
 

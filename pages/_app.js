@@ -7,9 +7,7 @@ import withApp from 'lib/hocs/with-app'
 import withCurrentUser from 'lib/hocs/with-current-user'
 import withError from 'lib/hocs/with-error'
 import withUserAgent from 'lib/hocs/with-user-agent'
-
 import AppContainer from 'containers/next-app'
-
 import i18n from 'lib/i18n';
 import languagePathCorrection from 'lib/i18n/language-path-correction';
 import { translation } from 'lib/i18n/config';
