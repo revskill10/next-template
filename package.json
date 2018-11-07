@@ -44,7 +44,7 @@
     "devextreme": "18.1.7",
     "devextreme-react": "18.2.2-beta.1",
     "dotenv": "6.1.0",
-    "exceljs": "1.6.2",
+    "exceljs": "1.6.3",
     "express": "4.16.4",
     "fast-deep-equal": "^2.0.1",
     "file-saver": "2.0.0-rc.4",
