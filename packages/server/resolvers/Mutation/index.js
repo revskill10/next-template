@@ -8,7 +8,7 @@ const {
   query,
 } = require('../utils')
 const anonymousJwt = require('../../anonymous-jwt')
-
+const {inspect} = require('util')
 const  {
   upsertUserQuery,
   userInfoQuery,
@@ -42,7 +42,6 @@ async function login(parent, { id_token }, context, info) {
     } 
   } = await axios.get(googleVerifyUri(id_token))
   const variables = { name, email, family_name, given_name, picture, googleId:sub, roleId: process.env.USER_ROLE_ID }
-
   return mutate({
     query: upsertUserQuery,
     variables,
@@ -53,13 +52,8 @@ async function login(parent, { id_token }, context, info) {
 }
 
 function onRefreshData(data, context) {
-  let token = null;
-  if (data.v_user_info && data.v_user_info.length === 1) {
-    const userInfo = data.v_user_info[0]
-    token = createJwtToken(userInfo)
-  } else {
-    token = anonymousJwt()
-  }
+  const userInfo = data.user_info[0]
+  token = createJwtToken(userInfo)
   setCookie(context, token)
   return { token }
 }
@@ -72,7 +66,10 @@ function onRefreshError(error, context) {
 
 async function refresh(parent, args, context, info) {
   const { currentUser, adminClients } =  context
-  const variables = { userId: currentUser.user_id }
+  const variables = { 
+    userId: currentUser.user_id,
+    roleId: process.env.USER_ROLE_ID,
+  }
   return query({
     query: userInfoQuery,
     variables,
@@ -81,8 +78,6 @@ async function refresh(parent, args, context, info) {
     onError: onRefreshError,
   }, adminClients['userService'])
 }
-
-
 
 async function logout(parent, { id_token }, context, info) {
   const { currentUser, adminClients } = context

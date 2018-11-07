@@ -11,6 +11,17 @@ const userInfoSubscription = gql`
       name
       roles
       permissions
+      status:memberships(
+        where:{
+          rolesByroleId:{
+            name:{
+              _eq:"user"
+            }
+          }
+        }
+      ){
+        active
+      }
     }
   }
 `

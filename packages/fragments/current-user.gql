@@ -3,4 +3,8 @@ fragment CurrentUser on UserInfoPayload {
   name
   roles
   permissions
+  status {
+    active 
+  }
 }
+

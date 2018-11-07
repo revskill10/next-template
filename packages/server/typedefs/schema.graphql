@@ -4,11 +4,16 @@ type AuthPayload {
   token: String
 }
 
+type StatusPayload {
+  active: Boolean
+}
+
 type UserInfoPayload {
   user_id: String
   name: String
   roles: [String]
   permissions: [String]
+  status: [StatusPayload]
 }
 
 type SubscriptionAuthPayload {

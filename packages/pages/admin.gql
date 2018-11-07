@@ -34,7 +34,7 @@ query AdminPageQuery {
       nodes{
         id
         active
-        user_info_2{
+        user_info{
           detail{
             ...userDetailFragment
           }

@@ -29,28 +29,30 @@ const useSubscriptionAuth = () => {
       const me = newData.subscriptionData.data.me
       const isUser = me.currentUser.roles.includes('user')
       const currentToken = localStorage.getItem('token')
-
-      if (isAuthenticated && isUser) {
-        if (currentToken && me.token && me.token !== currentToken) {
-          const res = await refresh()
-          window.localStorage.setItem('token', res.data.refresh.token)
-          client.writeQuery({
-            query,
-            data: {
-              currentUser: me.currentUser
+      
+      if (isAuthenticated) {
+        if (!me.currentUser.status[0].active) {
+          await logout()
+          localStorage.removeItem('token')
+        }
+        
+        if (currentToken && isUser) {
+          if (currentToken && me.token && me.token !== currentToken) {
+            window.localStorage.setItem('token', me.token)
+            await refresh()
+            client.writeQuery({
+              query,
+              data: {
+                currentUser: me.currentUser
+              }
+            })
+            if (sorted(currentUser) !== sorted(me.currentUser)) {
+              const message = `Your data has been changed`
+              openAlert(message, 3000)
             }
-          })
-          if (sorted(currentUser) !== sorted(me.currentUser)) {
-            const message = `Your data has been changed`
-            openAlert(message, 3000)
           }
         }
       }
-      if (isAuthenticated && !isUser) {
-        await logout()
-        window.location.reload()
-      }
-      
     }
   }
 

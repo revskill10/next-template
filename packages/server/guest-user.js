@@ -6,6 +6,9 @@ function guestUser() {
     name: 'Guest',
     roles: ['guest'],
     permissions,
+    status: [
+      { active: false }
+    ]
   }
 }
 

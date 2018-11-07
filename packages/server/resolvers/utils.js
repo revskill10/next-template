@@ -70,7 +70,7 @@ function processRoles(roles) {
   return allowedRoles
 }
 
-function createJwtToken({user_id, name, roles, permissions}, defaultRole = 'user'){
+function createJwtToken({user_id, name, roles, permissions, status}, defaultRole = 'user'){
   const data = {
     'name': name,
     'https://hasura.io/jwt/claims': {
@@ -78,6 +78,7 @@ function createJwtToken({user_id, name, roles, permissions}, defaultRole = 'user
       "x-hasura-default-role": defaultRole,
       'x-hasura-user-id': user_id,
       'x-hasura-allowed-permissions': permissions,
+      'x-hasura-status': status
     }
   }
   return jwt.sign(data, process.env.JWT_SECRET);

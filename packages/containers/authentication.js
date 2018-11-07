@@ -3,6 +3,7 @@ import CacheComponent from 'containers/cache-component'
 import {withCurrentUser} from 'lib/hocs/with-current-user'
 import {Mutation} from 'react-apollo'
 import {withAlerts} from 'data/selectors'
+import {useEffect} from 'react'
 
 const Auth = ({children, openAlert}) => {
   const { 
@@ -11,7 +12,16 @@ const Auth = ({children, openAlert}) => {
     refreshTokenMutation,
     currentUserSubscription,
   } = useSubscriptionAuth()
-
+  useEffect(() => {
+    setInterval(() => {
+      if (currentUser.roles.includes('user') && !localStorage.getItem('token')) {
+        window.location.reload()
+      }
+      if (currentUser.roles.includes('guest') && localStorage.getItem('token')) {
+        window.location.reload()
+      }
+    }, 4000)
+  })
   return (
     <Mutation
       mutation={refreshTokenMutation}

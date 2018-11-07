@@ -6,10 +6,9 @@ const {
   userInfoSubscription,
 } = require('./index.gql')
 const guestUser = require('../../guest-user')
-const {inspect} = require('util')
 
 function onSubscriptionData(data) {
-  const currentUser = data.v_user_info[0] || guestUser()  
+  const currentUser = data.v_user_info[0]
   const me = {
     token: createJwtToken(currentUser),
     currentUser,

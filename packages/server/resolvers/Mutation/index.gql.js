@@ -1,8 +1,8 @@
 const gql = require('graphql-tag')
 
 const userInfoQuery = gql`
-  query UserInfo($userId:uuid!){
-    v_user_info(where:{
+  query UserInfo($userId:uuid!, $roleId:uuid!){
+    user_info:v_user_info_3(where:{
       user_id:{
         _eq:$userId
       }
@@ -11,6 +11,14 @@ const userInfoQuery = gql`
       name
       roles
       permissions
+      status:memberships(
+        where:{
+          role_id:{_eq:$roleId}
+        }
+      )
+      {
+        active
+      }
     }
   }
 `
@@ -49,6 +57,14 @@ const upsertUserQuery = gql`
           roles
           permissions
           user_id
+          status:memberships(
+            where:{
+              role_id:{_eq:$roleId}
+            }
+          )
+          {
+            active
+          }
         }
       }
     }

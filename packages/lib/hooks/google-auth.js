@@ -1,15 +1,15 @@
 const useGoogleAuth = (token) => {
 
   const onSuccess = (loginMutation) =>  async (response) => {
-    const { data } = await loginMutation({variables: {id_token: response.tokenId}})
+    const { data, errors } = await loginMutation({variables: {id_token: response.tokenId}})
     if (data.login) {
       localStorage.setItem(token, data.login.token)
     } 
     window.location.reload()
   }
 
-  const onFailure = (_response) => {
-    removeItem()
+  const onFailure = (response) => {
+    localStorage.removeItem(token)
   }
 
   const logout = async (logoutMutation) => {  

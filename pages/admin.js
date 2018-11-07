@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic'
 import {AdminPageQuery as query} from 'pages/admin.gql'
 import {MembershipsContext} from 'containers/contexts'
 import ContextComponent from 'containers/context-component'
-import Tabs from 'components/tabs/admin'
 
 const Admin = ({t}) => {
+  const Tabs = dynamic(import('components/tabs/admin'))
   const UserForm = dynamic(import('components/forms/memberships'))
   const PermissionsForm = dynamic(import('components/forms/permissions'))
   const RolesForm = dynamic(import('components/forms/roles_form'))
