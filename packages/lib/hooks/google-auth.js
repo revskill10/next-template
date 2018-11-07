@@ -4,8 +4,8 @@ const useGoogleAuth = (token) => {
     const { data } = await loginMutation({variables: {id_token: response.tokenId}})
     if (data.login) {
       localStorage.setItem(token, data.login.token)
-      window.location.reload()
-    }
+    } 
+    window.location.reload()
   }
 
   const onFailure = (_response) => {
@@ -16,8 +16,8 @@ const useGoogleAuth = (token) => {
     const { data } = await logoutMutation()
     if (data.logout) {
       localStorage.removeItem(token)
-      window.location.reload()
     }
+    window.location.reload()
   }
 
   return {

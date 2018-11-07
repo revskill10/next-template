@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import {AdminPageQuery as query} from 'pages/admin.gql'
 import {MembershipsContext} from 'containers/contexts'
 import ContextComponent from 'containers/context-component'
-import NoSSR from 'react-no-ssr'
 import Tabs from 'components/tabs/admin'
 
 const Admin = ({t}) => {
@@ -20,13 +19,11 @@ const Admin = ({t}) => {
         query={query}
         context={MembershipsContext}
       >
-        <NoSSR>
-          <Tabs 
-            memberships={<UserForm /> } 
-            permissions={<PermissionsForm />}
-            roles={<RolesForm />}
-          /> 
-        </NoSSR>
+        <Tabs 
+          memberships={<UserForm /> } 
+          permissions={<PermissionsForm />}
+          roles={<RolesForm />}
+        /> 
       </ContextComponent>
     </AppLayout>
   )
