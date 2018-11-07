@@ -13,7 +13,7 @@ const Auth = ({children, openAlert}) => {
     currentUserSubscription,
   } = useSubscriptionAuth()
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       if (currentUser.roles.includes('user') && !localStorage.getItem('token')) {
         window.location.reload()
       }
@@ -21,6 +21,8 @@ const Auth = ({children, openAlert}) => {
         window.location.reload()
       }
     }, 4000)
+
+    return () => clearInterval(interval);
   })
   return (
     <Mutation
