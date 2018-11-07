@@ -2,8 +2,9 @@ import useSubscriptionAuth from 'lib/hooks/subscription-auth'
 import CacheComponent from 'containers/cache-component'
 import {withCurrentUser} from 'lib/hocs/with-current-user'
 import {Mutation} from 'react-apollo'
+import {withAlerts} from 'data/selectors'
 
-const Auth = ({children}) => {
+const Auth = ({children, openAlert}) => {
   const { 
     currentUser, 
     onSubscriptionData,
@@ -18,7 +19,7 @@ const Auth = ({children}) => {
         <CacheComponent
           cache={{currentUser}}
           subscription={currentUserSubscription}
-          onSubscriptionData={onSubscriptionData(refresh)}
+          onSubscriptionData={onSubscriptionData(refresh, openAlert)}
         >{() => <>{children}</>}
         </CacheComponent>  
       )}
@@ -26,4 +27,4 @@ const Auth = ({children}) => {
   )
 }
 
-export default withCurrentUser(Auth)
+export default withCurrentUser(withAlerts(Auth))
