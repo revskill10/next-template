@@ -13,11 +13,11 @@ const options = {
   rowsPerPage: 10,
 };
 
-const DataTable = ({reporting_v_all_lesson_class}) => {
+const DataTable = ({v_all_lesson_class}) => {
   return (
     <MUIDataTable 
     title={"Employee List"} 
-    data={convertDataToArray(reporting_v_all_lesson_class, 
+    data={convertDataToArray(v_all_lesson_class, 
       ["tuan", "don_vi", "giang_vien", "ma_lop",
     "ma_mon_hoc", "phong", "si_so", "so_tiet"])} 
     columns={columns} 

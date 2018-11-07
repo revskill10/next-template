@@ -1,4 +1,4 @@
-fragment AllLessonClass on reporting_v_all_lesson_class {
+fragment AllLessonClass on v_all_lesson_class {
   tuan
   don_vi
   giang_vien

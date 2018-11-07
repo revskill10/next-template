@@ -1,13 +1,13 @@
 #import "../../fragments/all-lesson-class.gql"
 
 subscription SubscribeAllLessonClass {
-  reporting_v_all_lesson_class{
+  v_all_lesson_class{
     ...AllLessonClass
   }
 }
 
 query QueryAllLessonClass {
-  reporting_v_all_lesson_class(limit: 10){
+  v_all_lesson_class(limit: 10){
     ...AllLessonClass
   }
 }

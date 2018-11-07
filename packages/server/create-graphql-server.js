@@ -52,10 +52,10 @@ const urlMap = {
     prefix: 'reporting',
     permissions: shield({
       'query_root': {
-        reporting_v_all_lesson_class: canViewReport,
+        v_all_lesson_class: canViewReport,
       },      
       'subscription_root': {
-        reporting_v_all_lesson_class: canViewReport,
+        v_all_lesson_class: canViewReport,
       },
     })
   },
@@ -117,9 +117,7 @@ async function getRemoteSchema ({link}) {
 
 async function makeSchema(adminLinks) {
   let reportingSchema = await getRemoteSchema(adminLinks['reportingService'])
-  if (urlMap['reportingService'].prefix) {
-    reportingSchema = renameSchema(reportingSchema, urlMap['reportingService'].prefix)
-  }
+  
   if (urlMap['reportingService'].permissions) {
     reportingSchema = applyMiddleware(reportingSchema, urlMap['reportingService'].permissions)
   }

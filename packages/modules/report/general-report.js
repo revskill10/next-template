@@ -46,11 +46,11 @@ const options = {
   rowsPerPage: 10,
 };
 
-const DataTable = ({reporting_v_general_report_in_week}) => {
+const DataTable = ({v_general_report_in_week}) => {
   return (
     <MUIDataTable 
     title={"General Report"} 
-    data={convertDataToArray(reporting_v_general_report_in_week, 
+    data={convertDataToArray(v_general_report_in_week, 
       ["tuan",
       "total_class",
       "total_lesson_class",
