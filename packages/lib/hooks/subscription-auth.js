@@ -11,14 +11,15 @@ function s(x,y){
 
   if(x === y)return 0;
   else return (x > y)?1:-1;
-
 }
+
 function sorted(user) {
   return JSON.stringify({
     roles: user.roles.sort(s),
-    permissions: user.roles.sort(s)
+    permissions: user.permissions.sort(s)
   })
 }
+
 const useSubscriptionAuth = () => {
   const { currentUser, isAuthenticated } = useAuth()
   const logout = useApolloMutation(LOGOUT)
@@ -27,19 +28,21 @@ const useSubscriptionAuth = () => {
   const onSubscriptionData = (refresh, openAlert) => async (newData) => {
     if (newData && newData.subscriptionData.data.me) {
       const me = newData.subscriptionData.data.me
-      const isUser = me.currentUser.roles.includes('user')
+      const isUser = !me.currentUser.roles.includes('guest')
       const currentToken = localStorage.getItem('token')
       
       if (isAuthenticated) {
         if (!me.currentUser.status[0].active) {
           await logout()
           localStorage.removeItem('token')
+          window.location.reload()
         }
         
         if (currentToken && isUser) {
-          if (currentToken && me.token && me.token !== currentToken) {
+          if (me.token && me.token !== currentToken) {
             window.localStorage.setItem('token', me.token)
-            await refresh()
+            const { data } = await refresh()
+            window.localStorage.setItem('token', data.refresh.token)
             client.writeQuery({
               query,
               data: {

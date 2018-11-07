@@ -162,62 +162,42 @@ async function createServer({dev}) {
 }
 
 function context({dev, pubsub, urlMap, adminClients}) {
-  return function({connection, request, response}) {
+  return async function({connection, request, response}) {
     if (connection && connection.context) {
+      const { connectionParams } = connection.context
+      const {token, currentUser} = await getCurrentUser({token: connectionParams['token'], adminClients})
       return {
         ...connection.context,
+        currentUser,
+        token,
         pubsub,
         dev,
-        urlMap,
-        getApolloClient,
-        ws: true,
+        urlMap,        
         adminClients,
+        response: null,
+        ws: true,
       }
     }
     if (request) {
-      const {token, currentUser} = getCurrentUser({token: request.headers['token']})
-      const role = request.headers['role'] || 'guest'
-      const connParams = makeConnectionParams({token, role})
+      const {token, currentUser} = await getCurrentUser({token: request.headers['token'], adminClients})
       return {
-        connParams,
         currentUser,
-        role,
-        response,
+        token,
+        pubsub,
         dev,
         urlMap,
-        getApolloClient,
-        ws: false,
         adminClients,
+        response,
+        ws: false,
       }
     }
   }
 }
 
 function onConnect(connectionParams, websocket, context) {
-  const {token, currentUser} = getCurrentUser({token: connectionParams['token']})
-  const role = connectionParams['role'] || 'guest'
-
-  const connParams = makeConnectionParams({token, role})
-
-  let subscriptionClients = {
-    reportingService: null,
-    userService: null,
-  }  
-  
-  if (currentUser.name !== 'Guest') {
-    subscriptionClients = {
-      reportingService: createWsClient('reportingService', { urlMap, connParams }),
-      userService: createWsClient('userService', { urlMap, connParams }),
-    }
-  }
-
   return {
     ...context,
-    currentUser,
-    token,
-    role,
-    connParams,
-    subscriptionClients,
+    connectionParams,
   };
 }
 

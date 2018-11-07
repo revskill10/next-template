@@ -1,24 +1,30 @@
 const jwt = require('jsonwebtoken')
-const anonymousJwt = require('./anonymous-jwt')
-const guestUser = require('./guest-user')
-
-function verifyToken({token}) {
+const {inspect} = require('util')
+const {createJwtToken} = require('./resolvers/utils')
+const {userInfoQuery} = require('./get-current-user.gql')
+async function verifyToken({token, adminClients}) {
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET)
-    const currentUser = {
-      user_id: data['https://hasura.io/jwt/claims']['x-hasura-user-id'],
-      name: data.name,
-      roles: data['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'],
-      permissions: data['https://hasura.io/jwt/claims']['x-hasura-allowed-permissions'],
-    }
+    const currentUser = jwt.verify(token, process.env.JWT_SECRET)
     return {
       currentUser,
       token,
     }
-  } catch (_e) {
-    return { 
-      currentUser: guestUser(), 
-      token: anonymousJwt(),
+  } catch (e) {
+    const variables = {
+      userId: process.env.GUEST_ID,
+    }
+    try {
+      const {data} = await adminClients['userService'].query({query: userInfoQuery, variables})
+      const currentUser = data.v_user_info[0]
+      return {
+        token: createJwtToken(currentUser),
+        currentUser,
+      }
+    } catch (e) {
+      return {
+        token: null,
+        currentUser: null,
+      }
     }
   }
 }

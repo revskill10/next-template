@@ -14,7 +14,7 @@ const Auth = ({children, openAlert}) => {
   } = useSubscriptionAuth()
   useEffect(() => {
     const interval = setInterval(() => {
-      if (currentUser.roles.includes('user') && !localStorage.getItem('token')) {
+      if (!currentUser.roles.includes('guest') && !localStorage.getItem('token')) {
         window.location.reload()
       }
       if (currentUser.roles.includes('guest') && localStorage.getItem('token')) {

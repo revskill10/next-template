@@ -5,23 +5,30 @@ const {
 const {
   userInfoSubscription,
 } = require('./index.gql')
-const guestUser = require('../../guest-user')
 
-function onSubscriptionData(data) {
-  const currentUser = data.v_user_info[0]
-  const me = {
-    token: createJwtToken(currentUser),
-    currentUser,
+const equal = require('fast-deep-equal');
+
+function onSubscriptionData(data, { currentUser, token }) {
+  const newUser = data.v_user_info[0]
+  if (!equal(newUser, currentUser)) {
+    const me = {
+      token: createJwtToken(newUser),
+      currentUser: newUser,
+    }
+    return {me}
+  } else {
+    return {
+      me: {
+        token,
+        currentUser,
+      }
+    }
   }
-  return {me}
+  
 }
 
 function onSubscriptionError(error) {
-  const currentUser = guestUser()
-  me = {
-    token: createJwtToken(currentUser),
-    currentUser,
-  }
+  const me = null
   return {me}
 }
 

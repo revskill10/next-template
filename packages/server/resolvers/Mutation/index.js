@@ -7,8 +7,6 @@ const {
   clearCookie,
   query,
 } = require('../utils')
-const anonymousJwt = require('../../anonymous-jwt')
-const {inspect} = require('util')
 const  {
   upsertUserQuery,
   userInfoQuery,
@@ -16,17 +14,19 @@ const  {
   assignRolesMutation,
   assignPermissionsMutation,
 } = require('./index.gql')
+const { inspect } = require('util')
 
-function onLoginData(data, context) {
+function onLoginData(data, context) {  
   let info1 = data.insert_users.returning[0].info
   const token = createJwtToken(info1)
   setCookie(context, token)
   return {
     token,
-  }
+  }  
 }
 
 function onLoginError(error, context) {
+  console.log(inspect(error))
 }
 
 async function login(parent, { id_token }, context, info) {
@@ -51,7 +51,7 @@ async function login(parent, { id_token }, context, info) {
   }, adminClients['userService'])
 }
 
-function onRefreshData(data, context) {
+function onRefreshData(data, context) {  
   const userInfo = data.user_info[0]
   token = createJwtToken(userInfo)
   setCookie(context, token)
@@ -59,13 +59,14 @@ function onRefreshData(data, context) {
 }
 
 function onRefreshError(error, context) {
-  const token = anonymousJwt();
+  const token = null
   setCookie(context, token)
   return { token }
 }
 
 async function refresh(parent, args, context, info) {
   const { currentUser, adminClients } =  context
+  
   const variables = { 
     userId: currentUser.user_id,
     roleId: process.env.USER_ROLE_ID,
@@ -83,6 +84,7 @@ async function logout(parent, { id_token }, context, info) {
   const { currentUser, adminClients } = context
   const variables = {
     userId: currentUser.user_id,
+    roleId: process.env.USER_ROLE_ID,
     active: false,
   }
   await mutate({

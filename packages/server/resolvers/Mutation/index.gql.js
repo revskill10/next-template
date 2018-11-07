@@ -72,12 +72,12 @@ const upsertUserQuery = gql`
 `
 
 const setOnlineStatusMutation = gql`
-mutation SetOnlineStatus($userId: uuid!, $active:Boolean!){
+mutation SetOnlineStatus($userId: uuid!, $active:Boolean!, $roleId: uuid!){
   insert_memberships(
     objects:[
       {
         user_id:$userId,
-        role_id: "c05634da-723c-484e-9d4c-52702e963849", 
+        role_id:$roleId, 
         active:$active
       }
     ],
