@@ -1,11 +1,12 @@
 # Change Log
 
-## [Unreleased](https://github.com/revskill10/next-template/tree/HEAD)
-
-[Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha4...HEAD)
+## [1.0.0-alpha.5](https://github.com/revskill10/next-template/tree/1.0.0-alpha.5) (2018-11-08)
+[Full Changelog](https://github.com/revskill10/next-template/compare/1.0.0-alpha4...1.0.0-alpha.5)
 
 **Implemented enhancements:**
 
+- Refactor subscriptionAuth [\#146](https://github.com/revskill10/next-template/issues/146)
+- Refactor Subscription Auth [\#145](https://github.com/revskill10/next-template/issues/145)
 - Hoc LayoutRouter [\#124](https://github.com/revskill10/next-template/issues/124)
 - Minify mui css [\#117](https://github.com/revskill10/next-template/issues/117)
 - Form with styled-component [\#116](https://github.com/revskill10/next-template/issues/116)
@@ -20,12 +21,17 @@
 
 **Fixed bugs:**
 
+- Refactor subscriptionAuth [\#146](https://github.com/revskill10/next-template/issues/146)
+- Refactor Subscription Auth [\#145](https://github.com/revskill10/next-template/issues/145)
 - Use sort before deep equal currentUser [\#119](https://github.com/revskill10/next-template/issues/119)
 - Shallow diff currentUser [\#118](https://github.com/revskill10/next-template/issues/118)
 - Reload when roles change [\#105](https://github.com/revskill10/next-template/issues/105)
 
 **Closed issues:**
 
+- Notification \(UI\) with Snackbar and redux actions [\#63](https://github.com/revskill10/next-template/issues/63)
+- PWA [\#45](https://github.com/revskill10/next-template/issues/45)
+- Sync login/logout Status between tabs/computer aka SSO [\#152](https://github.com/revskill10/next-template/issues/152)
 - Slate for customized text-editor [\#120](https://github.com/revskill10/next-template/issues/120)
 - Admin dashboard to manage user, role and permission and system settings [\#94](https://github.com/revskill10/next-template/issues/94)
 - Profile menu [\#58](https://github.com/revskill10/next-template/issues/58)
