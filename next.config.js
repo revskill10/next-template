@@ -4,11 +4,13 @@ const withMDX = require('@zeit/next-mdx')({
   extension: /\.mdx?$/
 })
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const withOptimizedImages = require('next-optimized-images');
 
 const nextConfig = {
   publicRuntimeConfig: {
     FB_APP_ID: process.env.FB_APP_ID,
     FB_PAGE_ID: process.env.FB_PAGE_ID,
+    USER_ROLE_ID: process.env.USER_ROLE_ID
   },
   pageExtensions: ['js', 'jsx', 'mdx'],
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -47,4 +49,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withMDX(withCSS(withBundleAnalyzer(nextConfig)))
+module.exports = withOptimizedImages(withMDX(withCSS(withBundleAnalyzer(nextConfig))))

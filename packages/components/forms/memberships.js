@@ -8,6 +8,10 @@ import {AssignRoles as assignRolesMutation} from 'components/forms/memberships.g
 import {AdminPageQuery} from 'pages/admin.gql'
 import { graphql } from 'react-apollo'
 import {compose} from 'recompose'
+import getConfig from 'next/config'
+
+const {publicRuntimeConfig} = getConfig()
+const {USER_ROLE_ID} = publicRuntimeConfig
 
 const formikEnhancer = withFormik({
   mapPropsToValues: props => ({
@@ -86,7 +90,9 @@ const MembershipsForm = props => {
           Roles
         </label>
         <MySelect
-          value={values.role_ids}
+          value={values.role_ids.filter(function(item) {
+            return item.value !== "c05634da-723c-484e-9d4c-52702e963849"
+          })}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
           error={errors.role_ids}

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `
 
-const withAuth = Drawer => ({ title, description, children }) => {
+const withAuth = Drawer => ({ title, description, meta, children }) => {
   return (
     <Authentication>
       <Head>
@@ -16,6 +16,7 @@ const withAuth = Drawer => ({ title, description, children }) => {
         <meta name="description" content={ description } />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Manifest />
+        {meta}
       </Head>
       <Drawer>
         <Wrapper>

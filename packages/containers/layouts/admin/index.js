@@ -18,8 +18,8 @@ import MessengerCustomerChat from 'react-messenger-customer-chat';
 import NavBar from 'containers/layouts/admin/nav-bar'
 import styles from 'containers/layouts/admin/styles'
 import i18n from 'lib/i18n';
-import getConfig from 'next/config'
 import Footer from 'containers/layouts/footer'
+import getConfig from 'next/config'
 
 const {publicRuntimeConfig} = getConfig()
 const {FB_PAGE_ID, FB_APP_ID, FB_MESSENGER} = publicRuntimeConfig
