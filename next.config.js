@@ -5,6 +5,8 @@ const withMDX = require('@zeit/next-mdx')({
 })
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const withOptimizedImages = require('next-optimized-images');
+const withSize = require('next-size')
+const withSass = require('@zeit/next-sass')
 
 const nextConfig = {
   publicRuntimeConfig: {
@@ -49,4 +51,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withOptimizedImages(withMDX(withCSS(withBundleAnalyzer(nextConfig))))
+module.exports = withSize(withOptimizedImages(withMDX(withSass(withCSS(withBundleAnalyzer(nextConfig))))))

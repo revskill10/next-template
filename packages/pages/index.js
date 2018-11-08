@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic'
 import NoSSR from 'react-no-ssr'
 
 const IndexPage = () => {
-  const Datatable = dynamic(import('components/charts/datatable'), { ssr: false })
-  const MapViewer = dynamic(import("components/maps/map-view"), { ssr: false });
+  const Datatable = dynamic(import(/* webpackChunkName: 'datatable' */ 'components/charts/datatable'), { ssr: false })
+  const MapViewer = dynamic(import(/* webpackChunkName: 'map-viewer' */ "components/maps/map-view"), { ssr: false });
   return (
     <AppLayout
       title='Home page'
