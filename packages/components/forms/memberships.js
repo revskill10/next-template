@@ -91,7 +91,9 @@ const MembershipsForm = props => {
           onBlur={setFieldTouched}
           error={errors.role_ids}
           touched={touched.role_ids}
-          options={options.roles}
+          options={options.roles.filter(function(item) {
+            return item.label !== 'user'
+          })}
           fieldName={'role_ids'}
           isMulti
         />
@@ -99,7 +101,7 @@ const MembershipsForm = props => {
      
       <Button variant="contained" color="secondary"
         onClick={handleReset}
-        disabled={!dirty || isSubmitting}>        
+        disabled={!dirty || isSubmitting}>
         Reset
       </Button>
 

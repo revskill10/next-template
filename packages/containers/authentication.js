@@ -17,9 +17,7 @@ const Auth = ({children, openAlert}) => {
       if (!currentUser.roles.includes('guest') && !localStorage.getItem('token')) {
         window.location.reload()
       }
-      if (currentUser.roles.includes('guest') && localStorage.getItem('token')) {
-        window.location.reload()
-      }
+      
     }, 4000)
 
     return () => clearInterval(interval);

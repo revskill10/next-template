@@ -6,6 +6,6 @@ import { withI18next } from 'lib/hocs/with-i18next'
 import LessonClass, { getIndexProps } from 'pages/report/lesson-class'
 
 export default compose(
-  withI18next(['common', 'report']),
+  withI18next(['report']),
   withInitialProps(getIndexProps),
 )(LessonClass)

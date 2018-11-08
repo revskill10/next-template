@@ -32,7 +32,7 @@ const useSubscriptionAuth = () => {
       const currentToken = localStorage.getItem('token')
       
       if (isAuthenticated) {
-        if (!me.currentUser.status[0].active) {
+        if (currentToken && !me.currentUser.status[0].active) {
           await logout()
           localStorage.removeItem('token')
           window.location.reload()

@@ -1,5 +1,5 @@
 import AppLayout from 'containers/layout-router'
-
+import UserTest from 'components/auth/user-info'
 const Profile = () => {
   return (
     <AppLayout
@@ -7,7 +7,7 @@ const Profile = () => {
     description='Simple things'
   >
     <>
-    Your profile
+      <UserTest />
     </>
     </AppLayout>
   )
