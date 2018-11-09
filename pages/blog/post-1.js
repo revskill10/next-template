@@ -6,6 +6,7 @@ const IndexPage = () =>
     title='Blog'
     description='Simple blog'
   >
+    
     <Post />
   </AppLayout>
 
