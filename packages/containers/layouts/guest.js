@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from 'components/link'
 import GoogleLogin from 'components/auth/google-login'
 import Footer from 'containers/layouts/footer'
-
 const styles = theme => ({
   '@global': {
     body: {
@@ -81,5 +80,4 @@ function Pricing(props) {
   );
 }
 
-
-export default withStyles(styles)(Pricing);
+export default withStyles(styles)(Pricing)

@@ -1,6 +1,6 @@
 import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import withAuth from 'containers/layouts/base'
+import withHead from 'containers/layouts/with-head'
 
 const LayoutRouter = ({router, children, ...props}) => {
   switch (router.pathname) {
@@ -25,4 +25,4 @@ const LayoutRouter = ({router, children, ...props}) => {
   }
 }
 
-export default withAuth(withRouter(LayoutRouter))
+export default withHead(withRouter(LayoutRouter))

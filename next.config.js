@@ -1,3 +1,4 @@
+process.traceDeprecation = true
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withCSS = require('@zeit/next-css')
 const withMDX = require('@zeit/next-mdx')({

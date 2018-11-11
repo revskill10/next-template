@@ -1,3 +1,5 @@
+const dotenv = require('dotenv')
+dotenv.config()
 const express = require('express');
 const path = require('path');
 const next = require('next');
@@ -64,9 +66,10 @@ i18n
         const { pathname } = parsedUrl
 
         if (pathname === '/service-worker.js') {
-          const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, '../../static', pathname) : join(__dirname, '../../static', 'service-worker.dev.js')
-
+          const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, '../../static', 'service-worker.js') : join(__dirname, '../../static', 'service-worker.dev.js')
           app.serveStatic(req, res, filePath)
+        } else if (pathname === '/favicon.ico') {
+          app.serveStatic(req, res, '../../static/favicon.ico')
         } else {
           handle(req, res, parsedUrl)
         }

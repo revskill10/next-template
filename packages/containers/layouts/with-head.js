@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `
 
-const withAuth = Drawer => ({ title, description, meta, children }) => {
+const withHead = Drawer => ({ title, description, meta, children }) => {
   return (
     <>
     <Head>
@@ -26,4 +26,4 @@ const withAuth = Drawer => ({ title, description, meta, children }) => {
   )
 }
 
-export default withAuth
+export default withHead

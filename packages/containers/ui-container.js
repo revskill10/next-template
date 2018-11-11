@@ -5,11 +5,25 @@ import {ThemeProvider} from 'styled-components';
 import {withAlerts} from 'data/selectors'
 import {Alerts} from 'mui-redux-alerts'
 import { PageTransition } from 'next-page-transitions'
+import Loader from 'components/loader'
+
+const TIMEOUT = 400
 
 const UIContainer = withAlerts((props) => {
   const {Component, pageProps, router, pageContext, alerts} = props
   return (
-    <PageTransition timeout={300} classNames="page-transition">
+    <>
+    <PageTransition
+      timeout={TIMEOUT}
+      classNames='page-transition'
+      loadingComponent={<Loader />}
+      loadingDelay={500}
+      loadingTimeout={{
+        enter: TIMEOUT,
+        exit: 0
+      }}
+      loadingClassNames='loading-indicator'
+      >
       <JssProvider
         registry={pageContext.sheetsRegistry}
         generateClassName={pageContext.generateClassName}
@@ -20,12 +34,40 @@ const UIContainer = withAlerts((props) => {
             sheetsManager={pageContext.sheetsManager}
           >
             <CssBaseline />
-            <Component key={router.route} {...pageProps} pageContext={pageContext} />  
+              <Component key={router.route} {...pageProps} pageContext={pageContext} />  
             <Alerts alerts={alerts} />
           </MuiThemeProvider>
         </ThemeProvider>
       </JssProvider>
     </PageTransition>
+    <style jsx global>{`
+      .page-transition-enter {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+      }
+      .page-transition-enter-active {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms;
+      }
+      .page-transition-exit {
+        opacity: 1;
+      }
+      .page-transition-exit-active {
+        opacity: 0;
+        transition: opacity ${TIMEOUT}ms;
+      }
+      .loading-indicator-appear,
+      .loading-indicator-enter {
+        opacity: 0;
+      }
+      .loading-indicator-appear-active,
+      .loading-indicator-enter-active {
+        opacity: 1;
+        transition: opacity ${TIMEOUT}ms;
+      }
+    `}</style>
+    </>
   )
 })
 

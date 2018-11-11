@@ -17,10 +17,10 @@ const saveSubscription = async subscription => {
   const response = await fetch(SERVER_URL, {
     method: 'post',
     headers: {
-      'Content-Type': 'application/json',
-      'token': localStorage.getItem('token'),
+      'Content-Type': 'application/json',      
     },
     body: JSON.stringify(subscription),
+    credentials: 'include',
   })
   return response.json()
 }

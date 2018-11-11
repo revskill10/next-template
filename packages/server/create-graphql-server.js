@@ -1,5 +1,3 @@
-const dotenv = require('dotenv')
-dotenv.config()
 const { GraphQLServer, PubSub } = require('graphql-yoga')
 const { mergeSchemas } = require('graphql-tools')
 const { importSchema } = require('graphql-import')
@@ -237,7 +235,6 @@ function startServer(server, port = 3000) {
   // The new /save-subscription endpoint
   server.post('/save-subscription', async function(req, res){
     const subscription = req.body
-    console.log(JSON.stringify(subscription))
     await saveToDatabase(subscription) //Method to save the subscription to Database
     res.json({ message: 'success' })
   })

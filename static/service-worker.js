@@ -18,9 +18,9 @@ const saveSubscription = async subscription => {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
-      'token': localStorage.getItem('token'),
     },
     body: JSON.stringify(subscription),
+    credentials: 'include',
   })
   return response.json()
 }
