@@ -132,7 +132,7 @@
     "styled-icons": "3.6.0",
     "subscriptions-transport-ws": "0.9.15",
     "sw-precache-webpack-plugin": "0.11.5",
-    "victory": "30.6.0",
+    "victory": "30.6.1",
     "web-push": "^3.3.3",
     "xlsx": "0.14.0",
     "yup": "0.26.6"
