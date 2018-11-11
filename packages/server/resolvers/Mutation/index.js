@@ -10,7 +10,6 @@ const {
 const  {
   upsertUserQuery,
   userInfoQuery,
-  setOnlineStatusMutation,
   assignRolesMutation,
   assignPermissionsMutation,
 } = require('./index.gql')
@@ -41,7 +40,7 @@ async function login(parent, { id_token }, context, info) {
       sub 
     } 
   } = await axios.get(googleVerifyUri(id_token))
-  const variables = { name, email, family_name, given_name, picture, googleId:sub, roleId: process.env.USER_ROLE_ID }
+  const variables = { name, email, family_name, given_name, picture, googleId:sub, active: true }
   return mutate({
     query: upsertUserQuery,
     variables,
@@ -84,11 +83,10 @@ async function logout(parent, { id_token }, context, info) {
   const { currentUser, adminClients } = context
   const variables = {
     userId: currentUser.user_id,
-    roleId: process.env.USER_ROLE_ID,
     active: false,
   }
   await mutate({
-    query: setOnlineStatusMutation,
+    query: upsertUserQuery,
     variables,
     context,
   }, adminClients['userService'])
@@ -167,23 +165,19 @@ async function assignPermissions(_, {role_id, permission_ids}, context) {
   }, adminClients['userService'])
 }
 
-const isAdmin = (root, args, context, info) => {
-  if (!context.currentUser.roles.includes('admin')) {
-    return new Error('Forbidden')
-  }
-}
 const { combineResolvers } = require('graphql-resolvers')
+const { canAssignRoles, canAssignPermissions } = require('../../policies')
 
 module.exports = {
   login,
   logout,
   refresh,
   assignRoles: combineResolvers(
-    isAdmin,
+    canAssignRoles,
     assignRoles
   ),
   assignPermissions: combineResolvers(
-    isAdmin,
+    canAssignPermissions,
     assignPermissions
   )
 }

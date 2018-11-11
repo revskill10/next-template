@@ -53,8 +53,8 @@ function subscribe({variables = {}, query, context, onData, onError }, client) {
   return pubsub.asyncIterator(channel)
 }
 
-function createJwtToken({user_id, name, roles, permissions, status}){
-  const data = {user_id, name, roles, permissions, status}
+function createJwtToken({user_id, name, roles, permissions, active}){
+  const data = {user_id, name, roles, permissions, active}
   return jwt.sign(data, process.env.JWT_SECRET);
 }
 

@@ -33,10 +33,11 @@ function onSubscriptionError(error) {
 }
 
 async function currentUser(parents, args, context, info) {
-  const { currentUser, adminClients } = context
+  const { currentUser, adminClients, pusher, pubsub, token } = context
   const variables = {
     userId: currentUser.user_id
   }
+  
   return subscribe({
     context,
     query: userInfoSubscription,
@@ -44,10 +45,12 @@ async function currentUser(parents, args, context, info) {
     onData: onSubscriptionData,
     onError: onSubscriptionError,
   }, adminClients['userService'])
+  
 }
+
 
 module.exports = {
   me: {
-    subscribe: currentUser,
-  },
+    subscribe: currentUser
+  }
 }

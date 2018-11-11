@@ -12,3 +12,11 @@ ALTER TABLE the_table ADD CONSTRAINT constraint_name UNIQUE (column1, column2);
 ```
 
 Reload metadata
+
+
+### Generate Vapid keys
+
+```js
+npm i -g web-push
+web-push generate-vapid-keys
+```

@@ -28,7 +28,7 @@ const Layout = ({classes, theme, children}) => {
   const [mobileOpen, toggle] = useState(false)
 
   const handleDrawerToggle = () => {
-    toggle(true)
+    toggle(!mobileOpen)
   };
 
   const drawer = (

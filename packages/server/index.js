@@ -5,15 +5,16 @@ const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const { parse } = require('url')
+const { join } = require('path')
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
 const config = require('../lib/i18n/config');
 const i18n = require('../lib/i18n');
 const getAllNamespaces = require('../lib/i18n/get-all-namespaces');
-const { createReadStream } = require('fs');
 
-const { localesPath, allLanguages, defaultLanguage, enableSubpaths } = config.translation;
+const { localesPath, allLanguages, defaultLanguage } = config.translation;
 
 const serverSideOptions = {
   fallbackLng: defaultLanguage,
@@ -28,15 +29,6 @@ const serverSideOptions = {
   },
 };
 
-if (enableSubpaths) {
-  serverSideOptions.detection = {
-    order: ['path', 'session', 'querystring', 'cookie', 'header'], // all
-    caches: ['cookie'], // default false
-    lookupPath: 'lng',
-    lookupFromPathIndex: 0,
-  };
-  serverSideOptions.whitelist = allLanguages;
-}
 
 // init i18next with serverside settings
 // using i18next-express-middleware
@@ -48,6 +40,8 @@ i18n
   .init(serverSideOptions, () => {
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
+
+      
       const { createServer, startServer } = require('./create-graphql-server')
       const graphqlServer = await createServer({dev})
       
@@ -55,10 +49,6 @@ i18n
       const cookieParser = require('cookie-parser');
       server.use(cookieParser())
       
-      server.get('/sw.js', function(req, res, next){
-        res.setHeader('content-type', 'text/javascript');
-        createReadStream(path.join(__dirname, '../../offline/serviceWorker.js')).pipe(res);
-      })
       // enable middleware for i18next
       server.use(i18nextMiddleware.handle(i18n));
 
@@ -69,8 +59,17 @@ i18n
       server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n));
       
       server.get('*', (req, res, next) => {
-        if (req.url === '/playground') return next();
-        return handle(req, res)
+        if (req.url === '/playground' || req.url === '/send-notification' ) return next();
+        const parsedUrl = parse(req.url, true)
+        const { pathname } = parsedUrl
+
+        if (pathname === '/service-worker.js') {
+          const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, '../../static', pathname) : join(__dirname, '../../static', 'service-worker.dev.js')
+
+          app.serveStatic(req, res, filePath)
+        } else {
+          handle(req, res, parsedUrl)
+        }
       });
 
       startServer(graphqlServer, 3000);

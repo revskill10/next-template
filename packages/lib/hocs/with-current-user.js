@@ -1,16 +1,6 @@
 import React from 'react'
 import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
-import {UserContext} from 'containers/contexts'
-import ContextComponent from 'containers/context-component'
-
-export const withCurrentUser = App => (props) =>
-  <ContextComponent
-    query={CURRENT_USER_QUERY}
-    context={UserContext}>
-    <App {...props} />  
-  </ContextComponent>
-  
 
 export default (App) => {
   return class AppWithCurrentUser extends React.Component {
@@ -39,6 +29,7 @@ export default (App) => {
       }
       return {
         ...appProps,
+        currentUser: ctx.currentUser,
       }
     }
 

@@ -1,3 +1,4 @@
+import {memo} from 'react'
 import {Query} from 'react-apollo'
 
 const ContextComponent = ({children, query, context}) => {
@@ -17,4 +18,4 @@ const ContextComponent = ({children, query, context}) => {
   )
 }
 
-export default ContextComponent
+export default memo(ContextComponent)

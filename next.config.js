@@ -7,12 +7,16 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const withOptimizedImages = require('next-optimized-images');
 const withSize = require('next-size')
 const withSass = require('@zeit/next-sass')
+const withOffline = require('next-offline')
+const offlineOptions = require('./offline.config')
 
 const nextConfig = {
+  ...offlineOptions,
   publicRuntimeConfig: {
     FB_APP_ID: process.env.FB_APP_ID,
     FB_PAGE_ID: process.env.FB_PAGE_ID,
-    USER_ROLE_ID: process.env.USER_ROLE_ID
+    USER_ROLE_ID: process.env.USER_ROLE_ID,
+    ENV: process.env.NODE_ENV,
   },
   pageExtensions: ['js', 'jsx', 'mdx'],
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -41,7 +45,7 @@ const nextConfig = {
         config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
       }
     }
-    
+
     return config
   },
   exportPathMap: function () {
@@ -51,4 +55,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withSize(withOptimizedImages(withMDX(withSass(withCSS(withBundleAnalyzer(nextConfig))))))
+module.exports = withOffline(withSize(withOptimizedImages(withMDX(withSass(withCSS(withBundleAnalyzer(nextConfig)))))))

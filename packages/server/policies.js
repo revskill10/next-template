@@ -1,30 +1,24 @@
-const { rule, shield, and, or, not } = require('graphql-shield')
-
-const isAuthenticated = rule()(async (parent, args, { currentUser }, info) => {
-  return currentUser.roles === ['guest']
-})
-
-const isAdmin = rule()(async (parent, args, { currentUser }, info) => {
+const isAdmin = (currentUser) => {
   return currentUser.roles.includes('admin')
-})
+}
+const canSubscribeMe = (root, args, {currentUser}, info) => {
+  if (!isAdmin(currentUser)) {
+    return new Error('Forbidden')
+  }
+}
+const canAssignRoles = (root, args, {currentUser}, info) => {
+  if (!isAdmin(currentUser)) {
+    return new Error('Forbidden')
+  }
+}
+const canAssignPermissions = (root, args, {currentUser}, info) => {
+  if (!isAdmin(currentUser)) {
+    return new Error('Forbidden')
+  }
+}
 
-const isStaff = rule()(async (parent, args, { currentUser }, info) => {
-  return currentUser.roles.includes('staff')
-})
-
-// Permissions
-
-const permissions = shield({
-  Query: {
-    frontPage: not(isAuthenticated),
-    fruits: and(isAuthenticated, or(isAdmin, isEditor)),
-    customers: and(isAuthenticated, isAdmin),
-  },
-  Mutation: {
-    addFruitToBasket: isAuthenticated,
-  },
-  Fruit: isAuthenticated,
-  Customer: isAdmin,
-})
-
-module.exports = permissions
+module.exports = {
+  canSubscribeMe,
+  canAssignRoles,
+  canAssignPermissions,
+}

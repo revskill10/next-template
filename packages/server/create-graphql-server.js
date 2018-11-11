@@ -1,18 +1,16 @@
 const dotenv = require('dotenv')
 dotenv.config()
 const { GraphQLServer, PubSub } = require('graphql-yoga')
-const { mergeSchemas,transformSchema,
-  RenameTypes,
-  RenameRootFields } = require('graphql-tools')
+const { mergeSchemas } = require('graphql-tools')
 const { importSchema } = require('graphql-import')
 const getCurrentUser = require('./get-current-user')
 const { rule, shield, and, or, not } = require('graphql-shield')
 const { applyMiddleware } = require('graphql-middleware')
 const { soapGraphqlSchema } = require('soap-graphql')
+const bodyParser = require('body-parser')
 
 const { 
   getApolloClient,
-  makeConnectionParams,
   createWsClient,
   createAdminContext,
   createAdminLink
@@ -23,15 +21,6 @@ const {
   makeRemoteExecutableSchema,
 } = require('graphql-tools')
 
-function renameSchema(remoteExecSchema, prefix) {
-  return transformSchema(
-    remoteExecSchema,
-    [
-      new RenameTypes((type) => `${prefix}_${type}`),
-      new RenameRootFields((operation, name) => `${prefix}_${name}`)
-    ]
-  );
-} 
 
 const canViewReport = rule()(async function(parent, args, ctx, info) {
   return ctx.currentUser.roles.includes('staff')
@@ -39,6 +28,10 @@ const canViewReport = rule()(async function(parent, args, ctx, info) {
 
 const canAssignRoles = rule()(async function(parent, args, ctx, info) {
   return ctx.currentUser.roles.includes('admin')
+})
+
+const isAuthenticated = rule()(async function(parent, args, ctx, info) {
+  return !ctx.currentUser.roles.includes('guest')
 })
 
 const urlMap = {
@@ -74,6 +67,11 @@ const urlMap = {
       Mutation: {
         assignRoles: canAssignRoles,
       },
+      Subscription: {
+        me: { subscribe: {
+          currentUser: isAuthenticated
+        } }
+      }
     })
   }
 }
@@ -210,8 +208,51 @@ async function onDisconnect(websocket, context) {
     }
   }
 }
+const webpush = require('web-push')
+const dummyDb = { subscription: null } //dummy in memory store
+async function saveToDatabase(subscription) {
+  // Since this is a demo app, I am going to save this in a dummy in memory store. Do not do this in your apps.
+  // Here you should be writing your db logic to save it.
+  dummyDb.subscription = subscription
+}
 
+const vapidKeys = {
+  publicKey: process.env.WEB_PUSH_PUBLIC_KEY,
+  privateKey: process.env.WEB_PUSH_PRIVATE_KEY,
+}
+//setting our previously generated VAPID keys
+webpush.setVapidDetails(
+  'mailto:myuserid@email.com',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
+)
+
+//function to send the notification to the subscribed device
+const sendNotification = (subscription, dataToSend) => {
+  webpush.sendNotification(subscription, dataToSend)
+}
 function startServer(server, port = 3000) {
+  server.use(bodyParser.json())
+
+  // The new /save-subscription endpoint
+  server.post('/save-subscription', async function(req, res){
+    const subscription = req.body
+    console.log(JSON.stringify(subscription))
+    await saveToDatabase(subscription) //Method to save the subscription to Database
+    res.json({ message: 'success' })
+  })
+  
+  server.get('/send-notification', function(req, res) {
+    const subscription = dummyDb.subscription //get subscription from your databse here.
+    if (subscription) {
+      const message = 'Hello World'
+      sendNotification(subscription, message)
+      res.json({ message: 'message sent' })
+    } else {
+      res.json( {error: 'nothing'})
+    }
+  })
+
   server.start({
     port: process.env.PORT || port,
     endpoint: '/graphql',
@@ -221,7 +262,12 @@ function startServer(server, port = 3000) {
       onConnect,
       onDisconnect,
     }
-  }, (options) => console.log(`Server is running on http://localhost:${port}`))
+  }, (options) => {
+    console.log(`Server is running on http://localhost:${port}`)
+    const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
+    maxListenersExceededWarning();
+    }
+  )
 }
 /*
 const server = await createServer();

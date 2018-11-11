@@ -11,40 +11,20 @@ const userInfoQuery = gql`
       name
       roles
       permissions
-      status:memberships(
-        where:{
-          role_id:{_eq:$roleId}
-        }
-      )
-      {
-        active
-      }
+      active
     }
   }
 `
 
 const upsertUserQuery = gql`
-  mutation upsert_user($name:String!, $email:String!, $family_name:String,$given_name:String,$picture:String,$googleId:String!,$roleId:uuid!) {
+  mutation upsert_user($name:String!, $email:String!, $family_name:String,$given_name:String,$picture:String,$googleId:String!,$active:Boolean!) {
     insert_users(
       objects: [
-        {name: $name, email:$email, familyName:$family_name, givenName:$given_name,imageUrl:$picture,googleId:$googleId,
-        membershipssByuserId:{
-          data:[
-            {
-              role_id: $roleId, 
-              active:true
-      			}
-          ],
-            on_conflict:{
-              constraint:user_role_idx,
-              update_columns:active
-            }
-          }
-        }
+        {name: $name, email:$email, familyName:$family_name, givenName:$given_name,imageUrl:$picture,googleId:$googleId,active:$active}        
       ],
       on_conflict: {
         constraint: users_email_key,
-        update_columns: [name, familyName, givenName, imageUrl]
+        update_columns: [name, familyName, givenName, imageUrl,active]
       }
     ) {
       affected_rows
@@ -57,40 +37,11 @@ const upsertUserQuery = gql`
           roles
           permissions
           user_id
-          status:memberships(
-            where:{
-              role_id:{_eq:$roleId}
-            }
-          )
-          {
-            active
-          }
+          active
         }
       }
     }
   }
-`
-
-const setOnlineStatusMutation = gql`
-mutation SetOnlineStatus($userId: uuid!, $active:Boolean!, $roleId: uuid!){
-  insert_memberships(
-    objects:[
-      {
-        user_id:$userId,
-        role_id:$roleId, 
-        active:$active
-      }
-    ],
-    on_conflict:{
-      constraint:user_role_idx,
-      update_columns:active
-    }
-  ){
-    returning{
-      id
-    }
-  }
-}
 `
 
 const assignRolesMutation = gql`
@@ -145,7 +96,6 @@ mutation UpsertRolePermissions($role_id:uuid!, $permission_ids:[Int!]!,$input:[r
 
 module.exports = {
   upsertUserQuery,
-  setOnlineStatusMutation,
   userInfoQuery,
   assignRolesMutation,
   assignPermissionsMutation,

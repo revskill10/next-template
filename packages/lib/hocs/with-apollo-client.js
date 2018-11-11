@@ -1,6 +1,7 @@
 import React from 'react'
 import initApollo from 'lib/utils/init-apollo'
 import { getToken } from 'lib/utils/get-token'
+import Pusher from 'pusher-js';
 
 export default (App) =>
   class extends React.Component {
@@ -34,6 +35,7 @@ export default (App) =>
         getToken: () => getToken(),
         store: props.reduxStore,
       })
+      
     }
 
     render () {

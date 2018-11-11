@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import NoSSR from 'react-no-ssr'
 
 const Profile = () => {
-  const UserTest = dynamic(import(/* webpackChunkName: 'user-info-card' */ 'components/blocks/user-info-card'), { ssr: false })
+  const UserTest = dynamic(import(/* webpackChunkName: 'user-info-card' */ 'components/auth/user-info'), { ssr: false })
   return (
     <AppLayout
     title={'Profile'}

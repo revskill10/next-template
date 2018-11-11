@@ -91,7 +91,7 @@ const MembershipsForm = props => {
         </label>
         <MySelect
           value={values.role_ids.filter(function(item) {
-            return item.value !== "c05634da-723c-484e-9d4c-52702e963849"
+            return (item.value !== "c05634da-723c-484e-9d4c-52702e963849") && (item.value !== "61d6e7f4-19a2-4924-ace3-84ec7888e784")
           })}
           onChange={setFieldValue}
           onBlur={setFieldTouched}

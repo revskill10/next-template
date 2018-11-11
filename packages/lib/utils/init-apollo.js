@@ -10,7 +10,7 @@ import { createUploadLink } from 'apollo-upload-client'
 import { getMainDefinition } from 'apollo-utilities'
 
 import { createSubscriptionClient } from 'lib/utils/create-subscription-client'
-
+import {openSnackbar } from 'mui-redux-alerts';
 const isFile = value => (
   (typeof File !== 'undefined' && value instanceof File) ||
   (typeof Blob !== 'undefined' && value instanceof Blob)
@@ -57,11 +57,13 @@ function create (initialState, { getToken, store }) {
   const errorLink = onError(
     ({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        graphQLErrors.map(err =>
-          console.log(`[GraphQL error]: Message: ${err.message}`)
-        )
+        graphQLErrors.map(err => {
+          store.dispatch(openSnackbar({message: err.message, autoHideDuration: 3000}))
+        })
       }
-      if (networkError) console.log(`[Network error]: ${networkError}`)
+      if (networkError) {
+        store.dispatch(openSnackbar({message: networkError, autoHideDuration: 3000}))
+      }
     }
   )
 
