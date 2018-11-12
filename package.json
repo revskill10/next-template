@@ -128,7 +128,7 @@
     "slate-react": "0.21.5",
     "soap": "0.25.0",
     "soap-graphql": "0.1.0",
-    "styled-components": "4.0.3",
+    "styled-components": "4.1.1",
     "styled-icons": "3.6.0",
     "subscriptions-transport-ws": "0.9.15",
     "sw-precache-webpack-plugin": "0.11.5",
