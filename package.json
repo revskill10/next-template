@@ -125,7 +125,7 @@
     "reuse": "1.2.3",
     "rippl": "1.1.0",
     "slate": "0.43.7",
-    "slate-react": "0.21.5",
+    "slate-react": "0.21.12",
     "soap": "0.25.0",
     "soap-graphql": "0.1.0",
     "styled-components": "4.0.3",
