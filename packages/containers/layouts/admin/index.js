@@ -20,11 +20,12 @@ import styles from 'containers/layouts/admin/styles'
 import i18n from 'lib/i18n';
 import Footer from 'containers/layouts/footer'
 import getConfig from 'next/config'
-const {publicRuntimeConfig} = getConfig()
-const {FB_PAGE_ID, FB_APP_ID, FB_MESSENGER} = publicRuntimeConfig
+
 
 const Layout = ({classes, theme, children}) => {
   const [mobileOpen, toggle] = useState(false)
+  const {publicRuntimeConfig} = getConfig()
+  const {FB_PAGE_ID, FB_APP_ID, FB_MESSENGER} = publicRuntimeConfig
 
   const handleDrawerToggle = () => {
     toggle(!mobileOpen)

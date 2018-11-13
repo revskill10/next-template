@@ -1,8 +1,8 @@
 import { Head, Main, NextScript } from 'next/document'
 
-const Document = ({styleTags, pageContext}) => {  
+const Document = ({styleTags, pageContext, lng}) => {  
   return (
-    <html lang="en" dir="ltr">
+    <html lang={lng} dir="ltr">
     <Head>
       <meta charSet="utf-8" />
       {/* Use minimum-scale=1 to enable GPU rasterization */}

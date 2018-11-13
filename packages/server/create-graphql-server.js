@@ -60,6 +60,13 @@ const urlMap = {
     prefix: null,
     permissions: null
   },
+  'cmsService': {
+    uri: process.env.CMS_GRAPHQL_URL,
+    subUri: process.env.CMS_GRAPHQL_URL,
+    headers: {
+      'Authorization': `Bearer ${process.env.CMS_GRAPHQL_TOKEN}`
+    }
+  },
   'localService': {
     permissions: shield({
       Mutation: {
@@ -77,11 +84,13 @@ const urlMap = {
 function makeAdminClients(urlMap) {
   const adminReportingContext = createAdminContext('reportingService', {urlMap})
   const adminUserContext = createAdminContext('userService', {urlMap})
+  const graphCmsContext = createAdminContext('cmsService', {urlMap})
   
   
   const subscriptionClients = {
     reportingService: createWsClient('reportingService', adminReportingContext),
     userService: createWsClient('userService', adminUserContext),
+    cmsService: createWsClient('cmsService', graphCmsContext),
   }  
 
   const adminLinks = {
@@ -92,12 +101,16 @@ function makeAdminClients(urlMap) {
     userService: createAdminLink('userService', {
       ...adminUserContext,
       subscriptionClients,
+    }),
+    cmsService: createAdminLink('cmsService', {
+      ...graphCmsContext,
     })
   }
 
   const adminClients = {
     reportingService: getApolloClient(adminLinks.reportingService),
     userService: getApolloClient(adminLinks.userService),
+    cmsService: getApolloClient(adminLinks.cmsService),
   }
   return {adminLinks, adminClients}
 }
@@ -123,6 +136,10 @@ async function makeSchema(adminLinks) {
     userSchema = applyMiddleware(reportingSchema, urlMap['userService'].permissions)
   }
   const eduSchema = await soapGraphqlSchema(process.env.EDU_URL)
+  let cmsSchema = await getRemoteSchema(adminLinks['cmsService'])
+  if (urlMap['cmsService'].permissions) {
+    cmsSchema = applyMiddleware(graphSchema, urlMap['cmsService'].permissions)
+  }
   
   let localSchema = importSchema(__dirname + '/typedefs/schema.graphql')
   const resolvers = require('./resolvers')
@@ -131,6 +148,7 @@ async function makeSchema(adminLinks) {
       userSchema, 
       reportingSchema,
       eduSchema,
+      cmsSchema,
       localSchema,
     ],
     resolvers

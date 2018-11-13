@@ -18,6 +18,7 @@ const nextConfig = {
     FB_PAGE_ID: process.env.FB_PAGE_ID,
     USER_ROLE_ID: process.env.USER_ROLE_ID,
     ENV: process.env.NODE_ENV,
+    FILESTACK_KEY: process.env.FILESTACK_KEY,
   },
   pageExtensions: ['js', 'jsx', 'mdx'],
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -40,6 +41,18 @@ const nextConfig = {
       test: /\.(raw)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       use: 'raw-loader',
     });
+    config.module.rules.push({
+      test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/i,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          publicPath: './',
+          outputPath: 'static/css/',
+          name: '[name].[ext]'
+        }
+      }
+    })
    
     if (config.mode === 'production') {
       if (Array.isArray(config.optimization.minimizer)) {

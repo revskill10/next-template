@@ -69,7 +69,8 @@ i18n
           const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, '../../static', 'service-worker.js') : join(__dirname, '../../static', 'service-worker.dev.js')
           app.serveStatic(req, res, filePath)
         } else if (pathname === '/favicon.ico') {
-          app.serveStatic(req, res, '../../static/favicon.ico')
+          const filePath = join(__dirname, '../../static', 'favicon.ico')
+          app.serveStatic(req, res, filePath)
         } else {
           handle(req, res, parsedUrl)
         }

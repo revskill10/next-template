@@ -20,3 +20,19 @@ Reload metadata
 npm i -g web-push
 web-push generate-vapid-keys
 ```
+
+### Filestack api key
+
+```
+{
+  viewer {
+    project(id:"1809351104c047e5be6a8e3fcc9931d2") {
+        stage(name:"master") {
+        assetConfig {
+          apiKey
+        }
+      }
+    }
+  }
+}
+```
