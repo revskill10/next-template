@@ -1,12 +1,14 @@
 import 'semantic-ui-css/semantic.min.css'
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { Input, Menu, Divider, Image, Container } from 'semantic-ui-react'
 import gql from 'graphql-tag'
-import ReactFilestack from 'filestack-react'
+import ReactFilestack, {client} from 'filestack-react'
 import withInitialProps from 'lib/hocs/with-initial-props'
 import getConfig from 'next/config'
 import withGraphql from 'lib/hocs/with-graphql'
+import { Editor } from '@tinymce/tinymce-react';
 import {compose} from 'recompose'
+import NoSSR from 'react-no-ssr'
 
 const dataQuery = gql`
   query posts($first: Int!, $skip: Int!) {
@@ -102,9 +104,56 @@ const FileUpload = ({onUploadSuccess}) => {
   )
 }
 
+const WysiwygEditor = ({onContentChange}) => {
+  const {publicRuntimeConfig} = getConfig()
+  const {FILESTACK_KEY} = publicRuntimeConfig
+  const options = {
+    fromSources: ['webcam',  'video'],
+    maxSize: 1024 * 1024,
+    maxFiles: 1,
+  }
+  const filestack = client.init(FILESTACK_KEY, options);
+
+  const handleEditorChange = (e) => {
+    const content = e.target.getContent()
+    console.log('Content was updated:', content);
+    onContentChange(content)
+  }
+
+  return (
+    <NoSSR>
+      <Editor
+        initialValue="<p>This is the initial content of the editor</p>"
+        init={{
+          plugins: 'link image code imagetools table media',
+          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+          file_browser_callback: function( field_name, url, type, win ) {
+            filestack.picker({
+              ...options,
+              onFileUploadFinished : function(fileObj ) {
+                window.document.getElementById(field_name).value = fileObj.url;
+              }
+            }).open();
+          }
+        }}
+        onChange={handleEditorChange}
+      />
+      <style jsx global>{`
+        .mce-notification-inner {display:none!important;}
+        button.mce-close {display:none!important;}
+        .mce-notification {display:none!important;}
+      `}</style>
+    </NoSSR>
+  )
+}
+
 const Attendance = () => {
   const onUploadSuccess = (url) => {
     alert(url)
+  }
+
+  const onContentChange = (content) => {
+    console.log(content)
   }
  
   return (
@@ -112,6 +161,7 @@ const Attendance = () => {
       <Header />
       <Divider />
       <FileUpload onUploadSuccess={onUploadSuccess} />
+      <WysiwygEditor onContentChange={onContentChange}/>      
     </Container>
   )
 }

@@ -1,16 +1,17 @@
 import React from 'react'
 import initApollo from 'lib/utils/init-apollo'
 import { getToken } from 'lib/utils/get-token'
-import Pusher from 'pusher-js';
+import { getDataFromTree } from 'react-apollo'
 
 export default (App) =>
   class extends React.Component {
     static displayName = 'withApollo(App)'
     static async getInitialProps (ctx) {
-      const { reduxStore } = ctx.ctx
+      const { router, Component } = ctx
+      const { reduxStore, req } = ctx.ctx
 
       const apollo = initApollo({}, {
-        getToken: () => getToken(ctx.ctx.req),
+        getToken: () => getToken(req),
         store: reduxStore
       })
 
