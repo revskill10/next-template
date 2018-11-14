@@ -148,7 +148,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.1.6",
-    "@babel/plugin-proposal-decorators": "7.1.2",
+    "@babel/plugin-proposal-decorators": "7.1.6",
     "@babel/runtime": "7.1.5",
     "babel-jest": "23.6.0",
     "babel-plugin-graphql-tag": "1.6.0",
