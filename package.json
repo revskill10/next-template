@@ -107,7 +107,7 @@
     "raw-loader": "0.5.1",
     "react": "16.7.0-alpha.2",
     "react-apollo": "2.3.0",
-    "react-beautiful-dnd": "10.0.0",
+    "react-beautiful-dnd": "10.0.1",
     "react-cache": "2.0.0-alpha.1",
     "react-dom": "16.7.0-alpha.2",
     "react-event-timeline": "1.5.4",
