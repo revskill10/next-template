@@ -106,7 +106,7 @@
     "pusher-js": "4.3.1",
     "raw-loader": "0.5.1",
     "react": "16.7.0-alpha.2",
-    "react-apollo": "2.3.0",
+    "react-apollo": "2.3.1",
     "react-beautiful-dnd": "10.0.0",
     "react-cache": "2.0.0-alpha.1",
     "react-dom": "16.7.0-alpha.2",
