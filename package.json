@@ -92,7 +92,7 @@
     "max-listeners-exceeded-warning": "0.0.1",
     "merge-graphql-schemas": "1.5.7",
     "next": "7.0.2",
-    "next-nprogress": "1.3.0",
+    "next-nprogress": "1.4.0",
     "next-offline": "3.0.10",
     "next-optimized-images": "1.4.1",
     "next-page-transitions": "1.0.0-canary.1",
