@@ -1,7 +1,0 @@
-#import "../../fragments/current-user.gql"
-
-query CURRENT_USER_QUERY {
-  currentUser {
-    ...CurrentUser
-  }
-}

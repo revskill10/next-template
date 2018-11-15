@@ -32,7 +32,7 @@ function onSubscriptionError(error) {
   return {me}
 }
 
-async function currentUser(parents, args, context, info) {
+async function me(parents, args, context, info) {
   const { currentUser, adminClients, pusher, pubsub, token } = context
   const variables = {
     userId: currentUser.user_id
@@ -51,6 +51,6 @@ async function currentUser(parents, args, context, info) {
 
 module.exports = {
   me: {
-    subscribe: currentUser
+    subscribe: me
   }
 }

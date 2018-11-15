@@ -4,18 +4,21 @@ import {Subscription} from 'react-apollo';
 
 const Error = ({error}) => <div>{error}</div>
 
-function CacheComponent({cache, subscription, children, onSubscriptionData}) {
+function CacheComponent({cache, subscription, children, onSubscriptionData, context, toCache}) {
+  const Provider = context.Provider
   if (process.browser) {
     return (
       <Subscription subscription={subscription} ssr={false} fetchPolicy={'cache-first'} onSubscriptionData={onSubscriptionData}>
         {({ loading, error, data }) => {
-          if (loading) { return children(cache) }
+          if (loading) { return <Provider value={cache}>{children}</Provider> }
           if (error) return <Error {...error} />
-          if (data) { return children(data) }
+          if (data) { 
+            return <Provider value={toCache(data)}>{children}</Provider> 
+          }
         }}
       </Subscription>
     )
-  } else { return children(cache) }
+  } else { return <Provider value={cache}>{children}</Provider> }
 }
 
 export default CacheComponent;

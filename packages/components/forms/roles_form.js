@@ -21,6 +21,7 @@ const formikEnhancer = withFormik({
     };
     
     setTimeout(async () => {
+      setSubmitting(false);
       const res = await props.assignPermissionsMutation({variables})
       try {
         if (res.data) {
@@ -29,10 +30,11 @@ const formikEnhancer = withFormik({
       } catch (e) {
       }
       
-      setSubmitting(false);
+      
     }, 1000);
+    
   },
-  displayName: 'MyForm',
+  displayName: 'roles_form',
 });
 
 const RolesForm = props => {

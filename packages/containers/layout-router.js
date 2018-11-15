@@ -8,7 +8,8 @@ const LayoutRouter = ({router, children, ...props}) => {
     case '/profile':
     case '/report':
     case '/report/lesson_class':
-      const AdminLayout = dynamic(import('containers/layouts/admin'))
+      //const AdminLayout = dynamic(import('containers/layouts/admin'))
+      const AdminLayout = require('containers/layouts/admin').default
       return (
         <AdminLayout {...props}>
           {children}

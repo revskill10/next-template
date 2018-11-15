@@ -11,7 +11,6 @@ import {compose} from 'recompose'
 import getConfig from 'next/config'
 
 const {publicRuntimeConfig} = getConfig()
-const {USER_ROLE_ID} = publicRuntimeConfig
 
 const formikEnhancer = withFormik({
   mapPropsToValues: props => ({
@@ -23,20 +22,19 @@ const formikEnhancer = withFormik({
       userId: values.user_id.value,
       roleIds: values.role_ids.map(t => t.value),
     };
-    
     setTimeout(async () => {
+      setSubmitting(false);
       const res = await props.assignRolesMutation({variables})
       try {
         if (res.data) {
           await props.adminPageQuery.refetch()
         }
       } catch (e) {
+        console.log(e)
       }
-      
-      setSubmitting(false);
     }, 1000);
   },
-  displayName: 'MyForm',
+  displayName: 'memberships_form',
 });
 
 const MembershipsForm = props => {
@@ -91,14 +89,14 @@ const MembershipsForm = props => {
         </label>
         <MySelect
           value={values.role_ids.filter(function(item) {
-            return (item.value !== "c05634da-723c-484e-9d4c-52702e963849") && (item.value !== "61d6e7f4-19a2-4924-ace3-84ec7888e784")
+            return (!["c05634da-723c-484e-9d4c-52702e963849","61d6e7f4-19a2-4924-ace3-84ec7888e784"].includes(item.value))
           })}
           onChange={setFieldValue}
           onBlur={setFieldTouched}
           error={errors.role_ids}
           touched={touched.role_ids}
           options={options.roles.filter(function(item) {
-            return item.label !== 'user'
+            return item.label !== 'user' && item.label !== 'guest'
           })}
           fieldName={'role_ids'}
           isMulti

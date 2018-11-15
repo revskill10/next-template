@@ -1,9 +1,5 @@
 scalar Upload
 
-type AuthPayload {
-  token: String
-}
-
 type UserInfoPayload {
   user_id: String
   name: String
@@ -12,9 +8,9 @@ type UserInfoPayload {
   active: Boolean
 }
 
-type SubscriptionAuthPayload {
-  token: String
+type AuthPayload {
   currentUser: UserInfoPayload
+  token: String
 }
 
 type Mutation {
@@ -26,9 +22,9 @@ type Mutation {
 }
 
 type Subscription {
-  me: SubscriptionAuthPayload
+  me: AuthPayload
 }
 
 type Query {
-  currentUser: UserInfoPayload
+  me: AuthPayload
 }

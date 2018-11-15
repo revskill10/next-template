@@ -13,11 +13,13 @@ const useGoogleAuth = (token) => {
   }
 
   const logout = async (logoutMutation) => {  
-    const { data } = await logoutMutation()
-    if (data.logout) {
+    try {
+      await logoutMutation()
       localStorage.removeItem(token)
+      window.location.reload()
+    } catch (e) {
+      console.log(e)
     }
-    window.location.reload()
   }
 
   return {

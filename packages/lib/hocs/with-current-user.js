@@ -1,5 +1,5 @@
 import React from 'react'
-import {CURRENT_USER_QUERY} from 'lib/hocs/with-current-user.gql'
+import {CURRENT_USER_QUERY as query} from 'containers/authentication.gql'
 import {LOGOUT} from 'components/auth/google-login.gql'
 
 export default (App) => {
@@ -11,8 +11,9 @@ export default (App) => {
       // Get or Create the store with `undefined` as initialState
       // This allows you to set a custom default initialState
       try {
-        const { data } = await apolloClient.query({query: CURRENT_USER_QUERY})        
-        ctx.currentUser = data.currentUser
+        const { data } = await apolloClient.query({query})        
+        ctx.currentUser = data.me.currentUser
+        ctx.token = data.me.token
       } catch (err) {
         if (!ctx.req) {
           const { data } = await apolloClient.mutate({mutation: LOGOUT})
@@ -30,7 +31,13 @@ export default (App) => {
       return {
         ...appProps,
         currentUser: ctx.currentUser,
+        token: ctx.token
       }
+    }
+
+    componentDidMount() {
+      const { token } = this.props
+      localStorage.setItem('token', token)
     }
 
     render () {

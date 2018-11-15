@@ -11,6 +11,7 @@ import { getMainDefinition } from 'apollo-utilities'
 
 import { createSubscriptionClient } from 'lib/utils/create-subscription-client'
 import {openSnackbar } from 'mui-redux-alerts';
+import {inspect} from 'util'
 const isFile = value => (
   (typeof File !== 'undefined' && value instanceof File) ||
   (typeof Blob !== 'undefined' && value instanceof Blob)

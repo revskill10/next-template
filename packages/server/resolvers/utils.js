@@ -33,7 +33,8 @@ function subscribe({variables = {}, query, context, onData, onError }, client) {
     pubsub,
     currentUser,
   } = context
-  const channel = currentUser.user_id
+  //const now = new Date().toISOString()
+  const channel = currentUser.user_id //`${currentUser.user_id}-${now}`
   try {
     client.subscribe({
       query,

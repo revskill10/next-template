@@ -64,19 +64,12 @@ function onRefreshError(error, context) {
 }
 
 async function refresh(parent, args, context, info) {
-  const { currentUser, adminClients } =  context
+  const { token } =  context
   
-  const variables = { 
-    userId: currentUser.user_id,
-    roleId: process.env.USER_ROLE_ID,
+  setCookie(context, token)
+  return {
+    token
   }
-  return query({
-    query: userInfoQuery,
-    variables,
-    context,
-    onData: onRefreshData,
-    onError: onRefreshError,
-  }, adminClients['userService'])
 }
 
 async function logout(parent, { id_token }, context, info) {
