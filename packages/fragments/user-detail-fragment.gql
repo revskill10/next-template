@@ -1,0 +1,14 @@
+fragment userDetailFragment on users {
+  name
+  email
+  familyName
+  givenName
+  imageUrl
+  memberships:membershipssByuserId{
+    active
+    roles:rolesByroleId{
+      id
+      name
+    }
+  }
+}

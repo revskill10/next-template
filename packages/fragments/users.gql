@@ -1,0 +1,11 @@
+#import "./user-detail-fragment.gql"
+
+fragment usersFragment on v_user_info_3 {
+  value:user_id
+    label:name
+    permissions
+    roles
+    detail{
+      ...userDetailFragment
+    }
+}

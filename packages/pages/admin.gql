@@ -1,46 +1,13 @@
-fragment userDetailFragment on users {
-  name
-  email
-  familyName
-  givenName
-  imageUrl
-  memberships:membershipssByuserId{
-    active
-    roles:rolesByroleId{
-      id
-      name
-    }
-  }
-}
+#import "../fragments/user-detail-fragment.gql"
+#import "../fragments/users.gql"
+#import "../fragments/roles.gql"
+
 query AdminPageQuery {
   users:v_user_info_3(where:{_not:{detail:{name:{_eq:"Guest"}}}}){
-    value:user_id
-    label:name
-    permissions
-    roles
-    detail{
-      ...userDetailFragment
-    }
+    ...usersFragment
   }
   roles:v_role_info{
-    value:role_id
-    label:role_name
-    permissions
-    permission_ids
-    memberships:memberships_r_aggregate{
-      aggregate{
-        count
-      }
-      nodes{
-        id
-        active
-        user_info{
-          detail{
-            ...userDetailFragment
-          }
-        }
-      }
-    }
+    ...rolesFragment
   }
   permissions{
     value:id

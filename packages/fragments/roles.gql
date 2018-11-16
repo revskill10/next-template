@@ -1,0 +1,11 @@
+#import "./memberships.gql"
+
+fragment rolesFragment on v_role_info {
+  value:role_id
+  label:role_name
+  permissions
+  permission_ids
+  memberships:memberships_r_aggregate{
+    ...membershipsFragment
+  }
+}

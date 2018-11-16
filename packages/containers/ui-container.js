@@ -2,15 +2,13 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
 import {ThemeProvider} from 'styled-components';
-import {withAlerts} from 'data/selectors'
-import {Alerts} from 'mui-redux-alerts'
 import { PageTransition } from 'next-page-transitions'
 import Loader from 'components/loader'
 
 const TIMEOUT = 400
 
-const UIContainer = withAlerts((props) => {
-  const {Component, pageProps, router, pageContext, alerts} = props
+const UIContainer = (props) => {
+  const {Component, pageProps, router, pageContext} = props
   return (
     <>
     <PageTransition
@@ -34,8 +32,7 @@ const UIContainer = withAlerts((props) => {
             sheetsManager={pageContext.sheetsManager}
           >
             <CssBaseline />
-              <Component key={router.route} {...pageProps} pageContext={pageContext} />  
-            <Alerts alerts={alerts} />
+              <Component key={router.route} {...pageProps} pageContext={pageContext} />              
           </MuiThemeProvider>
         </ThemeProvider>
       </JssProvider>
@@ -69,6 +66,6 @@ const UIContainer = withAlerts((props) => {
     `}</style>
     </>
   )
-})
+}
 
 export default UIContainer

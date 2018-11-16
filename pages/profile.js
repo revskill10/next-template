@@ -1,6 +1,6 @@
 import AppLayout from 'containers/layout-router'
 import dynamic from 'next/dynamic'
-import NoSSR from 'react-no-ssr'
+import Grid from 'pages/profile.grid'
 
 const Profile = () => {
   const UserTest = dynamic(import(/* webpackChunkName: 'user-info-card' */ 'components/auth/user-info'), { ssr: false })
@@ -11,11 +11,10 @@ const Profile = () => {
       description='Simple things'
       meta={<meta property="og:title" content="FB post title" class={''} />}
     >
-      
-      <NoSSR>
-        
-        <UserTest />
-      </NoSSR>
+      <Grid 
+        left={<div>Left</div>}
+        middle={<UserTest />}
+        right={<div>Right</div>} />
     </AppLayout>
   )
 }

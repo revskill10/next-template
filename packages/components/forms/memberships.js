@@ -50,11 +50,11 @@ const MembershipsForm = props => {
     isSubmitting,    
   } = props;
 
-  const options = useContext(MembershipsContext)
+  const {roles, users} = useContext(MembershipsContext)
 
 
   const onChange = (e, value) => {
-    const tmpRoles = options.roles.filter(function(item) {
+    const tmpRoles = roles.filter(function(item) {
       return value.roles.includes(item.label)
     })
     values.role_ids = tmpRoles
@@ -78,7 +78,7 @@ const MembershipsForm = props => {
         onBlur={setFieldTouched}
         error={errors.user_id}
         touched={touched.user_id}
-        options={options.users}
+        options={users}
         fieldName={'user_id'}
       />
       
@@ -95,7 +95,7 @@ const MembershipsForm = props => {
           onBlur={setFieldTouched}
           error={errors.role_ids}
           touched={touched.role_ids}
-          options={options.roles.filter(function(item) {
+          options={roles.filter(function(item) {
             return item.label !== 'user' && item.label !== 'guest'
           })}
           fieldName={'role_ids'}
