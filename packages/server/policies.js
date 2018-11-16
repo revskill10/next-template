@@ -1,24 +1,43 @@
+const {allow, VIEW_QLGD_REPORT} = require('../lib/policies')
+
 const isAdmin = (currentUser) => {
   return currentUser.roles.includes('admin')
 }
-const canSubscribeMe = (root, args, {currentUser}, info) => {
+const canSubscribeMe = async (root, args, {currentUser}, info) => {
   if (!isAdmin(currentUser)) {
     return new Error('Forbidden')
   }
 }
-const canAssignRoles = (root, args, {currentUser}, info) => {
+const canAssignRoles = async (root, args, {currentUser}, info) => {
   if (!isAdmin(currentUser)) {
     return new Error('Forbidden')
   }
 }
-const canAssignPermissions = (root, args, {currentUser}, info) => {
+const canAssignPermissions = async(root, args, {currentUser}, info) => {
   if (!isAdmin(currentUser)) {
     return new Error('Forbidden')
   }
+}
+
+const canRefreshCookies = async (root, args, {currentUser}, info) => {
+  if (!currentUser) {
+    return new Error('Forbidden')
+  }
+}
+
+const canViewReport = async function(parent, args, {currentUser}, info) {
+  return allow(currentUser, VIEW_QLGD_REPORT)
+}
+
+const isAuthenticated = async function(parent, args, ctx, info) {
+  return !ctx.currentUser.roles.includes('guest')
 }
 
 module.exports = {
   canSubscribeMe,
   canAssignRoles,
   canAssignPermissions,
+  canRefreshCookies,
+  canViewReport,
+  isAuthenticated,
 }

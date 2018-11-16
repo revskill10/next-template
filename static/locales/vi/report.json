@@ -1,16 +1,44 @@
 {
-    "report": {
-        "v_general_report_in_week": "Báo cáo chung",
-        "v_all_lesson_class": "Thống kê số lượng lớp",
-        "v_all_teacher_do_not_finish": "Thống kê số lượng giảng viên đã hoàn thành bài giảng",
-        "v_all_teacher_do_not_write": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
-        "v_detail_register_day_bo_sung": "Báo cáo chi tiết đăng ký bổ sung",
-        "v_detail_register_nghi_day": "Báo cáo chi tiết đăng ký nghỉ",
-        "v_detail_student_absent_greater_20_percent": "Thống kê số lượng sinh viên vắng",
-        "v_detail_student_absent_in_week": "Báo cáo chi tiết sinh viên vắng mặt",
-        "v_total_student_absent_department_in_week": "Thống kê sinh viên vắng mặt theo khoa",
-        "v_total_student_absent_greater_20_percent": "Thống kê sinh viên hay nghỉ học",
-        "v_total_teacher_do_not_write_in_week": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
-        "v_total_teacher_in_week": "Thống kê số lượng giảng viên giảng dạy theo tuần"
-      }
+  "report": {
+    "v_general_report_in_week": {
+      "name": "Báo cáo chung",
+      "tuan": "Week",
+      "total_class": "Class",
+      "total_lesson_class": "Lesson",
+      "total_student_absent": "Absent Student",
+      "total_teacher_do_not_finish_in_week": "Unfinished Teacher",
+      "total_teacher_in_week": "Teacher",
+      "total_times_student_absent": "Absent Student times",
+      "total_times_teacher_add": "Teacher add",
+      "total_times_teacher_do_not_write": "Teacher do not write",
+      "total_times_teacher_retired": "Teacher retired"
+    },
+    "v_all_lesson_class": {
+      "name": "Thống kê số lượng lớp",
+      "don_vi": "Department",
+      "giang_vien": "Teacher",
+      "ma_lop": "Class code",
+      "ma_mon_hoc": "Subject code",
+      "magv": "TeacherId",
+      "noi_dung": "Content",
+      "phong": "Room",
+      "si_so": "Count",
+      "so_tiet": "Period",
+      "ten_mon_hoc": "Subject name",
+      "thoi_gian": "Time",
+      "tiet_bat_dau": "Start period",
+      "trang_thai": "Status",
+      "tuan": "Week"
+    },
+    "v_all_teacher_do_not_finish": "Thống kê số lượng giảng viên đã hoàn thành bài giảng",
+    "v_all_teacher_do_not_write": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
+    "v_detail_register_day_bo_sung": "Báo cáo chi tiết đăng ký bổ sung",
+    "v_detail_register_nghi_day": "Báo cáo chi tiết đăng ký nghỉ",
+    "v_detail_student_absent_greater_20_percent": "Thống kê số lượng sinh viên vắng",
+    "v_detail_student_absent_in_week": "Báo cáo chi tiết sinh viên vắng mặt",
+    "v_total_student_absent_department_in_week": "Thống kê sinh viên vắng mặt theo khoa",
+    "v_total_student_absent_greater_20_percent": "Thống kê sinh viên hay nghỉ học",
+    "v_total_teacher_do_not_write_in_week": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
+    "v_total_teacher_in_week": "Thống kê số lượng giảng viên giảng dạy theo tuần"
+  }
 }

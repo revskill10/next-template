@@ -14,6 +14,7 @@ const  {
   assignPermissionsMutation,
 } = require('./index.gql')
 const { inspect } = require('util')
+const getCurrentUser = require('../../get-current-user')
 
 function onLoginData(data, context) {  
   let info1 = data.insert_users.returning[0].info
@@ -50,19 +51,6 @@ async function login(parent, { id_token }, context, info) {
   }, adminClients['userService'])
 }
 
-function onRefreshData(data, context) {  
-  const userInfo = data.user_info[0]
-  token = createJwtToken(userInfo)
-  setCookie(context, token)
-  return { token }
-}
-
-function onRefreshError(error, context) {
-  const token = null
-  setCookie(context, token)
-  return { token }
-}
-
 async function refresh(parent, args, context, info) {
   const { token } =  context
   
@@ -70,6 +58,13 @@ async function refresh(parent, args, context, info) {
   return {
     token
   }
+}
+
+async function refreshCookies(parent, { token }, context, info) {
+  const {adminClients}= context
+  const res = await getCurrentUser({token, adminClients})
+  setCookie(context, res.token)
+  return res
 }
 
 async function logout(parent, { id_token }, context, info) {
@@ -159,18 +154,22 @@ async function assignPermissions(_, {role_id, permission_ids}, context) {
 }
 
 const { combineResolvers } = require('graphql-resolvers')
-const { canAssignRoles, canAssignPermissions } = require('../../policies')
+const { canAssignRoles, canAssignPermissions, canRefreshCookies } = require('../../policies')
 
 module.exports = {
   login,
   logout,
   refresh,
+  refreshCookies: combineResolvers(
+    canRefreshCookies,
+    refreshCookies,
+  ),
   assignRoles: combineResolvers(
     canAssignRoles,
-    assignRoles
+    assignRoles,
   ),
   assignPermissions: combineResolvers(
     canAssignPermissions,
-    assignPermissions
+    assignPermissions,
   )
 }

@@ -13,27 +13,36 @@ import {StyledBarLink} from 'components/styled-link'
 import Authorization from 'containers/authorization'
 import { withNamespaces } from 'react-i18next';
 
+import {
+  GENERAL_REPORT_IN_WEEK,
+  LESSON_CLASS,
+} from 'lib/i18n/translations'
+
+import {
+  VIEW_QLGD_REPORT
+} from 'lib/policies'
+
 const ReportSideBar = ({t}) => {
   return (
     <List>
-      <Authorization allowedPermissions={['view:qlgd_report']}>
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
         <ListItem button>
           <StyledBarLink href={'/report'}>
             <ListItemIcon>
-              <ChartBar size={30} title={t('report.v_general_report_in_week')} />
+              <ChartBar size={30} title={t(GENERAL_REPORT_IN_WEEK)} />
             </ListItemIcon>
           </StyledBarLink>
-          <StyledBarLink href={'/report'}>{t('report.v_general_report_in_week')}</StyledBarLink>
+          <StyledBarLink href={'/report'}>{t(GENERAL_REPORT_IN_WEEK)}</StyledBarLink>
         </ListItem>
       </Authorization>
-      <Authorization allowedPermissions={['view:report.v_all_lesson_class']}>
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
         <ListItem button>
           <StyledBarLink href={'/report/lesson_class'}>
             <ListItemIcon>
-              <GrinTongueWink size={30} title={t('report.v_all_lesson_class')} />
+              <GrinTongueWink size={30} title={t(LESSON_CLASS)} />
             </ListItemIcon>
           </StyledBarLink>
-          <StyledBarLink href={'/report/lesson_class'}>{t('report.v_all_lesson_class')}</StyledBarLink>
+          <StyledBarLink href={'/report/lesson_class'}>{t(LESSON_CLASS)}</StyledBarLink>
         </ListItem>
       </Authorization>      
       <ListItem button>

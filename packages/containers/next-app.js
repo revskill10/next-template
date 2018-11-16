@@ -5,6 +5,7 @@ import {UserAgentProvider} from '@quentin-sommer/react-useragent'
 import {UserContext} from 'containers/contexts'
 import {
   CURRENT_USER_SUBSCRIPTION as subscription, 
+  REFRESH_COOKIES_MUTATION as mutation,
   CURRENT_USER_QUERY as query,
 } from 'containers/authentication.gql'
 import UIContainer from 'containers/ui-container'
@@ -14,47 +15,42 @@ import CacheComponent from 'containers/cache-component'
 import equal from 'fast-deep-equal'
 
 const AppContainer = (props) => {
-  const {apolloClient, reduxStore, ua, currentUser, token} = props
+  const {apolloClient, reduxStore, ua} = props
 
   useEffect(() => {
     registerServiceWs(reduxStore)
   })
 
-  const cache = { currentUser }
+  const {me} = apolloClient.readQuery({query})
 
   const onData = async (data) => {
-    const me = data.subscriptionData.data.me
-    const currentToken = localStorage.getItem('token')
-    const shouldChange = currentToken && me && token && !equal(currentUser, me.currentUser)
-    if (shouldChange === true) {
-      localStorage.setItem('token', me.token)
-      // reload cookies
-      if (currentUser.active !== me.currentUser.active) {
-        window.location.reload()
-      }
+    const meUpdated = data.subscriptionData.data.me
+    if (!equal(me.currentUser, meUpdated.currentUser)) {
+      const variables = {token: meUpdated.token}
+      await apolloClient.mutate({mutation, variables})
       reduxStore.dispatch(openSnackbar({message: 'Your data has been changed', autoHideDuration: 3000}))
-      setTimeout(async () => {await apolloClient.query({query}) }, 2000)
-      
-      //window.location.reload()
+      setTimeout(async () => {
+        window.location.reload()  
+      }, 2000)
     }
   }
   
   return (    
-      <ReduxProvider store={reduxStore}>
-        <ApolloProvider client={apolloClient}>
-          <UserAgentProvider ua={ua}> 
-            <CacheComponent
-              cache={cache}
-              subscription={subscription}
-              context={UserContext}
-              onSubscriptionData={onData}
-              toCache={(data) =>  { return {currentUser: data.me.currentUser} } }
-            >
-              <UIContainer {...props} />
-            </CacheComponent>
-          </UserAgentProvider>
-        </ApolloProvider>
-      </ReduxProvider>    
+    <ReduxProvider store={reduxStore}>
+      <ApolloProvider client={apolloClient}>
+        <UserAgentProvider ua={ua}> 
+          <CacheComponent
+            cache={ me }
+            subscription={subscription}
+            context={UserContext}
+            onSubscriptionData={onData}
+            toCache={(data) =>  { return data.me }}
+          >
+            <UIContainer {...props} />
+          </CacheComponent>
+        </UserAgentProvider>
+      </ApolloProvider>
+    </ReduxProvider>    
   )   
 }
 

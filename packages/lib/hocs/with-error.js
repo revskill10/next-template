@@ -16,7 +16,9 @@ export default Component => {
 
         return props
       } catch (error) {
-        ctx.res.statusCode = 500
+        if (ctx.res) {
+          ctx.res.statusCode = 500
+        }
         return {
           statusCode: 500
         }

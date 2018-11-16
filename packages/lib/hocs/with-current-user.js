@@ -7,13 +7,13 @@ export default (App) => {
     static async getInitialProps (context) {
       const { ctx } = context
       const { apolloClient } = ctx
-
+      let token = ''
       // Get or Create the store with `undefined` as initialState
       // This allows you to set a custom default initialState
       try {
         const { data } = await apolloClient.query({query})        
         ctx.currentUser = data.me.currentUser
-        ctx.token = data.me.token
+        token = data.me.token
       } catch (err) {
         if (!ctx.req) {
           const { data } = await apolloClient.mutate({mutation: LOGOUT})
@@ -30,8 +30,7 @@ export default (App) => {
       }
       return {
         ...appProps,
-        currentUser: ctx.currentUser,
-        token: ctx.token
+        token,
       }
     }
 

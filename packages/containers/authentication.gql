@@ -23,3 +23,10 @@ mutation REFRESH_TOKEN_MUTATION {
     token
   }
 }
+
+
+mutation REFRESH_COOKIES_MUTATION($token: String!) {
+  refreshCookies(token: $token) {
+    token
+  }
+}

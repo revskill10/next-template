@@ -19,18 +19,7 @@ const {
   makeRemoteExecutableSchema,
 } = require('graphql-tools')
 
-
-const canViewReport = rule()(async function(parent, args, ctx, info) {
-  return ctx.currentUser.roles.includes('staff')
-})
-
-const canAssignRoles = rule()(async function(parent, args, ctx, info) {
-  return ctx.currentUser.roles.includes('admin')
-})
-
-const isAuthenticated = rule()(async function(parent, args, ctx, info) {
-  return !ctx.currentUser.roles.includes('guest')
-})
+const {canViewReport} = require('./policies')
 
 const urlMap = {
   'reportingService': {
@@ -43,10 +32,10 @@ const urlMap = {
     prefix: 'reporting',
     permissions: shield({
       'query_root': {
-        v_all_lesson_class: canViewReport,
+        v_all_lesson_class: rule()(canViewReport),
       },      
       'subscription_root': {
-        v_all_lesson_class: canViewReport,
+        v_all_lesson_class: rule()(canViewReport),
       },
     })
   },
@@ -67,18 +56,6 @@ const urlMap = {
       'Authorization': `Bearer ${process.env.CMS_GRAPHQL_TOKEN}`
     }
   },
-  'localService': {
-    permissions: shield({
-      Mutation: {
-        assignRoles: canAssignRoles,
-      },
-      Subscription: {
-        me: { subscribe: {
-          currentUser: isAuthenticated
-        } }
-      }
-    })
-  }
 }
 
 function makeAdminClients(urlMap) {

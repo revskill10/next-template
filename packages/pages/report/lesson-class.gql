@@ -1,7 +1,49 @@
-#import "../../fragments/all-lesson-class.gql"
+fragment AllLessonClass on v_all_lesson_class {
+  don_vi
+  giang_vien
+  ma_lop
+  ma_mon_hoc
+  magv
+  noi_dung
+  phong
+  si_so
+  so_tiet
+  ten_mon_hoc
+  thoi_gian
+  tiet_bat_dau
+  trang_thai
+  tuan
+}
 
-query QueryAllLessonClass {
+
+subscription LessonClassSubscription {
+  v_all_lesson_class{
+    ...AllLessonClass
+  }
+}
+
+query LessonClassQuery {
   v_all_lesson_class(limit: 10){
     ...AllLessonClass
   }
 }
+
+query MetaQuery {
+  meta:__type(name: "v_all_lesson_class") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_all_lesson_class(limit: 10){
+    ...AllLessonClass
+  }
+  meta:__type(name: "v_all_lesson_class") {    
+    fields {
+      name
+    }
+  }
+}
+

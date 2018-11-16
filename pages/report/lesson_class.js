@@ -1,11 +1,9 @@
-import { compose } from 'recompose'
-
+import ReportIndex, { getIndexProps } from 'pages/report/lesson-class'
 import { withInitialProps } from 'lib/hocs/with-initial-props'
 import { withI18next } from 'lib/hocs/with-i18next'
-
-import LessonClass, { getIndexProps } from 'pages/report/lesson-class'
+import { compose } from 'recompose'
 
 export default compose(
   withI18next(['report']),
   withInitialProps(getIndexProps),
-)(LessonClass)
+)(ReportIndex)

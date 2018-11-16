@@ -1,7 +1,9 @@
-export const VIEW_QLGD_REPORT = 'view:qlgd_report'
-
-const allow = (currentUser, permission) => {
+function allow(currentUser, permission) {
   return currentUser.permissions.includes(permission)
 }
+const VIEW_QLGD_REPORT = 'view:qlgd_report'
 
-export default allow
+module.exports = {
+  allow,
+  VIEW_QLGD_REPORT,
+}
