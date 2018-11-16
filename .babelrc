@@ -1,6 +1,7 @@
 {
   "presets": ["next/babel"],
   "plugins": [
+    "@babel/plugin-proposal-do-expressions",
     "import-graphql",
     "graphql-tag",
     ["styled-components", { 

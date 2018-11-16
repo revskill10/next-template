@@ -10,7 +10,6 @@ const withSize = require('next-size')
 const withSass = require('@zeit/next-sass')
 const withOffline = require('next-offline')
 const offlineOptions = require('./offline.config')
-
 const nextConfig = {
   ...offlineOptions,
   publicRuntimeConfig: {
@@ -33,7 +32,7 @@ const nextConfig = {
       reportFilename: './bundles/client.html'
     }
   },
-  webpack: (config, options) => {
+  webpack: (config, { isServer }) => {
     config.node = {
       fs: 'empty'
     }
