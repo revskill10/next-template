@@ -95,7 +95,7 @@
     "moment": "^2.22.2",
     "next": "7.0.2",
     "next-nprogress": "1.4.0",
-    "next-offline": "3.0.10",
+    "next-offline": "3.1.0",
     "next-optimized-images": "1.4.1",
     "next-page-transitions": "1.0.0-canary.1",
     "next-pkg": "1.1.0",
