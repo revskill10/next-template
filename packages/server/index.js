@@ -3,7 +3,11 @@ dotenv.config()
 const express = require('express');
 const path = require('path');
 const next = require('next');
-
+const LRUCache = require('lru-cache')
+const ssrCache = new LRUCache({
+  max: 100,
+  maxAge: 1000 * 60 * 60 // 1hour
+})
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -31,6 +35,11 @@ const serverSideOptions = {
   },
 };
 
+const {
+  makeRenderAndCache
+} = require('./caching')
+
+const renderAndCache = makeRenderAndCache(app, ssrCache)
 
 // init i18next with serverside settings
 // using i18next-express-middleware
@@ -43,7 +52,6 @@ i18n
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
 
-      
       const { createServer, startServer } = require('./create-graphql-server')
       const graphqlServer = await createServer({dev})
       
@@ -54,12 +62,16 @@ i18n
       // enable middleware for i18next
       server.use(i18nextMiddleware.handle(i18n));
 
+      server.get('/', (req, res) => {
+        renderAndCache(req, res, '/')
+      })
+
       // serve locales for client
       server.use('/locales', express.static(path.join(__dirname, '/locales')));
 
       // missing keys
       server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n));
-      
+
       server.get('*', (req, res, next) => {
         if (req.url === '/playground' || req.url === '/send-notification' ) return next();
         const parsedUrl = parse(req.url, true)
