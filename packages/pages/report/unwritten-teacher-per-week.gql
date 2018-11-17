@@ -1,0 +1,36 @@
+fragment unwrittenTeacherPerWeekFragment on v_total_teacher_do_not_write_in_week {
+  tuan
+  total_teacher_do_not_write_in_week
+}
+
+subscription unwrittenTeacherPerWeekSubscription {
+  v_total_teacher_do_not_write_in_week{
+    ...unwrittenTeacherPerWeekFragment
+  }
+}
+
+query unwrittenTeacherPerWeekQuery {
+  v_total_teacher_do_not_write_in_week(limit: 10){
+    ...unwrittenTeacherPerWeekFragment
+  }
+}
+
+query MetaQuery {
+  meta:__type(name: "v_total_teacher_do_not_write_in_week") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_total_teacher_do_not_write_in_week(limit: 10){
+    ...unwrittenTeacherPerWeekFragment
+  }
+  meta:__type(name: "v_total_teacher_do_not_write_in_week") {    
+    fields {
+      name
+    }
+  }
+}
+

@@ -19,6 +19,10 @@ import {
   RETIRE,
   ABSENT_STUDENT,
   DETAIL_ABSENT_STUDENT,
+  ABSENT_STUDENT_PER_DEPARTMENT,
+  ALWAYS_ABSENT_STUDENT,
+  UNWRITTEN_TEACHER_PER_WEEK,
+  TOTAL_TEACHER,
 } from 'lib/i18n/translations'
 
 import {
@@ -108,30 +112,46 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/detail_absent_student'}>{t(DETAIL_ABSENT_STUDENT)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <ListItem button>
-        <ListItemIcon>
-          <ReportIcon />
-        </ListItemIcon>
-        {t('report.v_total_student_absent_department_in_week')}
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <ReportIcon />
-        </ListItemIcon>
-        {t('report.v_total_student_absent_greater_20_percent')}
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <ReportIcon />
-        </ListItemIcon>
-        {t('report.v_total_teacher_do_not_write_in_week')}
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <ReportIcon />
-        </ListItemIcon>
-        {t('report.v_total_teacher_in_week')}
-      </ListItem>
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+        <ListItem button>
+          <StyledBarLink href={'/report/absent_student_per_department'}>
+            <ListItemIcon>
+              <GrinTongueWink size={30} title={t(ABSENT_STUDENT_PER_DEPARTMENT)} />
+            </ListItemIcon>
+          </StyledBarLink>
+          <StyledBarLink href={'/report/absent_student_per_department'}>{t(ABSENT_STUDENT_PER_DEPARTMENT)}</StyledBarLink>
+        </ListItem>
+      </Authorization> 
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+        <ListItem button>
+          <StyledBarLink href={'/report/always_absent_student'}>
+            <ListItemIcon>
+              <GrinTongueWink size={30} title={t(ALWAYS_ABSENT_STUDENT)} />
+            </ListItemIcon>
+          </StyledBarLink>
+          <StyledBarLink href={'/report/always_absent_student'}>{t(ALWAYS_ABSENT_STUDENT)}</StyledBarLink>
+        </ListItem>
+      </Authorization> 
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+        <ListItem button>
+          <StyledBarLink href={'/report/unwritten_teacher_per_week'}>
+            <ListItemIcon>
+              <GrinTongueWink size={30} title={t(UNWRITTEN_TEACHER_PER_WEEK)} />
+            </ListItemIcon>
+          </StyledBarLink>
+          <StyledBarLink href={'/report/unwritten_teacher_per_week'}>{t(UNWRITTEN_TEACHER_PER_WEEK)}</StyledBarLink>
+        </ListItem>
+      </Authorization> 
+      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+        <ListItem button>
+          <StyledBarLink href={'/report/total_teacher'}>
+            <ListItemIcon>
+              <GrinTongueWink size={30} title={t(TOTAL_TEACHER)} />
+            </ListItemIcon>
+          </StyledBarLink>
+          <StyledBarLink href={'/report/total_teacher'}>{t(TOTAL_TEACHER)}</StyledBarLink>
+        </ListItem>
+      </Authorization> 
     </List>
   )
 }

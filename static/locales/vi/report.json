@@ -125,9 +125,25 @@
       "tengiangvien": "Teacher",
       "don_vi": "Department"
     },
-    "v_total_student_absent_department_in_week": "Thống kê sinh viên vắng mặt theo khoa",
-    "v_total_student_absent_greater_20_percent": "Thống kê sinh viên hay nghỉ học",
-    "v_total_teacher_do_not_write_in_week": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
-    "v_total_teacher_in_week": "Thống kê số lượng giảng viên giảng dạy theo tuần"
+    "v_total_student_absent_department_in_week": {
+      "name": "Thống kê sinh viên vắng mặt theo khoa",
+      "tuan": "Week",
+      "ten_khoa": "Department",
+      "slg_sv_vang": "Total absent student"
+    },
+    "v_total_student_absent_greater_20_percent": {
+      "name": "Thống kê sinh viên hay nghỉ học",
+      "total_student_absent_greater_20_percent": "Total Student absent greater than 20 percent"
+    },
+    "v_total_teacher_do_not_write_in_week": {
+      "name": "Thống kê số lượng giảng viên đã cập nhật sổ đầu bài",
+      "tuan": "Week",
+      "total_teacher_do_not_write_in_week": "Total Teacher who did not write lecture"
+    },
+    "v_total_teacher_in_week": {
+      "name": "Thống kê số lượng giảng viên giảng dạy theo tuần",
+      "tuan": "Week",
+      "total_teacher_in_week": "Total teacher"
+    }
   }
 }

@@ -14,4 +14,11 @@ export const ABSENT_STUDENT = 'report.v_detail_student_absent_greater_20_percent
 export const ABSENT_STUDENT_KEY = 'report.v_detail_student_absent_greater_20_percent'
 export const DETAIL_ABSENT_STUDENT = 'report.v_detail_student_absent_in_week.name'
 export const DETAIL_ABSENT_STUDENT_KEY = 'report.v_detail_student_absent_in_week'
-
+export const ABSENT_STUDENT_PER_DEPARTMENT = 'report.v_total_student_absent_department_in_week.name'
+export const ABSENT_STUDENT_PER_DEPARTMENT_KEY = 'report.v_total_student_absent_department_in_week'
+export const ALWAYS_ABSENT_STUDENT = 'report.v_total_student_absent_greater_20_percent.name'
+export const ALWAYS_ABSENT_STUDENT_KEY = 'report.v_total_student_absent_greater_20_percent'
+export const UNWRITTEN_TEACHER_PER_WEEK = 'report.v_total_teacher_do_not_write_in_week.name'
+export const UNWRITTEN_TEACHER_PER_WEEK_KEY = 'report.v_total_teacher_do_not_write_in_week'
+export const TOTAL_TEACHER = 'report.v_total_teacher_in_week.name'
+export const TOTAL_TEACHER_KEY = 'report.v_total_teacher_in_week'

@@ -13,7 +13,7 @@ function getColumnsFromMeta(meta, i18nKey, t, key='tuan') {
   let columns = []
 
   const sortedKeys = moveItemToFirst(keys, key)
-  if (keys.length > 7) {
+  if (keys.length > 7 && keys.length > 1) {
     const [shownKeys, hiddenKeys] = chunkArray(sortedKeys, 2)
   
     columns = shownKeys.map(item => {
@@ -44,8 +44,11 @@ const DataTableWrapper = ({t, tableContext, metaContext, i18nKey, dataKey, first
   const [sortedKeys, columns] = getColumnsFromMeta(meta, i18nKey, t, firstKey)
   const title=t(`${i18nKey}.name`)
   const data = convertDataToArray(context[dataKey], sortedKeys)
+  const options = {
+    rowsPerPage: 100
+  }
   return (
-    <DataTable data={data} columns={columns} title={title} />
+    <DataTable data={data} columns={columns} title={title} options={options} />
   )
 }
 

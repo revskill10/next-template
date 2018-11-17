@@ -1,6 +1,6 @@
 import MUIDataTable from 'mui-datatables';
 
-const options = {
+const defaultOptions = {
   filter: true,
   selectableRows: false,
   filterType: 'dropdown',
@@ -8,13 +8,17 @@ const options = {
   rowsPerPage: 10,
 };
 
-const DataTable = ({data, title, columns}) => {
+const DataTable = ({data, title, columns, options}) => {
+  const finalOptions = {
+    ...defaultOptions,
+    ...options,
+  }
   return (
     <MUIDataTable 
     title={title} 
     data={data} 
     columns={columns} 
-    options={options} 
+    options={finalOptions} 
   />
   )
 }

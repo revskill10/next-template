@@ -1,0 +1,37 @@
+fragment absentStudentPerDepartmentFragment on v_total_student_absent_department_in_week {
+  tuan
+  ten_khoa
+  slg_sv_vang
+}
+
+
+subscription absentStudentPerDepartmentSubscription {
+  v_total_student_absent_department_in_week{
+    ...absentStudentPerDepartmentFragment
+  }
+}
+
+query absentStudentPerDepartmentQuery {
+  v_total_student_absent_department_in_week(limit: 10){
+    ...absentStudentPerDepartmentFragment
+  }
+}
+
+query MetaQuery {
+  meta:__type(name: "v_total_student_absent_department_in_week") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_total_student_absent_department_in_week(limit: 10){
+    ...absentStudentPerDepartmentFragment
+  }
+  meta:__type(name: "v_total_student_absent_department_in_week") {    
+    fields {
+      name
+    }
+  }
+}

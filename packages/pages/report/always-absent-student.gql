@@ -1,0 +1,34 @@
+fragment alwaysAbsentStudentFragment on v_total_student_absent_greater_20_percent {
+  total_student_absent_greater_20_percent
+}
+
+subscription alwaysAbsentStudentSubscription {
+  v_total_student_absent_greater_20_percent{
+    ...alwaysAbsentStudentFragment
+  }
+}
+
+query alwaysAbsentStudentQuery {
+  v_total_student_absent_greater_20_percent(limit: 10){
+    ...alwaysAbsentStudentFragment
+  }
+}
+
+query MetaQuery {
+  meta:__type(name: "v_total_student_absent_greater_20_percent") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_total_student_absent_greater_20_percent(limit: 10){
+    ...alwaysAbsentStudentFragment
+  }
+  meta:__type(name: "v_total_student_absent_greater_20_percent") {    
+    fields {
+      name
+    }
+  }
+}

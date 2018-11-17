@@ -125,9 +125,25 @@
       "tengiangvien": "Teacher",
       "don_vi": "Department"
     },
-    "v_total_student_absent_department_in_week": "Total Student absent per department",
-    "v_total_student_absent_greater_20_percent": "Total Student absent greater than 20 percent",
-    "v_total_teacher_do_not_write_in_week": "Total Teacher who did not write lecture",
-    "v_total_teacher_in_week": "Total teacher"
+    "v_total_student_absent_department_in_week": {
+      "name": "Total Student absent per department",
+      "tuan": "Week",
+      "ten_khoa": "Department",
+      "slg_sv_vang": "Total absent student"
+    },
+    "v_total_student_absent_greater_20_percent": {
+      "name": "Total Student absent greater than 20 percent",
+      "total_student_absent_greater_20_percent": "Total Student absent greater than 20 percent"
+    },
+    "v_total_teacher_do_not_write_in_week": {
+      "name": "Total Teacher who did not write lecture",
+      "tuan": "Week",
+      "total_teacher_do_not_write_in_week": "Total Teacher who did not write lecture"
+    },
+    "v_total_teacher_in_week": {
+      "name": "Total teacher",
+      "tuan": "Week",
+      "total_teacher_in_week": "Total teacher"
+    }
   }
 }

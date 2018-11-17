@@ -11,6 +11,10 @@ const SideBar = ({router}) => {
     case '/report/retire':
     case '/report/absent_student':
     case '/report/detail_absent_student':
+    case '/report/absent_student_per_department':
+    case '/report/always_absent_student':
+    case '/report/unwritten_teacher_per_week':
+    case '/report/total_teacher':
       //const ReportSideBar = dynamic(import('containers/layouts/admin/sidebars/report-sidebar'))
       const ReportSideBar = require('containers/layouts/admin/sidebars/report-sidebar').default
       return <ReportSideBar />
