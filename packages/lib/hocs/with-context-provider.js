@@ -1,4 +1,5 @@
-const withProvider = Provider => Component => props => {
+const withContextProvider = context => Component => props => {
+  const Provider = context.Provider
   return (
     <Provider value={props}>
       <Component />
@@ -6,4 +7,4 @@ const withProvider = Provider => Component => props => {
   )
 }
 
-export default withProvider
+export default withContextProvider

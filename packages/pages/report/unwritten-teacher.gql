@@ -1,0 +1,47 @@
+fragment unwrittenTeacherFragment on v_all_teacher_do_not_write {
+  tuan
+  thu
+  thoi_gian
+  code
+  tengiangvien
+  ma_lop
+  ma_mon_hoc
+  ten_mon_hoc
+  phong
+  trangthai
+  tiet_bat_dau
+  so_tiet
+  donvi
+}
+
+subscription unwrittenTeacherSubscription {
+  v_all_teacher_do_not_write{
+    ...unwrittenTeacherFragment
+  }
+}
+
+query unwrittenTeacherQuery {
+  v_all_teacher_do_not_write(limit: 10){
+    ...unwrittenTeacherFragment
+  }
+}
+
+query MetaQuery {
+  meta:__type(name: "v_all_teacher_do_not_write") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_all_teacher_do_not_write(limit: 10){
+    ...unwrittenTeacherFragment
+  }
+  meta:__type(name: "v_all_teacher_do_not_write") {    
+    fields {
+      name
+    }
+  }
+}
+

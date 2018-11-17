@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
-import DrawerItems from 'containers/layouts/admin/side-bar'
+import DrawerItems from 'containers/layouts/admin/side-bar-router'
 import StyledRoot from 'components/styled-root'
 import StyledContent from 'components/styled-content'
 import Divider from "@material-ui/core/Divider";

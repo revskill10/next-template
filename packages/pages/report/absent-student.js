@@ -8,27 +8,29 @@ import Layout from 'containers/layout-router'
 import Grid from 'components/grids/report'
 // i18n 
 import {
-  GENERAL_REPORT_IN_WEEK,
-  GENERAL_REPORT_IN_WEEK_KEY,
+  ABSENT_STUDENT,
+  ABSENT_STUDENT_KEY,
 } from 'lib/i18n/translations'
 // gql
 import {
   FullPageQuery,
-  GeneralReportQuery as query, 
-  GeneralReportSubscription as subscription
-} from 'pages/report.gql'
+  absentStudentQuery as query, 
+  absentStudentSubscription as subscription
+} from 'pages/report/absent-student.gql'
 
 // shared components
 import LiveComponent from 'containers/live-component'
 import DataTable from 'components/datatables/mui-wrapper'
 
 const namespaces=['report']
-const dataKey='v_general_report_in_week'
-const titleKey=GENERAL_REPORT_IN_WEEK
-const descriptionKey=GENERAL_REPORT_IN_WEEK
-const i18nKey=GENERAL_REPORT_IN_WEEK_KEY
+const dataKey='v_detail_student_absent_greater_20_percent'
+const titleKey=ABSENT_STUDENT
+const descriptionKey=ABSENT_STUDENT
+const i18nKey=ABSENT_STUDENT_KEY
 const allowedPermissions=[VIEW_QLGD_REPORT]
 const metaContext = createContext(titleKey)
+const tableContext = createContext(dataKey)
+const firstKey='stt'
 
 export const getIndexProps = async ({apolloClient, currentUser}) => {
   if (allow(currentUser, allowedPermissions[0])) {
@@ -40,8 +42,6 @@ export const getIndexProps = async ({apolloClient, currentUser}) => {
 }
 
 const Page = ({t}) => {
-  const tableContext = createContext(dataKey)
-  
   return (
     <Layout
       title={t(titleKey)}
@@ -60,6 +60,7 @@ const Page = ({t}) => {
             tableContext={tableContext}
             metaContext={metaContext}
             i18nKey={i18nKey}
+            firstKey={firstKey}
           />
         </LiveComponent>
       </Grid>

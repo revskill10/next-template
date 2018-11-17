@@ -1,0 +1,49 @@
+fragment additionalHourFragment on v_detail_register_day_bo_sung {
+  tuan
+  thu
+  thoi_gian
+  magv
+  tengiangvien
+  ten_khoa
+  ma_lop
+  ma_mon_hoc
+  ten_mon_hoc
+  phong
+  trangthai
+  tiet_bat_dau
+  so_tiet
+  note
+}
+
+
+subscription additionalHourSubscription {
+  v_detail_register_day_bo_sung{
+    ...additionalHourFragment
+  }
+}
+
+query additionalHourQuery {
+  v_detail_register_day_bo_sung(limit: 10){
+    ...additionalHourFragment
+  }
+}
+
+query MetaQuery {
+  meta:__type(name: "v_detail_register_day_bo_sung") {    
+    fields {
+      name
+    }
+  }
+}
+
+query FullPageQuery {
+  v_detail_register_day_bo_sung(limit: 10){
+    ...additionalHourFragment
+  }
+  meta:__type(name: "v_detail_register_day_bo_sung") {    
+    fields {
+      name
+    }
+  }
+}
+
