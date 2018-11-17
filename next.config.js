@@ -8,6 +8,7 @@ const withSass = require('@zeit/next-sass')
 const withWorkers = require('@zeit/next-workers')
 const withPlugins = require('next-compose-plugins');
 const withOffline = require('next-offline')
+const withTypescript = require('@zeit/next-typescript')
 const offlineOptions = require('./offline.config')
 const webpack = require('./webpack.config')
 const bundleAnalyzerConfig = require('./analyzer.config')
@@ -30,6 +31,7 @@ const nextConfig = {
 
 //module.exports = withWorkers(withOffline(withSize(withOptimizedImages(withMDX(withSass(withCSS(withBundleAnalyzer(nextConfig))))))))
 const plugins = [
+  withTypescript,
   withWorkers,
   withOffline,
   withSize,
