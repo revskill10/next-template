@@ -4,5 +4,6 @@
   },
   "description": {
     "home": "HPU Reporting"
-  }  
+  },
+  "import": "Please upload or drop your Excel/CSV here"
 }

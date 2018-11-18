@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import ApolloProvider from 'containers/apollo-provider'
+import dynamic from 'next/dynamic'
+
 import { Provider as ReduxProvider } from 'react-redux'
 import {UserAgentProvider} from '@quentin-sommer/react-useragent'
 import {UserContext} from 'containers/contexts'
@@ -8,11 +9,17 @@ import {
   REFRESH_COOKIES_MUTATION as mutation,
   CURRENT_USER_QUERY as query,
 } from 'containers/authentication.gql'
-import UIContainer from 'containers/ui-container'
+
 import registerServiceWs from 'lib/utils/register-service-worker'
 import {openSnackbar} from 'mui-redux-alerts'
-import CacheComponent from 'containers/cache-component'
+
 import equal from 'fast-deep-equal'
+//import CacheComponent from 'containers/cache-component'
+const CacheComponent = dynamic(import('containers/cache-component'))
+//import UIContainer from 'containers/ui-container'
+const UIContainer = dynamic(import('containers/ui-container'))
+//import ApolloProvider from 'containers/apollo-provider'
+const ApolloProvider = dynamic(import('containers/apollo-provider'))
 
 const AppContainer = (props) => {
   const {apolloClient, reduxStore, ua} = props

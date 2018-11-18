@@ -4,4 +4,5 @@ module.exports = {
   USER_ROLE_ID: process.env.USER_ROLE_ID,
   ENV: process.env.NODE_ENV,
   FILESTACK_KEY: process.env.FILESTACK_KEY,
+  SERVER_URL: process.env.SERVER_URL,
 }

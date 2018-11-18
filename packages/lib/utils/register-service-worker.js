@@ -1,9 +1,9 @@
 const check = () => {
   if (!('serviceWorker' in navigator)) {
-    throw new Error('No Service Worker support!')
+    console.log('No Service Worker support!')
   }
   if (!('PushManager' in window)) {
-    throw new Error('No Push API Support!')
+    console.log('No Push API Support!')
   }
 }
 const registerServiceWorker = async () => {
@@ -17,12 +17,12 @@ const requestNotificationPermission = async () => {
   // default: user has dismissed the notification permission popup by clicking on x
   // denied: user has denied the request.
   if (permission !== 'granted') {
-    throw new Error('Permission not granted for Notification')
+    console.log('Permission not granted for Notification')
   }
   return permission
 }
 const main = async (reduxStore) => {
-  check()
+  check(reduxStore)
   const swRegistration = await registerServiceWorker()
   const permission = await requestNotificationPermission()
   reduxStore.dispatch({type: 'SET_SERVICE_WORKER', payload: {swRegistration, permission}})

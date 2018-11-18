@@ -5,6 +5,8 @@ import {ThemeProvider} from 'styled-components';
 import { PageTransition } from 'next-page-transitions'
 import Loader from 'components/loader'
 import styles, {TIMEOUT} from 'containers/ui-container.styles'
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const UIContainer = (props) => {
   const {Component, pageProps, router, pageContext} = props
@@ -30,8 +32,12 @@ const UIContainer = (props) => {
             theme={pageContext.theme}
             sheetsManager={pageContext.sheetsManager}
           >
-            <CssBaseline />
-              <Component key={router.route} {...pageProps} pageContext={pageContext} />              
+            <>
+              <CssBaseline />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Component key={router.route} {...pageProps} pageContext={pageContext} />              
+              </MuiPickersUtilsProvider>
+            </>
           </MuiThemeProvider>
         </ThemeProvider>
       </JssProvider>

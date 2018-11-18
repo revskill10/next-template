@@ -1,6 +1,8 @@
 import { withRouter } from 'next/router'
 import withHead from 'containers/layouts/with-head'
-
+import dynamic from 'next/dynamic'
+const AdminLayout = dynamic(import('containers/layouts/admin'))
+const GuestLayout = dynamic(import('containers/layouts/guest'))
 const LayoutRouter = ({router, children, ...props}) => {
   switch (router.pathname) {
     case '/admin':
@@ -17,15 +19,12 @@ const LayoutRouter = ({router, children, ...props}) => {
     case '/report/always_absent_student':
     case '/report/unwritten_teacher_per_week':
     case '/report/total_teacher':
-      const AdminLayout = require('containers/layouts/admin').default
       return (
         <AdminLayout {...props}>
           {children}
         </AdminLayout>
       )
     default:
-      const GuestLayout = require('containers/layouts/guest').default
-      
       return (
         <GuestLayout {...props}>
           {children}

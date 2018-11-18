@@ -12,12 +12,8 @@ const Document = ({styleTags, pageContext, lng}) => {
       />
       {/* PWA primary color */}
       <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-      />
+      
       {styleTags}
-      <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     </Head>
     <body>
       <Main />

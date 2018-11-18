@@ -9,6 +9,7 @@ const withWorkers = require('@zeit/next-workers')
 const withPlugins = require('next-compose-plugins');
 const withOffline = require('next-offline')
 const withTypescript = require('@zeit/next-typescript')
+
 const offlineOptions = require('./offline.config')
 const webpack = require('./webpack.config')
 const bundleAnalyzerConfig = require('./analyzer.config')
@@ -17,9 +18,11 @@ const exportPathMap = require('./export.config')
 const analyzeServer = ['server', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const analyzeBrowser = ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const pageExtensions = ['js', 'jsx', 'mdx']
+const workerOptions = require('./worker.config')
 
 const nextConfig = {
   ...offlineOptions,
+  ...workerOptions,
   publicRuntimeConfig,
   pageExtensions,
   analyzeServer,

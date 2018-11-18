@@ -11,7 +11,9 @@ import { getMainDefinition } from 'apollo-utilities'
 
 import { createSubscriptionClient } from 'lib/utils/create-subscription-client'
 import {openSnackbar } from 'mui-redux-alerts';
-import {inspect} from 'util'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
+const {SERVER_URL} = publicRuntimeConfig
 const isFile = value => (
   (typeof File !== 'undefined' && value instanceof File) ||
   (typeof Blob !== 'undefined' && value instanceof Blob)
@@ -25,8 +27,8 @@ const isFile = value => (
 };
 //const GRAPHQL_URL=`https://api-qdhhebsjkn.now.sh`
 //const WS_URL=`wss://api-qdhhebsjkn.now.sh`
-const GRAPHQL_URL= process.env.NODE_ENV === 'production' ? `https://web.ihs.edu.vn/graphql` : `http://localhost:3000/graphql`
-const WS_URL = process.env.NODE_ENV === 'production' ? `wss://web.ihs.edu.vn/subscriptions` :`ws://localhost:3000/subscriptions`
+const GRAPHQL_URL= process.env.NODE_ENV === 'production' ? `https://${SERVER_URL}/graphql` : `http://localhost:3000/graphql`
+const WS_URL = process.env.NODE_ENV === 'production' ? `wss://${SERVER_URL}/subscriptions` :`ws://localhost:3000/subscriptions`
 
 let apolloClient = null
 

@@ -1,11 +1,12 @@
 import MUIDataTable from 'mui-datatables';
+import style from 'components/datatables/mui.style'
 
 const defaultOptions = {
   filter: true,
   selectableRows: false,
   filterType: 'dropdown',
-  responsive: 'stacked',
-  rowsPerPage: 10,
+  responsive: 'scroll',
+  fixedHeader: false,
 };
 
 const DataTable = ({data, title, columns, options}) => {
@@ -14,12 +15,16 @@ const DataTable = ({data, title, columns, options}) => {
     ...options,
   }
   return (
-    <MUIDataTable 
-    title={title} 
-    data={data} 
-    columns={columns} 
-    options={finalOptions} 
-  />
+    <>
+      <MUIDataTable 
+        title={title} 
+        data={data} 
+        columns={columns} 
+        options={finalOptions}
+        className='container'
+      />
+      <style jsx global>{style}</style>
+    </>
   )
 }
 

@@ -16,7 +16,6 @@ import ReactToPrint from "react-to-print";
 import styled from "./styled";
 import XLSX from "xlsx";
 
-
 export const defaultToolbarStyles = (theme, props) => ({
   root: {},
   left: {
@@ -45,7 +44,7 @@ export const defaultToolbarStyles = (theme, props) => ({
 });
 
 export const responsiveToolbarStyles = {
-  "@media screen and (max-width: 960px)": {
+  "@media screen and (max-width: 2048px)": {
     titleRoot: {},
     titleText: {
       fontSize: "16px",
@@ -182,19 +181,8 @@ class MUIDataTableToolbar extends React.Component {
     const { showSearch } = this.state;
 
     return (
-      <Toolbar className={classes.root} role={"toolbar"} aria-label={"Table Toolbar"}>
+      <Toolbar className={classes.root} role={"toolbar"} aria-label={"Table Toolbar"}>        
         <div className={classes.left}>
-          {showSearch === true ? (
-            <MUIDataTableSearch onSearch={searchTextUpdate} onHide={this.hideSearch} options={options} />
-          ) : (
-            <div className={classes.titleRoot} aria-hidden={"true"}>
-              <Typography variant="h6" className={classes.titleText}>
-                {title}
-              </Typography>
-            </div>
-          )}
-        </div>
-        <div className={classes.actions}>
           {options.search ? (
             <Tooltip title={search}>
               <IconButton
@@ -284,6 +272,17 @@ class MUIDataTableToolbar extends React.Component {
             false
           )}
           {options.customToolbar ? options.customToolbar() : false}
+        </div>
+        <div className={classes.actions}>
+          {showSearch === true ? (
+            <MUIDataTableSearch onSearch={searchTextUpdate} onHide={this.hideSearch} options={options} />
+          ) : (
+            <div className={classes.titleRoot} aria-hidden={"true"}>
+              <Typography variant="h6" className={classes.titleText}>
+                {title}
+              </Typography>
+            </div>
+          )}
         </div>
       </Toolbar>
     );

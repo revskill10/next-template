@@ -3,9 +3,6 @@ import { compose } from 'recompose'
 import { withNamespaces } from 'react-i18next'
 import {allow, VIEW_QLGD_REPORT} from 'lib/policies'
 import withContextProvider from 'lib/hocs/with-context-provider'
-// layout + routing
-import Layout from 'containers/layout-router'
-import Grid from 'components/grids/report'
 // i18n 
 import {
   GENERAL_REPORT_IN_WEEK,
@@ -19,9 +16,12 @@ import {
 } from 'pages/report.gql'
 
 // shared components
-import LiveComponent from 'containers/live-component'
-import DataTable from 'components/datatables/mui-wrapper'
-
+import dynamic from 'next/dynamic'
+// layout + routing
+const Layout = dynamic(import('containers/layout-router'))
+const Grid = dynamic(import('components/grids/report'))
+const LiveComponent = dynamic(import('containers/live-component'))
+const DataTable = dynamic(import('components/datatables/mui-wrapper'))
 const namespaces=['report']
 const dataKey='v_general_report_in_week'
 const titleKey=GENERAL_REPORT_IN_WEEK

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   root: {
@@ -16,7 +17,7 @@ const styles = theme => ({
 });
 
 function AutoGrid(props) {
-  const { classes, left, middle, right } = props;
+  const { classes, left, middle, right, children } = props;
 
   return (
     <div className={classes.root}>
@@ -29,6 +30,12 @@ function AutoGrid(props) {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>{right}</Paper>
+        </Grid>
+      </Grid>
+      <Divider />
+      <Grid container>
+        <Grid item xs>
+          <Paper className={classes.paper}>{children}</Paper>
         </Grid>
       </Grid>
     </div>
