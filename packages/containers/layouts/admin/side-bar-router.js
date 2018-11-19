@@ -1,6 +1,6 @@
 import { withRouter } from 'next/router'
-import dynamic from 'next/dynamic'
-const ReportSideBar = dynamic(import('containers/layouts/admin/sidebars/report-sidebar'))
+//import dynamic from 'next/dynamic'
+//const ReportSideBar = dynamic(import('containers/layouts/admin/sidebars/report-sidebar'))
 const SideBar = ({router}) => {
   switch (router.pathname) {
     case '/':
@@ -16,6 +16,7 @@ const SideBar = ({router}) => {
     case '/report/always_absent_student':
     case '/report/unwritten_teacher_per_week':
     case '/report/total_teacher':
+      const ReportSideBar = require('containers/layouts/admin/sidebars/report-sidebar').default
       return <ReportSideBar />
     default:
       return null

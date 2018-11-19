@@ -74,6 +74,7 @@
     "graphql-middleware": "2.0.2",
     "graphql-resolvers": "0.2.2",
     "graphql-shield": "4.1.0",
+    "graphql-tag": "^2.10.0",
     "graphql-tools": "4.0.3",
     "graphql-yoga": "1.16.7",
     "graphqurl": "0.3.2",

@@ -5,42 +5,30 @@ import {allow, VIEW_QLGD_REPORT} from 'lib/policies'
 import mkQuery from 'lib/utils/mk-query'
 import Shared from 'pages/report/shared'
 import {
-  LESSON_CLASS,
-  LESSON_CLASS_KEY,
+  GENERAL_REPORT_IN_WEEK,
+  GENERAL_REPORT_IN_WEEK_KEY,
 } from 'lib/i18n/translations'
 
 const namespaces=['report']
-const dataKey='v_all_lesson_class'
-const titleKey=LESSON_CLASS
-const descriptionKey=LESSON_CLASS
-const i18nKey=LESSON_CLASS_KEY
+const dataKey='v_general_report_in_week'
+const titleKey=GENERAL_REPORT_IN_WEEK
+const descriptionKey=GENERAL_REPORT_IN_WEEK
+const i18nKey=GENERAL_REPORT_IN_WEEK_KEY
 const allowedPermissions=[VIEW_QLGD_REPORT]
 const tableContext = createContext(dataKey)
 const columns = [
   'tuan',
-  'don_vi',
-  'giang_vien',
-  'ma_lop',
-  'si_so',
-  'thoi_gian',
-  'ten_mon_hoc',
-  'ma_mon_hoc',
-  'magv',
-  'noi_dung',
-  'phong',
-  'so_tiet',
-  'tiet_bat_dau',
-  'trang_thai',
+  'total_class',
+  'total_lesson_class',
+  'total_student_absent',
+  'total_teacher_do_not_finish_in_week',
+  'total_teacher_in_week',
+  'total_times_student_absent',
+  'total_times_teacher_add',
+  'total_times_teacher_do_not_write',
+  'total_times_teacher_retired',
 ]
-const displayColumns = [
-  'tuan',
-  'don_vi',
-  'giang_vien',
-  'ma_lop',
-  'ten_mon_hoc',
-  'si_so',
-  'thoi_gian',
-]
+const displayColumns = columns
 const query = mkQuery('query', columns, dataKey)
 const subscription = mkQuery('subscription', columns, dataKey)
 
@@ -75,3 +63,4 @@ export default compose(
   memo,
   withNamespaces(['report'])
 )(Page)
+

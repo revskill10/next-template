@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import dynamic from 'next/dynamic'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import {UserAgentProvider} from '@quentin-sommer/react-useragent'
@@ -14,6 +13,7 @@ import registerServiceWs from 'lib/utils/register-service-worker'
 import {openSnackbar} from 'mui-redux-alerts'
 
 import equal from 'fast-deep-equal'
+import dynamic from 'next/dynamic'
 //import CacheComponent from 'containers/cache-component'
 const CacheComponent = dynamic(import('containers/cache-component'))
 //import UIContainer from 'containers/ui-container'
