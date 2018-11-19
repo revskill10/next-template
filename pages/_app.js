@@ -7,7 +7,7 @@ import withError from 'lib/hocs/with-error'
 import withUserAgent from 'lib/hocs/with-user-agent'
 import AppContainer from 'containers/next-app'
 
-export default compose(  
+export default compose(
   withError,
   withReduxStore,  
   withApolloClient,

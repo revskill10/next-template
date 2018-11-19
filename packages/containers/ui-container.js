@@ -9,7 +9,7 @@ import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 const UIContainer = (props) => {
-  const {Component, pageProps, router, pageContext} = props
+  const {Component, pageProps, router, pageContext, lng} = props
   return (
     <>
     <PageTransition
@@ -35,7 +35,7 @@ const UIContainer = (props) => {
             <>
               <CssBaseline />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Component key={router.route} {...pageProps} pageContext={pageContext} />              
+                <Component key={router.route} {...pageProps} pageContext={pageContext} lng={lng} />              
               </MuiPickersUtilsProvider>
             </>
           </MuiThemeProvider>

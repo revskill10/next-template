@@ -41,7 +41,7 @@ const AppContainer = (props) => {
       }, 2000)
     }
   }
-  
+
   return (    
     <ReduxProvider store={reduxStore}>
       <ApolloProvider client={apolloClient}>
