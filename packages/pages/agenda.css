@@ -1,6 +1,3 @@
-@import '~react-agenda/build/styles.css';
-@import '~react-datetime/css/react-datetime.css';
-
 .content-expanded {
     height: 100vh;
     overflow: hidden;

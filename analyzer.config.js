@@ -1,7 +1,7 @@
 module.exports = {
   server: {
     analyzerMode: 'static',
-    reportFilename: '../bundles/server.html'
+    reportFilename: './bundles/server.html'
   },
   browser: {
     analyzerMode: 'static',

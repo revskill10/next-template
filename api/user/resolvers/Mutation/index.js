@@ -12,9 +12,9 @@ const  {
   userInfoQuery,
   assignRolesMutation,
   assignPermissionsMutation,
+  logoutMutation,
 } = require('./index.gql')
 const { inspect } = require('util')
-const getCurrentUser = require('../../get-current-user')
 
 function onLoginData(data, context) {  
   let info1 = data.insert_users.returning[0].info
@@ -61,9 +61,9 @@ async function refresh(parent, args, context, info) {
 }
 
 async function refreshCookies(parent, { token }, context, info) {
-  const {adminClients}= context
-  const res = await getCurrentUser({token, adminClients})
-  setCookie(context, res.token)
+  const {adminClients, getCurrentUser}= context
+  const res = await getCurrentUser({token})
+  setCookie(context, token)
   return res
 }
 
@@ -71,10 +71,9 @@ async function logout(parent, { id_token }, context, info) {
   const { currentUser, adminClients } = context
   const variables = {
     userId: currentUser.user_id,
-    active: false,
   }
   await mutate({
-    query: upsertUserQuery,
+    query: logoutMutation,
     variables,
     context,
   }, adminClients['userService'])
@@ -154,7 +153,7 @@ async function assignPermissions(_, {role_id, permission_ids}, context) {
 }
 
 const { combineResolvers } = require('graphql-resolvers')
-const { canAssignRoles, canAssignPermissions, canRefreshCookies } = require('../../policies')
+const { canAssignRoles, canAssignPermissions, canRefreshCookies } = require('../../../../policies.config')
 
 module.exports = {
   login,

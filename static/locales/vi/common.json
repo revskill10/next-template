@@ -5,6 +5,7 @@
   "description": {
     "home": "Tổng hợp báo cáo về tình hình giảng dạy tại Đại học Dân Lập Hải Phòng"
   },
-  "import": "Vui lòng tải lên hoặc kéo thả tệp Excel/CSV ở đây"
+  "import": "Vui lòng tải lên hoặc kéo thả tệp Excel/CSV ở đây",
+  "lng": "vi"
 }
 

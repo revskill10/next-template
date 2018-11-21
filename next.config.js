@@ -14,11 +14,11 @@ const offlineOptions = require('./offline.config')
 const webpack = require('./webpack.config')
 const bundleAnalyzerConfig = require('./analyzer.config')
 const publicRuntimeConfig = require('./env.config')
-const exportPathMap = require('./export.config')
+const exportPathMap = require('./configs/export.config')
+const workerOptions = require('./worker.config')
 const analyzeServer = ['server', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const analyzeBrowser = ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const pageExtensions = ['js', 'jsx', 'mdx']
-const workerOptions = require('./worker.config')
 
 const nextConfig = {
   ...offlineOptions,

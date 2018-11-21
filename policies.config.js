@@ -1,4 +1,4 @@
-const {allow, VIEW_QLGD_REPORT} = require('../lib/policies')
+const {allow, VIEW_QLGD_REPORT} = require('./packages/lib/policies')
 
 const isAdmin = (currentUser) => {
   return currentUser.roles.includes('admin')

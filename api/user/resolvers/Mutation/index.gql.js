@@ -44,6 +44,17 @@ const upsertUserQuery = gql`
   }
 `
 
+const logoutMutation = gql`
+  mutation logout($userId:uuid!){
+  update_users(
+    _set:{active:false},
+    where:{id:{_eq:$userId}}
+  ){
+    affected_rows
+  }
+}
+`
+
 const assignRolesMutation = gql`
 mutation UpsertMembership($user_id:uuid!, $role_ids:[uuid!]!,$input:[memberships_insert_input!]!){ 
   delete_memberships(
@@ -99,4 +110,5 @@ module.exports = {
   userInfoQuery,
   assignRolesMutation,
   assignPermissionsMutation,
+  logoutMutation,
 }

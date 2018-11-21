@@ -19,10 +19,9 @@
         "data": "./packages/data",
         "components": "./packages/components",
         "lib": "./packages/lib",
-        "mui-datatables": "./packages/vendor/mui-datatables",
-        "mui-breadcrumbs": "./packages/vendor/mui-breadcrumbs",
-        "mui-redux-alerts": "./packages/vendor/mui-redux-alerts",
-        "modules": "./packages/modules",
+        "mui-datatables": "./vendor/mui-datatables",
+        "mui-breadcrumbs": "./vendor/mui-breadcrumbs",
+        "mui-redux-alerts": "./vendor/mui-redux-alerts",
         "pages": "./packages/pages",
         "fragments": "./packages/fragments"
       }

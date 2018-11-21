@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { ReactAgenda , ReactAgendaCtrl, guid , getUnique , getLast , getFirst , Modal } from 'react-agenda';
+import 'react-agenda/build/styles.css';
+import 'react-datetime/css/react-datetime.css';
 import 'pages/agenda.css'
+import { ReactAgenda , ReactAgendaCtrl, guid , getUnique , getLast , getFirst , Modal } from 'react-agenda';
 
 var now = new Date();
 
 require('moment/locale/vi.js');
-    var colors= {
-      'color-1':"rgba(102, 195, 131 , 1)" ,
-      "color-2":"rgba(242, 177, 52, 1)" ,
-      "color-3":"rgba(235, 85, 59, 1)" ,
-      "color-4":"rgba(70, 159, 213, 1)",
-      "color-5":"rgba(170, 59, 123, 1)"
-    }
+var colors= {
+  'color-1':"rgba(102, 195, 131 , 1)" ,
+  "color-2":"rgba(242, 177, 52, 1)" ,
+  "color-3":"rgba(235, 85, 59, 1)" ,
+  "color-4":"rgba(70, 159, 213, 1)",
+  "color-5":"rgba(170, 59, 123, 1)"
+}
 
 
 var items = [
@@ -242,8 +244,8 @@ this.setState({numberOfDays:days})
           </div>
             </Modal>:''
           }
-
-       </div>
+       </div>       
+       
        </>
     );
   }

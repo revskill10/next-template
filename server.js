@@ -16,9 +16,9 @@ const { join } = require('path')
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
-const config = require('../lib/i18n/config');
-const i18n = require('../lib/i18n');
-const getAllNamespaces = require('../lib/i18n/get-all-namespaces');
+const config = require('./packages/lib/i18n/config');
+const i18n = require('./packages/lib/i18n');
+const getAllNamespaces = require('./packages/lib/i18n/get-all-namespaces');
 
 const { localesPath, allLanguages, defaultLanguage } = config.translation;
 
@@ -27,19 +27,20 @@ const serverSideOptions = {
   preload: allLanguages, // preload all langages
   ns: getAllNamespaces(`${localesPath}${defaultLanguage}`), // need to preload all the namespaces
   backend: {
-    loadPath: path.join(__dirname, '/../../static/locales/{{lng}}/{{ns}}.json'),
-    addPath: path.join(__dirname, '/../../static/locales/{{lng}}/{{ns}}.missing.json'),
+    loadPath: path.join(__dirname, './static/locales/{{lng}}/{{ns}}.json'),
+    addPath: path.join(__dirname, './static/locales/{{lng}}/{{ns}}.missing.json'),
   },
   detection: {
     caches: ['cookie'] // default: false
   },
 };
-
+/*
 const {
   makeRenderAndCache
 } = require('./caching')
-
 const renderAndCache = makeRenderAndCache(app, ssrCache)
+*/
+
 
 // init i18next with serverside settings
 // using i18next-express-middleware
@@ -51,9 +52,13 @@ i18n
   .init(serverSideOptions, () => {
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
-
-      const { createServer, startServer } = require('./create-graphql-server')
-      const graphqlServer = await createServer({dev})
+      //const routes = require('./configs/routes.config')
+      const { createServer, startServer } = require('./api/create-graphql-server')
+      const urlMap = require('./urlMap.config')
+      const createSchema = require('./api/core/create-schema')
+      const {schema, adminClients} = await createSchema(urlMap)
+      const getCurrentUser = require('./api/user/get-current-user')(adminClients)
+      const graphqlServer = await createServer({dev, schema, adminClients, getCurrentUser})
       
       const server = graphqlServer.express;
       const cookieParser = require('cookie-parser');
@@ -61,11 +66,13 @@ i18n
       
       // enable middleware for i18next
       server.use(i18nextMiddleware.handle(i18n));
-
-      server.get('/', (req, res) => {
-        renderAndCache(req, res, '/')
+/*
+      routes.forEach(function(item) {
+        server.get(item, (req, res) => {
+          renderAndCache(req, res, item)
+        })
       })
-
+*/
       // serve locales for client
       server.use('/locales', express.static(path.join(__dirname, '/locales')));
 
@@ -78,13 +85,13 @@ i18n
         const { pathname } = parsedUrl
 
         if (pathname === '/service-worker.js') {
-          const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, '../../static', 'service-worker.js') : join(__dirname, '../../static', 'service-worker.dev.js')
+          const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, './static', 'service-worker.js') : join(__dirname, './static', 'service-worker.dev.js')
           app.serveStatic(req, res, filePath)
         } else if (pathname === '/pdf.worker.js') {
-          const filePath = join(__dirname, '../../static', 'pdf.worker.js')
+          const filePath = join(__dirname, './static', 'pdf.worker.js')
           app.serveStatic(req, res, filePath)
         } else if (pathname === '/favicon.ico') {
-          const filePath = join(__dirname, '../../static', 'favicon.ico')
+          const filePath = join(__dirname, './static', 'favicon.ico')
           app.serveStatic(req, res, filePath)
         } else {
           handle(req, res, parsedUrl)
