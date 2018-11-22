@@ -42,7 +42,7 @@
     "apollo-link": "1.2.4",
     "apollo-link-context": "1.0.10",
     "apollo-link-error": "1.1.2",
-    "apollo-link-http": "1.5.6",
+    "apollo-link-http": "1.5.7",
     "apollo-link-ws": "1.0.10",
     "apollo-upload-client": "9.1.0",
     "apollo-utilities": "1.0.26",
