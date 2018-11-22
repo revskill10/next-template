@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import dynamic from 'next/dynamic'
-import reactAgenda from 'modules/timetables/components/react-agenda.styles'
-import reactDateTime from 'modules/timetables/components/react-datetime.styles'
+
 import agenda from 'modules/timetables/components/agenda.styles'
 import { ReactAgenda , ReactAgendaCtrl, guid , getUnique , getLast , getFirst , Modal } from 'react-agenda';
 
@@ -245,10 +244,9 @@ this.setState({numberOfDays:days})
           </div>
             </Modal>:''
           }
+          <style jsx>{agenda}</style>
        </div>       
-      <style jsx>{reactAgenda}</style>
-      <style jsx>{reactDateTime}</style>
-      <style jsx>{agenda}</style>
+      
        </Fragment>
     );
   }

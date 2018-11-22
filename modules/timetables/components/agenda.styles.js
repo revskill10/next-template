@@ -1,6 +1,9 @@
 import css from  'styled-jsx/css'
-
+import reactAgenda from 'modules/timetables/components/react-agenda.styles'
+import reactDateTime from 'modules/timetables/components/react-datetime.styles'
 export default css`
+${reactAgenda}
+${reactDateTime}
 .content-expanded {
     height: 100vh;
     overflow: hidden;

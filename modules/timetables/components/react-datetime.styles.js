@@ -1,6 +1,4 @@
-import css from  'styled-jsx/css'
-
-export default css`
+export default `
 /*!
  * https://github.com/YouCanBookMe/react-datetime
  */
