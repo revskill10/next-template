@@ -16,9 +16,9 @@ const { join } = require('path')
 
 const i18nextMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
-const config = require('./packages/lib/i18n/config');
-const i18n = require('./packages/lib/i18n');
-const getAllNamespaces = require('./packages/lib/i18n/get-all-namespaces');
+const config = require('./modules/core/lib/i18n/config');
+const i18n = require('./modules/core/lib/i18n');
+const getAllNamespaces = require('./modules/core/lib/i18n/get-all-namespaces');
 
 const { localesPath, allLanguages, defaultLanguage } = config.translation;
 
@@ -53,12 +53,12 @@ i18n
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
       //const routes = require('./configs/routes.config')
-      const { createServer, startServer } = require('./api/create-graphql-server')
+      const { createServer, startServer } = require('./modules/core/create-graphql-server')
       const urlMap = require('./urlMap.config')
-      const createSchema = require('./api/core/create-schema')
-      const {schema, adminClients} = await createSchema(urlMap)
-      const getCurrentUser = require('./api/user/get-current-user')(adminClients)
-      const graphqlServer = await createServer({dev, schema, adminClients, getCurrentUser})
+      const createSchema = require('./modules/core/create-schema')
+      const {localSchema, resolvers, getCurrentUser} = require('./modules/user')
+      const {schema, adminClients} = await createSchema(urlMap, {localSchema, resolvers})
+      const graphqlServer = await createServer({dev, schema, adminClients, getCurrentUser: getCurrentUser(adminClients)})
       
       const server = graphqlServer.express;
       const cookieParser = require('cookie-parser');

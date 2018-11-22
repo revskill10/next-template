@@ -1,3 +1,12 @@
 {
-  "watch": ["api/**/*.js"]
+  "watch": [
+    "modules/**/*.js"
+  ],
+  "ignore": [
+    "modules/**/components/**/*.js",
+    "modules/**/containers/**/*.js",
+    "modules/**/fragments/**/*.gql",
+    ".next",
+    "node_modules"
+  ]
 }

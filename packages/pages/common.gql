@@ -1,7 +1,0 @@
-query GetFields($tableName:String!){  
-  __type(name: $tableName) {    
-    fields {
-      name      
-    }
-  }
-}

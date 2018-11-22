@@ -1,7 +1,7 @@
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-module.exports = (config, options) => {
+module.exports = (config, {defaultLoaders}) => {
   config.node = {
     fs: 'empty'
   }
@@ -21,6 +21,20 @@ module.exports = (config, options) => {
       }
     }
   })
+  config.module.rules.push({
+    test: /\.styles$/,
+    use: [
+      defaultLoaders.babel,
+      {
+        loader: require('styled-jsx/webpack').loader,
+        options: {
+          type: 'scoped'
+        }
+      }
+    ]
+  })
+
+  return config
  
   if (config.mode === 'production') {
     if (Array.isArray(config.optimization.minimizer)) {

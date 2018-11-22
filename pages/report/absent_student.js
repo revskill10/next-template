@@ -1,4 +1,4 @@
-import ReportIndex, { getIndexProps } from 'pages/report/absent-student'
+import ReportIndex, { getIndexProps } from 'modules/report/components/absent-student'
 import { withInitialProps } from 'lib/hocs/with-initial-props'
 import { withI18next } from 'lib/hocs/with-i18next'
 import { compose } from 'recompose'

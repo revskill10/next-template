@@ -1,0 +1,15 @@
+#import "./current-user.gql"
+
+query UserInfo($userId:uuid!){
+  v_user_info(where:{
+    user_id:{
+      _eq:$userId
+    }
+  }){
+    ...CurrentUser
+  }
+}
+
+mutation AssignRoles($userId: String!, $roleIds: [String]){
+  assignRoles(user_id:$userId, role_ids: $roleIds)
+}

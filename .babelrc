@@ -15,15 +15,14 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
-        "containers": "./packages/containers",
-        "data": "./packages/data",
-        "components": "./packages/components",
-        "lib": "./packages/lib",
+        "modules": "./modules",
+        "containers": "./modules/core/containers",
+        "components": "./modules/core/components",
+        "data": "./modules/core/data",
+        "lib": "./modules/core/lib",
         "mui-datatables": "./vendor/mui-datatables",
         "mui-breadcrumbs": "./vendor/mui-breadcrumbs",
-        "mui-redux-alerts": "./vendor/mui-redux-alerts",
-        "pages": "./packages/pages",
-        "fragments": "./packages/fragments"
+        "mui-redux-alerts": "./vendor/mui-redux-alerts"
       }
     }]
   ]

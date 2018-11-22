@@ -1,4 +1,4 @@
-import ReportIndex, { getIndexProps } from 'pages/report/lesson-class'
+import ReportIndex, { getIndexProps } from 'modules/report/components/lesson-class'
 import { withInitialProps } from 'lib/hocs/with-initial-props'
 import { withI18next } from 'lib/hocs/with-i18next'
 import { compose } from 'recompose'

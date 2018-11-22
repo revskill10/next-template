@@ -1,0 +1,30 @@
+#import "./user-detail.fragment.gql"
+#import "./users.fragment.gql"
+#import "./roles.fragment.gql"
+
+query AdminPageQuery {
+  users:v_user_info_3(where:{_not:{detail:{name:{_eq:"Guest"}}}}){
+    ...usersFragment
+  }
+  roles:v_role_info{
+    ...rolesFragment
+  }
+  permissions{
+    value:id
+    label:name
+  }
+  roles_details:roles(where:{_not:{name:{_eq:"guest"}}}){
+    id
+    name
+    permissions:rolePermissionssByroleId{
+      id:permission_id      
+      detail:permissionsBypermissionId{
+        name
+      }
+    }
+    memberships:membershipssByroleId{
+      user_id
+      active
+    }
+  }
+}

@@ -1,0 +1,7 @@
+fragment CurrentUser on UserInfoPayload {
+  user_id
+  name
+  roles
+  permissions
+  active
+}

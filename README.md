@@ -45,3 +45,20 @@ FROM information_schema.columns
 WHERE table_schema = 'public'
   AND table_name   = 'table_name'
 ```
+
+- Timesstamp trigger
+
+```sql
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON table_name
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+```
