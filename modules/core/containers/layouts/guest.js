@@ -7,6 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from 'components/link'
 import GoogleLogin from 'components/auth/google-login'
 import Footer from 'containers/layouts/footer'
+import styled from 'styled-components'
+
 const styles = theme => ({
   '@global': {
     body: {
@@ -14,7 +16,7 @@ const styles = theme => ({
     },
   },
   appBar: {
-    position: 'relative',
+    position: 'static',
   },
   toolbarTitle: {
     flex: 1,
@@ -50,15 +52,20 @@ const styles = theme => ({
   },
 });
 
+const NavBarLink = styled(Link)`
+ text-decoration: none;
+ color: rgb(209, 72, 54);
+`
+
 const NavBar = ({classes}) => {
   return (
     <Toolbar>
       <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-        <Link href={'/'} native>HPU Portal</Link>
+        <NavBarLink href={'/'} native>HPU Portal</NavBarLink>
       </Typography>
-      <Link href={'/admin'}><Button>Admin</Button></Link>
-      <Link href={'/report'}><Button>Report</Button></Link>
-      <Link href={'/blog'}><Button>Blog</Button></Link>
+      <NavBarLink href={'/admin'}><Button>Admin</Button></NavBarLink>
+      <NavBarLink href={'/report'}><Button>Report</Button></NavBarLink>
+      <NavBarLink href={'/blog'}><Button>Blog</Button></NavBarLink>
       <GoogleLogin />
     </Toolbar>
   )
@@ -69,7 +76,7 @@ function Pricing(props) {
 
   return (
     <React.Fragment>
-      <AppBar position="static" color="default" className={classes.appBar}>
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
         <NavBar classes={classes} />
       </AppBar>
       <main className={classes.layout}>
