@@ -1,4 +1,3 @@
-export default `
 .edit-item-icon{
 
   background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYgMzQuNXY3LjVoNy41bDIyLjEzLTIyLjEzLTcuNS03LjUtMjIuMTMgMjIuMTN6bTM1LjQxLTIwLjQxYy43OC0uNzguNzgtMi4wNSAwLTIuODNsLTQuNjctNC42N2MtLjc4LS43OC0yLjA1LS43OC0yLjgzIDBsLTMuNjYgMy42NiA3LjUgNy41IDMuNjYtMy42NnoiLz48cGF0aCBkPSJNMCAwaDQ4djQ4aC00OHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=) no-repeat;
@@ -531,4 +530,3 @@ padding: 8px;
   margin: 5px;
 font-size: 20px;
 }
-`

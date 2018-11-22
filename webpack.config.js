@@ -1,7 +1,8 @@
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-module.exports = (config, {defaultLoaders}) => {
+module.exports = (config, options) => {
+  const {defaultLoaders} = options
   config.node = {
     fs: 'empty'
   }
@@ -34,8 +35,6 @@ module.exports = (config, {defaultLoaders}) => {
     ]
   })
 
-  return config
- 
   if (config.mode === 'production') {
     if (Array.isArray(config.optimization.minimizer)) {
       config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));

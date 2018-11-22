@@ -1,7 +1,7 @@
 import css from  'styled-jsx/css'
-import reactAgenda from 'modules/timetables/components/react-agenda.styles'
-import reactDateTime from 'modules/timetables/components/react-datetime.styles'
-export default css`
+import reactAgenda from 'modules/timetables/components/react-agenda.css'
+import reactDateTime from 'modules/timetables/components/react-datetime.css'
+export default css.global`
 ${reactAgenda}
 ${reactDateTime}
 .content-expanded {

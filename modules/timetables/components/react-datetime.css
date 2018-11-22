@@ -1,4 +1,3 @@
-export default `
 /*!
  * https://github.com/YouCanBookMe/react-datetime
  */
@@ -217,4 +216,3 @@ td.rdtYear:hover {
 .rdtTime td {
   cursor: default;
 }
-`
