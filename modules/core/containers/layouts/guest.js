@@ -5,10 +5,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Link from 'components/link'
-import GoogleLogin from 'components/auth/google-login'
 import Footer from 'containers/layouts/footer'
 import styled from 'styled-components'
-
+import dynamic from 'next/dynamic'
+import Loader from 'components/loader'
+const GoogleLogin = dynamic(import('components/auth/google-login'))
 const styles = theme => ({
   '@global': {
     body: {

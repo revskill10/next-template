@@ -1,10 +1,11 @@
-import { GoogleLogin } from 'react-google-login';
 import { Mutation } from "react-apollo";
 import Button from '@material-ui/core/Button';
 import Menu from 'components/auth/menu'
 import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
 import useAuth from 'lib/hooks/auth'
 import useGoogleAuth from 'lib/hooks/google-auth'
+import NoSSR from 'react-no-ssr'
+const { GoogleLogin } = typeof window === 'object' ? require('react-google-login') : {};
 
 const Login = () => {
   const {
@@ -22,6 +23,9 @@ const Login = () => {
           buttonText="Login"
           onSuccess={onSuccess(loginMutation)}
           onFailure={onFailure}
+          render={renderProps => (
+            <Button variant="contained" color="primary" onClick={renderProps.onClick}>Google Login</Button>
+          )}
         />
       )}
     </Mutation>
@@ -61,4 +65,6 @@ const GoogleAuth = () => {
   }
 }
 
-export default GoogleAuth
+export default () => (
+  <NoSSR><GoogleAuth /></NoSSR>
+)

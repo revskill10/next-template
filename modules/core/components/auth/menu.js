@@ -29,7 +29,7 @@ class SimpleMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <AccountCircle size={30} color={'white'} />
+          <AccountCircle size={30} color={'rgb(209, 72, 54)'} />
         </Button>
         <Menu
           id="simple-menu"

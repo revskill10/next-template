@@ -32,7 +32,7 @@ const AppContainer = (props) => {
 
   const onData = async (data) => {
     const meUpdated = data.subscriptionData.data.me
-    if (!equal(me.currentUser, meUpdated.currentUser)) {
+    if (!equal(me.currentUser, meUpdated.currentUser) && equal(me.currentUser.active, meUpdated.currentUser.active)) {
       const variables = {token: meUpdated.token}
       await apolloClient.mutate({mutation, variables})
       reduxStore.dispatch(openSnackbar({message: 'Your data has been changed', autoHideDuration: 3000}))
