@@ -99,7 +99,7 @@
     "lodash.get": "4.4.2",
     "lodash.memoize": "4.1.2",
     "lodash.merge": "4.6.1",
-    "lru-cache": "5.0.0",
+    "lru-cache": "5.1.1",
     "material-ui-pickers": "2.0.1",
     "max-listeners-exceeded-warning": "0.0.1",
     "merge-graphql-schemas": "1.5.8",
