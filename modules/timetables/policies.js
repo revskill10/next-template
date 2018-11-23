@@ -1,0 +1,1 @@
+export const VIEW_TIMETABLE = 'view:timetable'

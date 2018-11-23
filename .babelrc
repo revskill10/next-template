@@ -24,6 +24,9 @@
         "mui-breadcrumbs": "./vendor/mui-breadcrumbs",
         "mui-redux-alerts": "./vendor/mui-redux-alerts"
       }
+    }],
+    ["htm", {
+      "pragma": "React.createElement"
     }]
   ]
 }

@@ -1,0 +1,51 @@
+
+fragment eventFragment on v2_timetables {
+  id:event_id
+  title:event_name
+  start_time
+  end_time
+  day_of_week
+  start_date_of_week
+  end_date_of_week
+  status_id
+  resourceId:classroom_id
+  resourceName:classroom_name
+}
+
+query allEventsQuery {
+  events:v2_timetables {
+    ...eventFragment
+  }
+}
+
+subscription  allEventsSubscription {
+  v2_timetables {
+    ...eventFragment
+  }
+}
+
+fragment resourceFragment on sche_classrooms {
+  resourceId:id
+  resourceTitle:classroom_name
+}
+
+query  allResourcesQuery {
+  resourceMap:sche_classrooms {
+    ...resourceFragment
+  }
+}
+
+subscription allResourcesSubscription {
+  sche_classrooms {
+    ...resourceFragment
+  }
+}
+
+query fullPageQuery {
+  resourceMap:sche_classrooms {
+    ...resourceFragment
+  }
+  events:v2_timetables {
+    ...eventFragment
+  }  
+}

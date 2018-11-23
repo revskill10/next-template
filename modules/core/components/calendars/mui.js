@@ -2,7 +2,7 @@ import {Calendar} from 'material-ui-pickers';
 import {HandPointLeft} from 'styled-icons/fa-regular/HandPointLeft.cjs'
 import {HandPointRight} from 'styled-icons/fa-regular/HandPointRight.cjs'
 
-const MuiCalendar = ({date, onChange}) => {
+const MuiCalendar = ({date = new Date(), onChange = () => {console.log('date')}}) => {
   return (
     <Calendar 
     leftArrowIcon={<HandPointLeft size={30} color={'rgb(209, 72, 54)'} title={'Previous month'} />}

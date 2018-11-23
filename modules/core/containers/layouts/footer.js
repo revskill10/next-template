@@ -1,15 +1,6 @@
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-  footer: {
-    marginTop: theme.spacing.unit * 8,
-    borderTop: `1px solid ${theme.palette.divider}`,
-    padding: `${theme.spacing.unit * 6}px 0`,
-  },
-})
 
 const footers = [
   {
@@ -33,7 +24,7 @@ const footers = [
 const Footer = ({classes}) => {
   return (
     <footer className={classNames(classes.footer, classes.layout)}>
-      <Grid container spacing={32} justify="space-evenly">
+      <Grid container spacing={24}>
         {footers.map(footer => (
           <Grid item xs key={footer.title}>
             <Typography variant="h6" color="textPrimary" gutterBottom>
@@ -51,4 +42,4 @@ const Footer = ({classes}) => {
   )
 }
 
-export default withStyles(styles)(Footer)
+export default Footer

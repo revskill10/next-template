@@ -30,6 +30,16 @@ const urlMap = {
     },
     permissions: null
   },
+  'scheduleService': {
+    type: 'graphql',
+    uri: process.env.SCHEDULE_SERVICE_GRAPHQL_URL,
+    subUri: process.env.SCHEDULE_SERVICE_SUBSCRIPTION_URL,
+    headers: {
+      "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
+      "Content-Type": "application/json",
+    },
+    permissions: null
+  },
   'cmsService': {
     type: 'graphql',
     uri: process.env.CMS_GRAPHQL_URL,

@@ -4,6 +4,7 @@ import Menu from 'components/auth/menu'
 import {LOGIN, LOGOUT} from 'components/auth/google-login.gql'
 import useAuth from 'lib/hooks/auth'
 import useGoogleAuth from 'lib/hooks/google-auth'
+import {LogIn} from 'styled-icons/feather/LogIn.cjs'
 import NoSSR from 'react-no-ssr'
 const { GoogleLogin } = typeof window === 'object' ? require('react-google-login') : {};
 
@@ -24,7 +25,9 @@ const Login = () => {
           onSuccess={onSuccess(loginMutation)}
           onFailure={onFailure}
           render={renderProps => (
-            <Button variant="contained" color="primary" onClick={renderProps.onClick}>Google Login</Button>
+            <Button variant="outlined" color="primary" onClick={renderProps.onClick}>
+            <LogIn size={30} title={'Google Login'} color={'primary'} />
+            </Button>
           )}
         />
       )}

@@ -9,6 +9,8 @@ import Footer from 'containers/layouts/footer'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
 import Loader from 'components/loader'
+import Divider from '@material-ui/core/Divider'
+import {Home} from 'styled-icons/octicons/Home.cjs'
 const GoogleLogin = dynamic(import('components/auth/google-login'))
 const styles = theme => ({
   '@global': {
@@ -24,13 +26,9 @@ const styles = theme => ({
   },
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+    marginLeft: '6px',
+    marginRight: '6px',
+    
   },
   heroContent: {
     maxWidth: 600,
@@ -51,6 +49,12 @@ const styles = theme => ({
       paddingBottom: theme.spacing.unit * 2,
     },
   },
+  footer: {
+    marginTop: theme.spacing.unit * 8,
+    borderTop: `1px solid ${theme.palette.divider}`,
+    paddingTop: `${theme.spacing.unit * 6}px`,
+    paddingLeft: `${theme.spacing.unit * 16}px`,
+  },
 });
 
 const NavBarLink = styled(Link)`
@@ -62,7 +66,11 @@ const NavBar = ({classes}) => {
   return (
     <Toolbar>
       <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-        <NavBarLink href={'/'} native>HPU Portal</NavBarLink>
+        <NavBarLink href={'/'} native>
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+            <Home size={30} color={'primary'} title={'HPU Portal'} />
+          </Typography>
+        </NavBarLink>
       </Typography>
       <NavBarLink href={'/admin'}><Button>Admin</Button></NavBarLink>
       <NavBarLink href={'/report'}><Button>Report</Button></NavBarLink>
@@ -80,10 +88,14 @@ function Pricing(props) {
       <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
         <NavBar classes={classes} />
       </AppBar>
+      <Divider />
       <main className={classes.layout}>
-        {children}
+        <>
+          {children}
+          
+        </>
       </main>
-      <Footer />
+      <Footer classes={classes} />
     </React.Fragment>
   );
 }

@@ -9,6 +9,8 @@ const withWorkers = require('@zeit/next-workers')
 const withPlugins = require('next-compose-plugins');
 const withOffline = require('next-offline')
 const withTypescript = require('@zeit/next-typescript')
+const withLess = require('@zeit/next-less')
+
 
 const offlineOptions = require('./offline.config')
 const webpack = require('./webpack.config')
@@ -42,6 +44,7 @@ const plugins = [
   withMDX,
   withSass,
   withCSS,
+  withLess,
   withBundleAnalyzer,
 ]
 module.exports = withPlugins(
