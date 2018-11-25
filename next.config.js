@@ -2,7 +2,6 @@ process.traceDeprecation = true
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withCSS = require('@zeit/next-css')
 const withMDX = require('@zeit/next-mdx')({extension: /\.mdx?$/})
-const withOptimizedImages = require('next-optimized-images');
 const withSize = require('next-size')
 const withSass = require('@zeit/next-sass')
 const withWorkers = require('@zeit/next-workers')
@@ -12,12 +11,12 @@ const withTypescript = require('@zeit/next-typescript')
 const withLess = require('@zeit/next-less')
 
 
-const offlineOptions = require('./offline.config')
-const webpack = require('./webpack.config')
-const bundleAnalyzerConfig = require('./analyzer.config')
-const publicRuntimeConfig = require('./env.config')
+const offlineOptions = require('./configs/offline.config')
+const webpack = require('./configs/webpack.config')
+const bundleAnalyzerConfig = require('./configs/analyzer.config')
+const publicRuntimeConfig = require('./configs/env.config')
 const exportPathMap = require('./configs/export.config')
-const workerOptions = require('./worker.config')
+const workerOptions = require('./configs/worker.config')
 const analyzeServer = ['server', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const analyzeBrowser = ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const pageExtensions = ['js', 'jsx', 'mdx']
@@ -40,7 +39,6 @@ const plugins = [
   withWorkers,
   withOffline,
   withSize,
-  withOptimizedImages,
   withMDX,
   withSass,
   withCSS,

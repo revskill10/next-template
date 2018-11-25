@@ -67,3 +67,26 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 ## GraphQL
 
 Only use `graphql-tag` to write Graphql Query.
+
+## Get all columns and datatypes, nullability of schema/table
+
+```sql
+SELECT
+    "pg_attribute".attname                                                    as "column",
+    pg_catalog.format_type("pg_attribute".atttypid, "pg_attribute".atttypmod) as "datatype",
+
+    not("pg_attribute".attnotnull) AS "nullable"
+FROM
+    pg_catalog.pg_attribute "pg_attribute"
+WHERE
+    "pg_attribute".attnum > 0
+    AND NOT "pg_attribute".attisdropped
+    AND "pg_attribute".attrelid = (
+        SELECT "pg_class".oid
+        FROM pg_catalog.pg_class "pg_class"
+            LEFT JOIN pg_catalog.pg_namespace "pg_namespace" ON "pg_namespace".oid = "pg_class".relnamespace
+        WHERE
+            "pg_namespace".nspname = 'public'
+            AND "pg_class".relname = 'sche_students'
+    );
+```

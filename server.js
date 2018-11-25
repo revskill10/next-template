@@ -54,7 +54,7 @@ i18n
     app.prepare().then(async () => {
       //const routes = require('./configs/routes.config')
       const { createServer, startServer } = require('./modules/core/api/create-graphql-server')
-      const urlMap = require('./urlMap.config')
+      const urlMap = require('./configs/urlMap.config')
       const createSchema = require('./modules/core/api/create-schema')
       const localSchema = require('./configs/schema.config')
       const {schema, adminClients} = await createSchema(urlMap, localSchema.schema)
