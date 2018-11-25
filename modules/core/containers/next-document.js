@@ -2,7 +2,7 @@ import { Head, Main, NextScript } from 'next/document'
 
 const Document = ({styleTags, pageContext}) => {  
   return (
-    <html lang={'en'} dir="ltr">
+    <html lang={'en'} dir="ltr" style={{fontSize: '14px'}}>
     <Head>
       <meta charSet="utf-8" />
       {/* Use minimum-scale=1 to enable GPU rasterization */}

@@ -25,7 +25,7 @@ const Login = () => {
           onSuccess={onSuccess(loginMutation)}
           onFailure={onFailure}
           render={renderProps => (
-            <Button variant="outlined" color="primary" onClick={renderProps.onClick}>
+            <Button color="primary" onClick={renderProps.onClick}>
             <LogIn size={30} title={'Google Login'} color={'primary'} />
             </Button>
           )}

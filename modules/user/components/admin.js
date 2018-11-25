@@ -1,4 +1,3 @@
-import Layout from 'containers/layout-router'
 import dynamic from 'next/dynamic'
 import {AdminPageQuery as query} from 'modules/user/fragments/admin.gql'
 import {MembershipsContext} from 'containers/contexts'
@@ -10,10 +9,6 @@ const PermissionsForm = dynamic(import('modules/user/components/forms/permission
 const RolesForm = dynamic(import('modules/user/components/forms/roles_form'), {ssr: false, loading: () => <Loader />})
 const Admin = ({t}) => {
   return (
-    <Layout
-      title={t('admin.title')}
-      description='Simple things'
-    >
       <ContextComponent
         query={query}
         context={MembershipsContext}
@@ -24,7 +19,6 @@ const Admin = ({t}) => {
           roles={<RolesForm />}
         /> 
       </ContextComponent>
-    </Layout>
   )
 }
 

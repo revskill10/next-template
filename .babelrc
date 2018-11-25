@@ -28,5 +28,6 @@
     ["htm", {
       "pragma": "React.createElement"
     }]
-  ]
+  ],
+  "ignore": []
 }

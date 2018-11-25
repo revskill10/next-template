@@ -15,7 +15,7 @@ const GoogleLogin = dynamic(import('components/auth/google-login'))
 const styles = theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: 'transparent',
     },
   },
   appBar: {
@@ -64,7 +64,7 @@ const NavBarLink = styled(Link)`
 
 const NavBar = ({classes}) => {
   return (
-    <Toolbar>
+    <Toolbar style={{minHeight:'40px'}}>
       <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
         <NavBarLink href={'/'} native>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
@@ -72,9 +72,8 @@ const NavBar = ({classes}) => {
           </Typography>
         </NavBarLink>
       </Typography>
-      <NavBarLink href={'/admin'}><Button>Admin</Button></NavBarLink>
-      <NavBarLink href={'/report'}><Button>Report</Button></NavBarLink>
       <NavBarLink href={'/blog'}><Button>Blog</Button></NavBarLink>
+      <NavBarLink href={'/feed'}><Button>Feed</Button></NavBarLink>
       <GoogleLogin />
     </Toolbar>
   )
@@ -84,7 +83,7 @@ function Pricing(props) {
   const { classes, children } = props;
 
   return (
-    <React.Fragment>
+    <div style={{fontSize: '12px'}}>
       <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
         <NavBar classes={classes} />
       </AppBar>
@@ -92,11 +91,10 @@ function Pricing(props) {
       <main className={classes.layout}>
         <>
           {children}
-          
         </>
       </main>
       <Footer classes={classes} />
-    </React.Fragment>
+    </div>
   );
 }
 

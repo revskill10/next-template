@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   ABSENT_STUDENT,
   ABSENT_STUDENT_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const namespaces=['report']
 const dataKey='v_detail_student_absent_greater_20_percent'

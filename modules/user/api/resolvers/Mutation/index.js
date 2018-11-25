@@ -6,7 +6,7 @@ const {
   setCookie,
   clearCookie,
   query,
-} = require('../../../core/utils')
+} = require('../../../../core/api/utils')
 const  {
   upsertUserQuery,
   userInfoQuery,

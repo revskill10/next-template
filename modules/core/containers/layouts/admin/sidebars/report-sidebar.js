@@ -23,7 +23,7 @@ import {
   ALWAYS_ABSENT_STUDENT,
   UNWRITTEN_TEACHER_PER_WEEK,
   TOTAL_TEACHER,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 import {
   VIEW_QLGD_REPORT

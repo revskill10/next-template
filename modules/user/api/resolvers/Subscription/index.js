@@ -1,7 +1,7 @@
 const {
   subscribe,
   createJwtToken
-} = require('../../../core/utils')
+} = require('../../../../core/api/utils')
 const {
   userInfoSubscription,
 } = require('./index.gql')

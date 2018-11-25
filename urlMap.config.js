@@ -1,7 +1,3 @@
-const VIEW_QLGD_REPORT = require('./modules/report/policies')
-const { rule, shield, and, or, not } = require('graphql-shield')
-const makeResolver = require('./modules/policies/make-resolver')
-const canViewReport = makeResolver({allowedPermissions: [VIEW_QLGD_REPORT], remote: true})
 const urlMap = {
   'reportingService': {
     type: 'graphql',
@@ -11,14 +7,7 @@ const urlMap = {
       "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
       "Content-Type": "application/json",
     },
-    permissions: shield({
-      'query_root': {
-        v_all_lesson_class: rule()(canViewReport),
-      },      
-      'subscription_root': {
-        v_all_lesson_class: rule()(canViewReport),
-      },
-    })
+    permissions: null,
   },
   'userService': {
     type: 'graphql',
@@ -34,6 +23,26 @@ const urlMap = {
     type: 'graphql',
     uri: process.env.SCHEDULE_SERVICE_GRAPHQL_URL,
     subUri: process.env.SCHEDULE_SERVICE_SUBSCRIPTION_URL,
+    headers: {
+      "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
+      "Content-Type": "application/json",
+    },
+    permissions: null
+  },
+  'attendanceService': {
+    type: 'graphql',
+    uri: process.env.SCHEDULE_SERVICE_GRAPHQL_URL,
+    subUri: process.env.SCHEDULE_SERVICE_SUBSCRIPTION_URL,
+    headers: {
+      "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
+      "Content-Type": "application/json",
+    },
+    permissions: null
+  },
+  'eduManagerService': {
+    type: 'graphql',
+    uri: process.env.EDU_SERVICE_GRAPHQL_URL,
+    subUri: process.env.EDU_SERVICE_SUBSCRIPTION_URL,
     headers: {
       "X-Hasura-Access-Key": process.env.HASURA_ACCESS_KEY,
       "Content-Type": "application/json",

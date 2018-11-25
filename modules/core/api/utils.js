@@ -9,7 +9,11 @@ async function query({variables = {}, query, context, onData, onError }, client)
       return res.data
     }
   } catch (error) {
-    return onError(error, context)
+    if (onError && typeof(onError) === 'function') {
+      return onError(error, context)
+    } else {
+      return error
+    }
   }
 }
 
@@ -22,8 +26,10 @@ async function mutate({variables = {}, query, context, onData, onError }, client
       return res.data
     }    
   } catch (error) {
-    if (onData && typeof(onData) === 'function') {
+    if (onError && typeof(onError) === 'function') {
       return onError(error, context)
+    } else {
+      return error
     }
   }
 }

@@ -2,19 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cn from 'classnames'
 import { navigate } from 'components/calendars/constants'
-import { DatePicker } from 'material-ui-pickers';
+import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import {HandPointLeft} from 'styled-icons/fa-regular/HandPointLeft.cjs'
 import {HandPointRight} from 'styled-icons/fa-regular/HandPointRight.cjs'
-class Toolbar extends React.Component {
-  static propTypes = {
-    view: PropTypes.string.isRequired,
-    views: PropTypes.arrayOf(PropTypes.string).isRequired,
-    label: PropTypes.node.isRequired,
-    localizer: PropTypes.object,
-    onNavigate: PropTypes.func.isRequired,
-    onView: PropTypes.func.isRequired,
-  }
+import {withNamespaces} from 'react-i18next'
+import DateFnsUtils from '@date-io/date-fns';
+let locale = require('date-fns/locale/vi')
 
+class Toolbar extends React.Component {
   state = {
     selectedDate: this.props.date
   };
@@ -27,13 +22,15 @@ class Toolbar extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(JSON.stringify(props))
+    const {t} = props
+    if (t('lng') === 'en') {
+      locale = require('date-fns/locale/en-US')
+    }
   }
 
   render() {
-    let { localizer: { messages }, label } = this.props
+    let { localizer: { messages }, label, t } = this.props
     const { selectedDate } = this.state;
-
 
     return (
       <div className="rbc-toolbar">
@@ -59,15 +56,28 @@ class Toolbar extends React.Component {
         </span>
 
         <span className="rbc-toolbar-label">{label}</span>
-        <DatePicker
-            label={label}
-            showTodayButton
-            maxDateMessage="Date must be less than today"
-            value={selectedDate}
-            onChange={this.handleDateChange}
-            leftArrowIcon={<HandPointLeft size={30} color={'rgb(209, 72, 54)'} title={'Previous month'} />}
-            rightArrowIcon={<HandPointRight size={30} color={'rgb(209, 72, 54)'} title={'Previous month'} />}
-          />
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+          <div className="picker">
+            <DatePicker
+              label={label}
+              showTodayButton
+              format="dd/MM/yyyy"
+              placeholder="10/10/2018"
+              // handle clearing outside => pass plain array if you are not controlling value outside
+              mask={value =>
+                value
+                  ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+                  : []
+              }
+              value={selectedDate}
+              onChange={this.handleDateChange}
+              disableOpenOnEnter
+              animateYearScrolling={false}
+              leftArrowIcon={<HandPointLeft size={30} color={'rgb(209, 72, 54)'} title={'Previous month'} />}
+              rightArrowIcon={<HandPointRight size={30} color={'rgb(209, 72, 54)'} title={'Previous month'} />}
+            />
+          </div>
+        </MuiPickersUtilsProvider>
 
         <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
       </div>
@@ -101,4 +111,4 @@ class Toolbar extends React.Component {
   }
 }
 
-export default Toolbar
+export default withNamespaces(['common'])(Toolbar)

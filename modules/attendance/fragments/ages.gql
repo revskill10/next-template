@@ -1,0 +1,12 @@
+query agesQuery {
+  sche_ages(order_by:{sort_order:asc_nulls_first}){
+    ...agesFragment
+  }
+}
+
+fragment agesFragment on sche_ages {
+  id
+  age_name
+  from_month
+  to_month
+}

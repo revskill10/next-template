@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   GENERAL_REPORT_IN_WEEK,
   GENERAL_REPORT_IN_WEEK_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_general_report_in_week'
 const titleKey=GENERAL_REPORT_IN_WEEK

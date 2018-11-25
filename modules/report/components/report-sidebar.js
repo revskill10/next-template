@@ -23,16 +23,12 @@ import {
   ALWAYS_ABSENT_STUDENT,
   UNWRITTEN_TEACHER_PER_WEEK,
   TOTAL_TEACHER,
-} from 'lib/i18n/translations'
-
-import {
-  VIEW_QLGD_REPORT
-} from 'modules/report/policies'
+} from 'modules/report/translations'
 
 const ReportSideBar = ({t}) => {
   return (
     <List>
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report'}>
             <ListItemIcon>
@@ -42,7 +38,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report'}>{t(GENERAL_REPORT_IN_WEEK)}</StyledBarLink>
         </ListItem>
       </Authorization>
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/lesson_class'}>
             <ListItemIcon>
@@ -52,7 +48,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/lesson_class'}>{t(LESSON_CLASS)}</StyledBarLink>
         </ListItem>
       </Authorization>      
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/unfinished_teacher'}>
             <ListItemIcon>
@@ -62,7 +58,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/unfinished_teacher'}>{t(UNFINISHED_TEACHER)}</StyledBarLink>
         </ListItem>
       </Authorization>    
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/unwritten_teacher'}>
             <ListItemIcon>
@@ -72,7 +68,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/unwritten_teacher'}>{t(UNWRITTEN_TEACHER)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/additional_hour'}>
             <ListItemIcon>
@@ -82,7 +78,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/additional_hour'}>{t(ADDITIONAL_HOUR)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/additional_hour'}>
             <ListItemIcon>
@@ -92,7 +88,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/retire'}>{t(RETIRE)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/absent_student'}>
             <ListItemIcon>
@@ -102,7 +98,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/absent_student'}>{t(ABSENT_STUDENT)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/detail_absent_student'}>
             <ListItemIcon>
@@ -112,7 +108,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/detail_absent_student'}>{t(DETAIL_ABSENT_STUDENT)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/absent_student_per_department'}>
             <ListItemIcon>
@@ -122,7 +118,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/absent_student_per_department'}>{t(ABSENT_STUDENT_PER_DEPARTMENT)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/always_absent_student'}>
             <ListItemIcon>
@@ -132,7 +128,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/always_absent_student'}>{t(ALWAYS_ABSENT_STUDENT)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/unwritten_teacher_per_week'}>
             <ListItemIcon>
@@ -142,7 +138,7 @@ const ReportSideBar = ({t}) => {
           <StyledBarLink href={'/report/unwritten_teacher_per_week'}>{t(UNWRITTEN_TEACHER_PER_WEEK)}</StyledBarLink>
         </ListItem>
       </Authorization> 
-      <Authorization allowedPermissions={[VIEW_QLGD_REPORT]}>
+      <Authorization allowedPermissions={[]}>
         <ListItem button>
           <StyledBarLink href={'/report/total_teacher'}>
             <ListItemIcon>

@@ -69,7 +69,7 @@ const Dnd = ({
   components = {
     toolbar: CalendarToolbar
   },
-  defaultDate=new Date(2018, 0, 29),
+  defaultDate=new Date(2018, 11, 19),
   views=['day', 'work_week'],
   min=moment('6:00', 'h:mm').toDate(),
   max=moment('21:00', 'h:mm').toDate(),

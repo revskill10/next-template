@@ -55,7 +55,7 @@ async function getRemoteSchema ({link}) {
   return executableSchema;
 }
 
-async function makeSchema(adminLinks, urlMap, {localSchema, resolvers}) {
+async function makeSchema(adminLinks, urlMap, localSchema) {
   let remoteSchemas = []
   for(let key in urlMap) {
     if (urlMap.hasOwnProperty(key)) {
@@ -78,13 +78,12 @@ async function makeSchema(adminLinks, urlMap, {localSchema, resolvers}) {
       ...remoteSchemas,
       localSchema,
     ],
-    resolvers
   })
 }
 
-async function createSchema(urlMap, {localSchema, resolvers}) {
+async function createSchema(urlMap, localSchema) {
   const { adminLinks, adminClients } = makeAdminClients(urlMap)
-  const schema = await makeSchema(adminLinks, urlMap, {localSchema, resolvers})
+  const schema = await makeSchema(adminLinks, urlMap, localSchema)
   return {schema, adminClients}
 }
 module.exports = createSchema

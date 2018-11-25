@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   ALWAYS_ABSENT_STUDENT,
   ALWAYS_ABSENT_STUDENT_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_total_student_absent_greater_20_percent'
 const titleKey=ALWAYS_ABSENT_STUDENT

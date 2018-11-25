@@ -31,7 +31,7 @@ const serverSideOptions = {
     addPath: path.join(__dirname, './static/locales/{{lng}}/{{ns}}.missing.json'),
   },
   detection: {
-    caches: ['cookie'] // default: false
+    caches: ['cookie', 'querystring'] // default: false
   },
 };
 /*
@@ -53,12 +53,12 @@ i18n
     // loaded translations we can bootstrap our routes
     app.prepare().then(async () => {
       //const routes = require('./configs/routes.config')
-      const { createServer, startServer } = require('./modules/core/create-graphql-server')
+      const { createServer, startServer } = require('./modules/core/api/create-graphql-server')
       const urlMap = require('./urlMap.config')
-      const createSchema = require('./modules/core/create-schema')
-      const {localSchema, resolvers, getCurrentUser} = require('./modules/user')
-      const {schema, adminClients} = await createSchema(urlMap, {localSchema, resolvers})
-      const graphqlServer = await createServer({dev, schema, adminClients, getCurrentUser: getCurrentUser(adminClients)})
+      const createSchema = require('./modules/core/api/create-schema')
+      const localSchema = require('./configs/schema.config')
+      const {schema, adminClients} = await createSchema(urlMap, localSchema.schema)
+      const graphqlServer = await createServer({dev, schema, adminClients, getCurrentUser: localSchema.getCurrentUser(adminClients)})
       
       const server = graphqlServer.express;
       const cookieParser = require('cookie-parser');

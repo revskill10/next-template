@@ -10,6 +10,7 @@ const styles = {
     flexGrow: 1,
     background: 'transparent',
     boxShadow: 'none',
+    marginTop: '-2rem',
   },
 };
 

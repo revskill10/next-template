@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   TOTAL_TEACHER,
   TOTAL_TEACHER_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_total_teacher_in_week'
 const titleKey=TOTAL_TEACHER

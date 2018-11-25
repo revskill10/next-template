@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   LESSON_CLASS,
   LESSON_CLASS_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_all_lesson_class'
 const titleKey=LESSON_CLASS

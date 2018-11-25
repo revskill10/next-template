@@ -1,6 +1,6 @@
 const { 
   setCookie,
-} = require('../../../core/utils')
+} = require('../../../../core/api/utils')
 
 async function me(parents, args, context, info) {
   const { currentUser, token } = context

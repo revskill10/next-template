@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 const {
   ADDITIONAL_HOUR,
   ADDITIONAL_HOUR_KEY,
-} = require('lib/i18n/translations')
+} = require('modules/report/translations')
 
 const titleKey=ADDITIONAL_HOUR
 const descriptionKey=ADDITIONAL_HOUR

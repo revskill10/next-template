@@ -1,5 +1,7 @@
 {
   "public": true,
   "dotenv": true,
-  "version": 1
+  "version": 1,
+  "name": "test",
+  "alias": "web.ihs.edu.vn"
 }

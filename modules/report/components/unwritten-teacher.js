@@ -3,7 +3,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   UNWRITTEN_TEACHER,
   UNWRITTEN_TEACHER_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_all_teacher_do_not_write'
 const titleKey=UNWRITTEN_TEACHER

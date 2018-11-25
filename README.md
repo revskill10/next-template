@@ -62,3 +62,8 @@ BEFORE UPDATE ON table_name
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 ```
+
+
+## GraphQL
+
+Only use `graphql-tag` to write Graphql Query.

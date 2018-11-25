@@ -1,0 +1,19 @@
+
+input DurationInput {
+  from_month: Int!
+  to_month: Int!
+}
+
+input AgePayload {
+  age_name: String!
+  duration: DurationInput!
+  is_active: Boolean!
+}
+
+type Mutation {
+  createAge(age: AgePayload!): Boolean
+}
+
+type Query {
+  dummy: String
+}

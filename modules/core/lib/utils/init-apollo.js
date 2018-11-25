@@ -110,7 +110,8 @@ function create (initialState, { getToken, store }) {
     connectToDevTools: process.browser,
     ssrMode: true, // Disables forceFetch on the server (so queries are only run once)
     link: link,
-    cache: new InMemoryCache().restore(initialState || {})
+    cache: new InMemoryCache().restore(initialState || {}),
+    shouldBatch: true,
   })
 }
 

@@ -4,7 +4,7 @@ import guid from 'guid'
 import {Button} from 'components/forms/styled'
 import dynamic from 'next/dynamic'
 import NoSSR from 'react-no-ssr'
-import isAllowed from 'modules/policies/is-allowed'
+import isAllowed from 'lib/utils/is-allowed'
 
 const AccessControl = ({    
     allowedPermissions,

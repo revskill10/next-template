@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {inspect} = require('util')
-const {createJwtToken} = require('../../core/utils')
+const {createJwtToken} = require('../../../core/api/utils')
 const {userInfoQuery} = require('./get-current-user.gql')
 function getCurrentUser(adminClients) {
   return async function verifyToken({token}) {

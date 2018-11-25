@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 const {
   ABSENT_STUDENT_PER_DEPARTMENT,
   ABSENT_STUDENT_PER_DEPARTMENT_KEY,
-} = require('lib/i18n/translations')
+} = require('modules/report/translations')
 
 const titleKey=ABSENT_STUDENT_PER_DEPARTMENT
 const descriptionKey=ABSENT_STUDENT_PER_DEPARTMENT

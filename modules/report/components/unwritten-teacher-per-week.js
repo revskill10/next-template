@@ -2,7 +2,7 @@ import Shared,{makeInitialProps} from 'modules/report/components/shared'
 import {
   UNWRITTEN_TEACHER_PER_WEEK,
   UNWRITTEN_TEACHER_PER_WEEK_KEY,
-} from 'lib/i18n/translations'
+} from 'modules/report/translations'
 
 const dataKey='v_total_teacher_do_not_write_in_week'
 const titleKey=UNWRITTEN_TEACHER_PER_WEEK
