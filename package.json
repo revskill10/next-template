@@ -23,7 +23,7 @@
     "@icedesign/base": "0.2.5",
     "@icedesign/container": "0.1.8",
     "@icedesign/form-binder": "0.1.16",
-    "@material-ui/core": "3.5.1",
+    "@material-ui/core": "3.6.0",
     "@material-ui/icons": "3.0.1",
     "@mdx-js/mdx": "0.16.5",
     "@nivo/line": "0.51.0",
