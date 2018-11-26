@@ -2,10 +2,14 @@ import "antd/dist/antd.css";
 import Collapse from 'modules/edu/containers/collapse'
 import Semester from 'modules/edu/components/semester'
 import Toolbar from 'modules/edu/containers/toolbar'
-import {insertAgeClientMutation} from 'modules/edu/fragments/ages.gql.js'
-import {graphql} from 'react-apollo'
-import {compose} from 'recompose'
-const Main = ({createAge}) => {
+import useMutations from 'lib/hooks/mutations'
+import {
+  pageMutation
+} from 'modules/edu/fragments'
+
+const Main = () => {
+  const {mutations} = useMutations(pageMutation)
+
   const ages = [
     {
       key: 1,
@@ -18,9 +22,7 @@ const Main = ({createAge}) => {
       name: 'Choi'
     }
   ]
-  const mutations = {
-    createAge,
-  }
+  
   const items = [
     {
       header: 'Actions',
@@ -39,6 +41,4 @@ const Main = ({createAge}) => {
   )
 }
 
-export default compose(
-  graphql(insertAgeClientMutation, {name: 'createAge'}),
-)(Main)
+export default Main

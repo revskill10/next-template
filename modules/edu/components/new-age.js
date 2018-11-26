@@ -48,7 +48,7 @@ export default class extends React.Component {
     visible: false,
   };
 
-  showModal = () => {
+  showForm = () => {
     this.setState({ visible: !this.state.visible });
   }
 
@@ -74,7 +74,7 @@ export default class extends React.Component {
         is_active: values.is_active === 'true',
       }
       const {mutations} = this.props
-      await mutations.createAge({
+      await mutations.insertAgeClientMutation({
         variables
       })
       form.resetFields();
@@ -89,31 +89,19 @@ export default class extends React.Component {
   render() {
     const { visible } = this.state
 
-    let control = (
-      <Button type="primary" onClick={this.showModal}>
-        New Age
-      </Button>
-    )
-
-    if (visible) {
-      control = (
-        <>
-        <Button type="primary" onClick={this.handleCreate}>
-          Create Age
-        </Button>
-        <Button type="default" onClick={this.handleCancel}>
-          Cancel
-        </Button>
-        </>
-      )
-    }
     return (
       <div>
-        
+        { visible ? <Button type="default" onClick={this.handleCancel}>
+          Cancel
+        </Button> : <Button type="primary" onClick={this.showForm}>
+        New Age
+      </Button>}
         { visible && <CollectionCreateForm
           wrappedComponentRef={this.saveFormRef}
         />}
-        {control}
+        {visible && <Button type="primary" onClick={this.handleCreate}>
+          Create Age
+        </Button>}
       </div>
     );
   }

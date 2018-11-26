@@ -1,5 +1,33 @@
 const gql = require('graphql-tag')
 
+const agesFragment = gql`
+  fragment agesFragment on sche_ages {
+    key:id
+    id
+    name:age_name
+    from_month
+    to_month
+    is_active
+    sort_order
+  }
+`
+
+const agesQuery = gql`
+  query {
+    ...agesFragment
+  }
+
+  ${agesFragment}
+`
+
+const agesSubscription = gql`
+  subscription {
+    ...agesFragment
+  }
+
+  ${agesFragment}
+`
+
 const insertAgeMutation = gql`
   mutation(
     $age_name:String!,
@@ -32,7 +60,16 @@ const insertAgeClientMutation = gql`
 }
 `
 
+const pageMutation = {
+  insertAgeMutation,
+  insertAgeClientMutation,
+}
+
 module.exports = {
   insertAgeMutation,
   insertAgeClientMutation,
+  agesFragment,
+  agesQuery,
+  agesSubscription,
+  pageMutation,
 }

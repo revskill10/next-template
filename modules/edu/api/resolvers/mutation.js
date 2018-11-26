@@ -1,6 +1,6 @@
 const {
   insertAgeMutation
-} = require('../../fragments/ages.gql')
+} = require('../../fragments')
 
 const { 
   mutate,

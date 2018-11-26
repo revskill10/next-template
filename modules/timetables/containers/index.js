@@ -39,36 +39,55 @@ const process = data => {
   }
 }
 
-const IndexPage = ({t}) => {
+const useSubscriptions = (items) => {
   const client = useApolloClient()
   useEffect(() => {
-    const allResourcesSub = client.subscribe({
-      query: allResourcesSubscription
-    }).subscribe({
-      next({data}) {
-        client.cache.writeQuery({
-          query: allResourcesQuery,
-          data: { resourceMap: data.sche_classrooms }
-        })
-      }
-    })
-
-    const allEventsSub = client.subscribe({
-      query: allEventsSubscription
-    }).subscribe({
-      next({data}) {
-        client.cache.writeQuery({
-          query: allEventsQuery,
-          data: {events: data.sche_v6_timetables}
-        })
-      }
+    let subscriptions = []
+    items.forEach(item => {
+      const query = item.query
+      const subscription = item.subscription
+      const tmp = client.subscribe({
+        query: subscription
+      }).subscribe({
+        next({data}) {
+          client.cache.writeQuery({
+            query,
+            data: item.mapper(data),
+          })
+        }
+      })
+      subscriptions.push(tmp)
     })
 
     return () => {
-      allResourcesSub.unsubscribe()
-      allEventsSub.unsubscribe()
+      subscriptions.forEach(item => {
+        item.unsubscribe()
+      })
     }
   })
+}
+const items = [
+  {
+    query: allResourcesQuery,
+    subscription: allResourcesSubscription,
+    mapper: (data) => {
+      return {
+        resourceMap: data.sche_classrooms
+      }
+    }
+  },
+  {
+    query: allEventsQuery,
+    subscription: allEventsSubscription,
+    mapper: (data) => {
+      return {
+        events: data.sche_v6_timetables
+      }
+    }
+  }
+]
+const IndexPage = ({t}) => {
+  useSubscriptions(items)
   return (
     <Grid>
       <ContextComponent
