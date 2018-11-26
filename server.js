@@ -3,11 +3,8 @@ dotenv.config()
 const express = require('express');
 const path = require('path');
 const next = require('next');
-const LRUCache = require('lru-cache')
-const ssrCache = new LRUCache({
-  max: 100,
-  maxAge: 1000 * 60 * 60 // 1hour
-})
+const pathMatch = require('path-match')
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -46,6 +43,15 @@ const renderAndCache = makeRenderAndCache(app, ssrCache)
 // using i18next-express-middleware
 // init i18next with serverside settings
 // using i18next-express-middleware
+
+const route = pathMatch()
+const matches = {
+  playground: route('/playground'),
+  sendNotification: route('/send-notification'),
+  serviceWorker: route('/service-worker.js'),
+  favicon: route('/favicon.ico'),
+}
+
 i18n
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
@@ -80,21 +86,22 @@ i18n
       server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n));
 
       server.get('*', (req, res, next) => {
-        if (req.url === '/playground' || req.url === '/send-notification' ) return next();
         const parsedUrl = parse(req.url, true)
-        const { pathname } = parsedUrl
+        const { pathname, query } = parsedUrl
 
-        if (pathname === '/service-worker.js') {
+        if (matches.playground(pathname) || matches.sendNotification(pathname)) {
+          return next();
+        } else if (matches.serviceWorker(pathname)) {
           const filePath = process.env.NODE_ENV === 'production' ? join(__dirname, './static', 'service-worker.js') : join(__dirname, './static', 'service-worker.dev.js')
           app.serveStatic(req, res, filePath)
-        } else if (pathname === '/pdf.worker.js') {
-          const filePath = join(__dirname, './static', 'pdf.worker.js')
-          app.serveStatic(req, res, filePath)
-        } else if (pathname === '/favicon.ico') {
+        } else if (matches.favicon(pathname)) {
           const filePath = join(__dirname, './static', 'favicon.ico')
           app.serveStatic(req, res, filePath)
         } else {
           handle(req, res, parsedUrl)
+          return
+          //handle(req, res, parsedUrl)
+          //app.render(req, res, '/', Object.assign(params, query))
         }
       });
 
