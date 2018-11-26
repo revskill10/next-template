@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {useApolloClient} from 'lib/hooks/apollo'
 
 const useSubscriptions = (items) => {
@@ -15,6 +16,7 @@ const useSubscriptions = (items) => {
             query,
             data: item.mapper(data),
           })
+          client.query({query})
         }
       })
       subscriptions.push(tmp)
@@ -25,7 +27,7 @@ const useSubscriptions = (items) => {
         item.unsubscribe()
       })
     }
-  })
+  }, [])
 }
 
 export default useSubscriptions

@@ -1,5 +1,6 @@
 import { Button, Modal, Form, Input, Radio, Slider } from 'antd';
 import Ages from 'modules/edu/components/ages'
+import {usePageContext} from 'modules/edu/contexts'
 
 const FormItem = Form.Item;
 
@@ -43,7 +44,7 @@ const CollectionCreateForm = Form.create()(
   }
 );
 
-export default class extends React.Component {
+class FormHandler extends React.Component {
   state = {
     visible: false,
   };
@@ -73,8 +74,8 @@ export default class extends React.Component {
         },
         is_active: values.is_active === 'true',
       }
-      const {mutations} = this.props
-      await mutations.insertAgeClientMutation({
+      const {insertAgeClientMutation} = this.props
+      await insertAgeClientMutation({
         variables
       })
       form.resetFields();
@@ -106,3 +107,13 @@ export default class extends React.Component {
     );
   }
 }
+
+const Wrapper = () => {
+  const {insertAgeClientMutation} = usePageContext()
+
+  return (
+    <FormHandler insertAgeClientMutation={insertAgeClientMutation} />
+  )
+}
+
+export default Wrapper

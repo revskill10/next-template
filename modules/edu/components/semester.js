@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import AgeSelector from 'modules/edu/components/age-selector'
 import TimePicker from 'modules/edu/components/time-picker'
-
+import {usePageContext} from 'modules/edu/contexts'
 
 const columns = (agesOptions) => [{
   title: 'Activity',
@@ -22,7 +22,7 @@ const columns = (agesOptions) => [{
 }
 ];
 
-const data = [{
+const testData = [{
   key: '1',
   activity: 'Don tre',
   start_time: '08:30',
@@ -30,11 +30,10 @@ const data = [{
   age_id: 1,
 }];
 
-const Semester = ({ages}) => {  
+const Semester = () => {  
+  const {sche_ages} = usePageContext()
   return (
-    <>      
-      <Table columns={columns(ages)} dataSource={data} />
-    </>
+    <Table columns={columns(sche_ages)} dataSource={testData} />
   )
 }
 

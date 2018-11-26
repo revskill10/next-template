@@ -3,11 +3,11 @@ import dynamic from 'next/dynamic'
 const NewAge = dynamic(import('modules/edu/components/new-age')) 
 const NewActivity = dynamic(import('modules/edu/components/new-activity'))
 
-export default ({mutations}) => {
+export default () => {
   const items = [
     {
       header: 'New Age',
-      component: <NewAge mutations={mutations} />
+      component: <NewAge />
     },
     {
       header: 'New Activity',

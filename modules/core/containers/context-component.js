@@ -1,7 +1,6 @@
-import {memo} from 'react'
 import {Query} from 'react-apollo'
 
-const ContextComponent = ({children, query, context, process}) => {
+const ContextComponent = ({children, query, context, process, mutations = {}}) => {
   const ContextProvider = context.Provider
   return (
     <Query query={query} fetchPolicy={'cache-only'}>
@@ -11,13 +10,13 @@ const ContextComponent = ({children, query, context, process}) => {
           if (process && typeof(process) === 'function') {
             const tmp = process(data)
             return (
-              <ContextProvider value={tmp}>
+              <ContextProvider value={ {...tmp, ...mutations } }>
                 {children}
               </ContextProvider>
             )
           } else {
             return (
-              <ContextProvider value={data}>
+              <ContextProvider value={ {...data, ...mutations} }>
                 {children}
               </ContextProvider>
             )
@@ -30,4 +29,4 @@ const ContextComponent = ({children, query, context, process}) => {
   )
 }
 
-export default memo(ContextComponent)
+export default ContextComponent

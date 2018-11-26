@@ -14,17 +14,19 @@ const agesFragment = gql`
 
 const agesQuery = gql`
   query {
-    ...agesFragment
+    sche_ages {
+      ...agesFragment
+    }
   }
-
   ${agesFragment}
 `
 
 const agesSubscription = gql`
   subscription {
-    ...agesFragment
+    sche_ages {
+      ...agesFragment
+    }
   }
-
   ${agesFragment}
 `
 
@@ -60,16 +62,30 @@ const insertAgeClientMutation = gql`
 }
 `
 
-const pageMutation = {
+const query = gql`
+query {
+  sche_ages {
+    ...agesFragment
+  }
+}
+${agesFragment}
+`
+
+const mutation = {
   insertAgeMutation,
   insertAgeClientMutation,
 }
 
+const subscription = [
+  {
+    query: agesQuery,
+    subscription: agesSubscription,
+    mapper: (data) => data
+  },
+]
+
 module.exports = {
-  insertAgeMutation,
-  insertAgeClientMutation,
-  agesFragment,
-  agesQuery,
-  agesSubscription,
-  pageMutation,
+  mutation,
+  query,
+  subscription,
 }

@@ -1,5 +1,5 @@
 const {
-  insertAgeMutation
+  mutation
 } = require('../../fragments')
 
 const { 
@@ -21,7 +21,7 @@ async function createAge(_, { age }, context, info) {
   }
 
   const res = await mutate({
-    query: insertAgeMutation,
+    query: mutation['insertAgeMutation'],
     variables,
   }, service)
 
