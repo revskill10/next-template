@@ -196,7 +196,7 @@
     "babel-plugin-graphql-tag": "1.6.0",
     "babel-plugin-import-graphql": "2.6.2",
     "babel-plugin-module-resolver": "3.1.1",
-    "babel-plugin-styled-components": "1.8.0",
+    "babel-plugin-styled-components": "1.9.0",
     "jest": "23.6.0",
     "jest-dom": "2.1.1",
     "next-purgecss": "3.0.0",
