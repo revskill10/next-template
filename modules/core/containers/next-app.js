@@ -18,11 +18,14 @@ import dynamic from 'next/dynamic'
 const CacheComponent = dynamic(import('containers/cache-component'))
 //import UIContainer from 'containers/ui-container'
 const UIContainer = dynamic(import('containers/ui-container'))
+const UIContainerMobile = dynamic(import('containers/ui-container.mobile'))
 //import ApolloProvider from 'containers/apollo-provider'
 const ApolloProvider = dynamic(import('containers/apollo-provider'))
 
 const AppContainer = (props) => {
-  const {apolloClient, reduxStore, ua} = props
+  const {apolloClient, reduxStore, ua, phone} = props
+
+  const Container = phone ? UIContainerMobile : UIContainer
 
   useEffect(() => {
     registerServiceWs(reduxStore)
@@ -53,7 +56,7 @@ const AppContainer = (props) => {
               onSubscriptionData={onData}
               toCache={(data) =>  { return data.me }}
             >
-              <UIContainer {...props} />
+              <Container {...props} />
             </CacheComponent>
           </UserAgentProvider>
         </ApolloProvider>

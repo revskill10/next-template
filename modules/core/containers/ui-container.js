@@ -4,10 +4,10 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import {ThemeProvider} from 'styled-components';
 import { PageTransition } from 'next-page-transitions'
 import Loader from 'components/loader'
-import styles, {TIMEOUT} from 'containers/ui-container.styles'
-
+import 'containers/style.css'
+const TIMEOUT=400
 const UIContainer = (props) => {
-  const {Component, pageProps, router, pageContext, lng} = props
+  const {Component, pageProps, router, pageContext} = props
   return (
     <>
     <PageTransition
@@ -32,13 +32,13 @@ const UIContainer = (props) => {
           >
             <>
               <CssBaseline />
-              <Component key={router.route} {...pageProps} pageContext={pageContext} lng={lng} />              
+              <Component key={router.route} {...pageProps} pageContext={pageContext} />              
             </>
           </MuiThemeProvider>
         </ThemeProvider>
       </JssProvider>
     </PageTransition>
-    <style jsx global>{styles}</style>
+    
     </>
   )
 }

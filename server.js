@@ -99,10 +99,11 @@ i18n
           app.serveStatic(req, res, filePath)
         } else {
           let md = new MobileDetect(req.headers['user-agent']);
+          
           if (!md.mobile()) {
-            app.render(req, res, '/', Object.assign({phone: false}, query))
+            app.render(req, res, '/index', Object.assign({phone: false}, query))
           } else {
-            app.render(req, res, '/', Object.assign({phone: true}, query))
+            app.render(req, res, '/index.mobile', Object.assign({phone: true}, query))
           }
           
           //handle(req, res, parsedUrl)

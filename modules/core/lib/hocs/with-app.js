@@ -1,20 +1,27 @@
 import App, { Container } from 'next/app'
 import getPageContext from 'lib/utils/get-page-context';
-import styles from 'lib/hocs/with-app.styles'
+
 const withApp = AppContainer =>
   class extends App {
-    static async getInitialProps ({ Component, router, ctx }) {
+    static async getInitialProps (props) {
+      const { Component, router, ctx, } = props
+      const {query} = router
+      const {phone} = query
+
       let pageProps = {}
      
       if (Component.getInitialProps) {
         pageProps = await Component.getInitialProps(ctx)
       }
     
-      return { pageProps, router }
+      return { pageProps, router, phone }
     }
     constructor(props) {
       super(props);
-      this.pageContext = getPageContext();
+      
+      if (!props.phone) {
+        this.pageContext = getPageContext();
+      }
     }
     /*
     componentDidMount(){
@@ -26,12 +33,20 @@ const withApp = AppContainer =>
     }
     */
     render () {          
-      return (
-        <Container>
-          <AppContainer {...this.props} pageContext={this.pageContext} />
-          <style jsx>{styles}</style>
-        </Container>
-      )
+      const {phone} = this.props
+      if (phone) {
+        return (
+          <Container>
+            <AppContainer {...this.props} />
+          </Container>
+        )
+      } else {
+        return (
+          <Container>
+            <AppContainer {...this.props} pageContext={this.pageContext} />
+          </Container>
+        ) 
+      }      
     }
   }
 

@@ -1,5 +1,5 @@
 import MUIDataTable from 'mui-datatables';
-import style from 'components/datatables/mui.style'
+//import style from 'components/datatables/mui.style'
 
 const defaultOptions = {
   filter: true,
@@ -23,7 +23,6 @@ const DataTable = ({data, title, columns, options}) => {
         options={finalOptions}
         className='container'
       />
-      <style jsx global>{style}</style>
     </>
   )
 }

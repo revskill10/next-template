@@ -3,10 +3,12 @@ import { ServerStyleSheet } from 'styled-components'
 import flush from 'styled-jsx/server';
 import PropTypes from 'prop-types';
 import csso from 'csso'
+import {inspect} from 'util'
 
 export const withDocument = Container =>
   class extends Document {
-    static async getInitialProps({renderPage}) {
+    static async getInitialProps(props) {
+      
       
       // Resolution order
       //
@@ -29,41 +31,51 @@ export const withDocument = Container =>
       // 2. page.getInitialProps
       // 3. app.render
       // 4. page.render
-
-      let pageContext;
+      const {renderPage, query, req} = props
+      const {phone} = query
       const sheet = new ServerStyleSheet()
+        
+      let pageContext;
+      
       const page = renderPage(App => {
-        const WrappedApp = props => {
-          pageContext = props.pageContext;
-          return sheet.collectStyles(<App {...props} />);
+        const WrappedApp = appProps => {
+          if (!phone) {
+            pageContext = appProps.pageContext;
+            return sheet.collectStyles(<App {...appProps} />);
+          } else {
+            return <App {...appProps} />
+          }
         };
-    
-        WrappedApp.propTypes = {
-          pageContext: PropTypes.object.isRequired,
-        };
-    
         return WrappedApp;
       });
-
-      const styleTags = sheet.getStyleElement()
-      const css = pageContext.sheetsRegistry.toString()
-      const ast = csso.syntax.parse(css);
-      const compressedAst = csso.compress(ast).ast;
-      const minifiedCss = csso.syntax.generate(compressedAst);
-      return { 
-        ...page, 
-        pageContext,
-        styleTags,
-        styles: (
-          <React.Fragment>
-            <style
-              id="jss-server-side"
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{ __html: minifiedCss }}
-            />
-            {flush() || null}
-          </React.Fragment>
-        ),
+      if (!phone) {
+        const styleTags = sheet.getStyleElement()
+        const css = pageContext.sheetsRegistry.toString()
+        const ast = csso.syntax.parse(css);
+        const compressedAst = csso.compress(ast).ast;
+        const minifiedCss = csso.syntax.generate(compressedAst);
+        return { 
+          ...page, 
+          phone,
+          pageContext,
+          styleTags,
+          styles: (
+            <React.Fragment>
+              <style
+                id="jss-server-side"
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: minifiedCss }}
+              />
+              {flush() || null}
+            </React.Fragment>
+          ),
+        }
+      } else {
+        return {
+          ...page,
+          phone,
+          req,
+        }
       }
     }
     render () {
