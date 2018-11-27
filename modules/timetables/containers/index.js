@@ -1,3 +1,5 @@
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import {createContext, useEffect} from 'react'
 import {withNamespaces} from 'react-i18next'
 import Grid from 'modules/timetables/containers/grid'
