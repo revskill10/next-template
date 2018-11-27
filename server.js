@@ -7,7 +7,7 @@ const pathMatch = require('path-match')
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-const handle = app.getRequestHandler();
+//const handle = app.getRequestHandler();
 const { parse } = require('url')
 const { join } = require('path')
 
@@ -51,7 +51,7 @@ const matches = {
   serviceWorker: route('/service-worker.js'),
   favicon: route('/favicon.ico'),
 }
-
+var MobileDetect = require('mobile-detect')    
 i18n
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
@@ -98,8 +98,13 @@ i18n
           const filePath = join(__dirname, './static', 'favicon.ico')
           app.serveStatic(req, res, filePath)
         } else {
-          handle(req, res, parsedUrl)
-          return
+          let md = new MobileDetect(req.headers['user-agent']);
+          if (!md.mobile()) {
+            app.render(req, res, '/', Object.assign({phone: false}, query))
+          } else {
+            app.render(req, res, '/', Object.assign({phone: true}, query))
+          }
+          
           //handle(req, res, parsedUrl)
           //app.render(req, res, '/', Object.assign(params, query))
         }

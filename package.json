@@ -110,6 +110,7 @@
     "material-ui-pickers": "2.0.2",
     "max-listeners-exceeded-warning": "0.0.1",
     "merge-graphql-schemas": "1.5.8",
+    "mobile-detect": "^1.4.3",
     "moment": "2.22.2",
     "next": "7.0.2",
     "next-compose-plugins": "2.1.1",
