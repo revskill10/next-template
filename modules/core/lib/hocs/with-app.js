@@ -19,9 +19,7 @@ const withApp = AppContainer =>
     constructor(props) {
       super(props);
       
-      if (!props.phone) {
-        this.pageContext = getPageContext();
-      }
+      this.pageContext = getPageContext();
     }
     /*
     componentDidMount(){
@@ -33,21 +31,14 @@ const withApp = AppContainer =>
     }
     */
     render () {          
-      const {phone} = this.props
-      if (phone) {
-        return (
-          <Container>
-            <AppContainer {...this.props} />
-          </Container>
-        )
-      } else {
-        return (
-          <Container>
-            <AppContainer {...this.props} pageContext={this.pageContext} />
-          </Container>
-        ) 
-      }      
+      return (
+        <Container>
+          <AppContainer {...this.props} pageContext={this.pageContext} />
+        </Container>
+      )
     }
   }
+  
+
 
 export default withApp

@@ -8,6 +8,9 @@ const Document = ({styleTags, pageContext, phone}) => {
         <Head>
           <script src='/static/hd.min.js' />
           <link rel='stylesheet' type='text/css' href='//unpkg.com/antd-mobile/dist/antd-mobile.min.css' />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
+          {styleTags}
         </Head>
         <body style={{margin: 0}}>
           <Main />

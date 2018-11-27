@@ -39,17 +39,13 @@ export const withDocument = Container =>
       
       const page = renderPage(App => {
         const WrappedApp = appProps => {
-          if (!phone) {
-            pageContext = appProps.pageContext;
-            return sheet.collectStyles(<App {...appProps} />);
-          } else {
-            return <App {...appProps} />
-          }
+          pageContext = appProps.pageContext;
+          return sheet.collectStyles(<App {...appProps} />);
         };
         return WrappedApp;
       });
+      const styleTags = sheet.getStyleElement()
       if (!phone) {
-        const styleTags = sheet.getStyleElement()
         const css = pageContext.sheetsRegistry.toString()
         const ast = csso.syntax.parse(css);
         const compressedAst = csso.compress(ast).ast;
@@ -74,7 +70,8 @@ export const withDocument = Container =>
         return {
           ...page,
           phone,
-          req,
+          styleTags,
+          pageContext,
         }
       }
     }
