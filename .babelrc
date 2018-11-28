@@ -15,6 +15,7 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
+        "asserts": "./asserts",
         "modules": "./modules",
         "containers": "./modules/core/containers",
         "components": "./modules/core/components",

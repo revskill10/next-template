@@ -10,7 +10,7 @@ const withOffline = require('next-offline')
 const withTypescript = require('@zeit/next-typescript')
 const withLess = require('@zeit/next-less')
 
-
+const lessOptions = require('./configs/less.config')
 const offlineOptions = require('./configs/offline.config')
 const webpack = require('./configs/webpack.config')
 const bundleAnalyzerConfig = require('./configs/analyzer.config')
@@ -22,6 +22,7 @@ const analyzeBrowser = ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE)
 const pageExtensions = ['js', 'jsx', 'mdx']
 
 const nextConfig = {
+  ...lessOptions,
   ...offlineOptions,
   ...workerOptions,
   publicRuntimeConfig,

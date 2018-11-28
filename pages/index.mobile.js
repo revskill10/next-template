@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import 'asserts/styles.mobile.less'
 import {
   WhiteSpace, WingBlank,
   NavBar, Icon, Pagination, Steps
