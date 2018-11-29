@@ -135,7 +135,7 @@
     "react-apollo": "2.3.2",
     "react-beautiful-dnd": "10.0.2",
     "react-big-calendar": "0.20.2",
-    "react-big-scheduler": "0.2.4",
+    "react-big-scheduler": "0.2.5",
     "react-cache": "2.0.0-alpha.1",
     "react-calendar-material": "0.1.8",
     "react-content-loader": "3.4.1",
