@@ -42,6 +42,6 @@ module.exports = (config, options) => {
   }
 
   if (options.isServer) config.plugins.push(new ForkTsCheckerWebpackPlugin())
-
+  config.output.webassemblyModuleFilename = 'static/wasm/[modulehash].wasm'
   return config
 }

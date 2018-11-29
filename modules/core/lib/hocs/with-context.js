@@ -12,7 +12,7 @@ const withContext = ({
     const {mutations} = useMutations(mutation)
 
     useSubscriptions(subscription)
-
+    
     return (
       <ContextComponent
         query={query}

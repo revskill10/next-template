@@ -7,7 +7,7 @@ const pathMatch = require('path-match')
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-//const handle = app.getRequestHandler();
+const handle = app.getRequestHandler();
 const { parse } = require('url')
 const { join } = require('path')
 
@@ -88,6 +88,11 @@ i18n
       server.get('*', (req, res, next) => {
         const parsedUrl = parse(req.url, true)
         const { pathname, query } = parsedUrl
+
+        if (pathname.includes('static/wasm')) {
+          res.setHeader('Content-Type', 'application/wasm')
+          handle(req, res, parsedUrl)
+        }
 
         if (matches.playground(pathname) || matches.sendNotification(pathname)) {
           return next();

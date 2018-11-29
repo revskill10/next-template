@@ -1,5 +1,6 @@
 {
   "watch": [
-    "modules/**/api/**/*.js"
+    "modules/**/api/**/*.js",
+    "server.js"
   ] 
 }

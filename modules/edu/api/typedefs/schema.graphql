@@ -11,7 +11,8 @@ input AgePayload {
 }
 
 type Mutation {
-  createAge(age: AgePayload!): Boolean
+  createAge(age: AgePayload!): Boolean!
+  insertYear(from_year: Int!, to_year: Int!): Boolean!
 }
 
 type Query {

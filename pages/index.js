@@ -9,7 +9,6 @@ import { getInitialProps as getAdminProps } from 'modules/user/components/admin'
 import {getInitialProps as getTimetablesProps} from 'modules/timetables/containers'
 import {getInitialProps as getEduProps} from 'modules/edu/containers'
 
-
 const Layout = dynamic(import(/* webpackChunkName: 'layout' */ 'containers/layout-router'), {loading: () => <Loader />})
 const Calendar = dynamic(import(/* webpackChunkName: 'calendar' */ 'modules/timetables/containers'), { ssr: false, loading: () => <Loader />})
 const Datatable = dynamic(import(/* webpackChunkName: 'datatable' */ 'components/charts/datatable'), {ssr: false, loading: () => <Loader />})
@@ -26,6 +25,7 @@ const items = [
 ]
 
 const IndexPage = () => {
+  const number = 30
   return (
     <Layout
       title='Home page'
@@ -35,6 +35,7 @@ const IndexPage = () => {
     </Layout>
   )
 }
+
 
 export default compose(
   withMultipleInitialProps([

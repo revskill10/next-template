@@ -1,10 +1,24 @@
 import { Table } from 'antd';
-
 const columns = [{
   title: 'Name',
   dataIndex: 'name',
-  render: text => <a href="javascript:;">{text}</a>,
-}
+},
+{
+  title: 'From month',
+  dataIndex: 'from_month',
+},
+{
+  title: 'To month',
+  dataIndex: 'to_month',
+},
+{
+  title: 'Is active',
+  dataIndex: 'is_active',
+},
+{
+  title: 'Sort order',
+  dataIndex: 'sort_order',
+},
 ];
 
 const Ages = ({ages}) => {

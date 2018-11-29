@@ -1,6 +1,17 @@
 [![Build Status](https://travis-ci.com/revskill10/next-template.svg?branch=master)](https://travis-ci.com/revskill10/next-template)
 [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/revskill10/next-template)
 
+## Installation
+
+```
+curl https://sh.rustup.rs -sSf | sh
+rustup toolchain add nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+
+cargo install cargo-wasm
+cargo wasm new <project_name>
+cargo wasm build
+```
 
 ## Style guide
 

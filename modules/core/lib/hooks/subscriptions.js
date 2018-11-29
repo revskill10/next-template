@@ -8,15 +8,18 @@ const useSubscriptions = (items) => {
     items.forEach(item => {
       const query = item.query
       const subscription = item.subscription
+      const key = item.key
       const tmp = client.subscribe({
         query: subscription
       }).subscribe({
         next({data}) {
-          client.cache.writeQuery({
+          client.writeQuery({
             query,
-            data: item.mapper(data),
+            data: {
+              [key]: data[key],
+            },
           })
-          client.query({query})
+          client.readQuery({query})
         }
       })
       subscriptions.push(tmp)

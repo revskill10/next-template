@@ -15,6 +15,7 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
+        "@wasm": "./wasm/dist",
         "asserts": "./asserts",
         "modules": "./modules",
         "containers": "./modules/core/containers",
