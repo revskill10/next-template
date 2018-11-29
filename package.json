@@ -26,7 +26,7 @@
     "@material-ui/core": "3.6.0",
     "@material-ui/icons": "3.0.1",
     "@mdx-js/mdx": "0.16.5",
-    "@nivo/line": "0.51.0",
+    "@nivo/line": "0.51.6",
     "@quentin-sommer/react-useragent": "2.0.0",
     "@tinymce/tinymce-react": "2.4.0",
     "@zeit/next-bundle-analyzer": "0.1.2",
