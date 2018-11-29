@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {StyledProfileLink} from 'components/styled-link'
-import {AccountCircle} from 'styled-icons/material/AccountCircle.cjs'
+import {UserCircle} from 'styled-icons/fa-regular/UserCircle.cjs'
 
 class SimpleMenu extends React.Component {
   state = {
@@ -29,7 +29,7 @@ class SimpleMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <AccountCircle size={30} color={'rgb(209, 72, 54)'} />
+          <UserCircle size={30} color={'rgb(209, 72, 54)'} />
         </Button>
         <Menu
           id="simple-menu"
