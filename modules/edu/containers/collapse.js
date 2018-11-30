@@ -3,7 +3,8 @@ import { Collapse } from 'antd';
 const Panel = Collapse.Panel;
 
 const Main = ({
-  items
+  items,
+  defaultActiveKey=['0', '1']
 }) => {
   const panels = items.map((item, index) => {
     return (
@@ -13,7 +14,7 @@ const Main = ({
     )
   })
   return (
-    <Collapse bordered={false} defaultActiveKey={['1']}>
+    <Collapse bordered={false} defaultActiveKey={defaultActiveKey}>
       {panels}
     </Collapse>
   )

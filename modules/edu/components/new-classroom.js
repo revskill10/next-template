@@ -1,41 +1,47 @@
 import {Fragment} from 'react'
 import { Button, Modal, Form, Input, Radio, Slider } from 'antd';
 import {usePageContext} from 'modules/edu/contexts'
+import { Divider } from 'antd';
 
 const FormItem = Form.Item;
-
+let marks = {}
+for(let i = 2018; i < 2030; i++) {
+  marks[i] = i
+}
 const CollectionCreateForm = Form.create()(
   class extends React.Component {
     render() {
       const { form } = this.props;
       const { getFieldDecorator } = form;
+      
       return (
         <Form layout="vertical">
-            <FormItem label="Age name">
-              {getFieldDecorator('age_name', {
-                rules: [{ required: true, message: 'Please input the age name!' }],
+            <FormItem label="Classroom name">
+              {getFieldDecorator('classroom_name', {
+                rules: [{ required: true, message: 'Please input classroom name!' }],
               })(
                 <Input />
               )}
             </FormItem>
-            <FormItem label="Duration">
-              {getFieldDecorator('duration', {
-                initialValue: [16, 72]
+            <FormItem label="Amount">
+              {getFieldDecorator('amount', {
+                rules: [{ required: true, message: 'Please input the amount!' }],
               })(
-              <Slider 
-                range step={10}
-                marks={{ 16: '16', 24: '24', 36: '36', 48: '48', 48: '48', 60: '60', 72: '72' }}
-                />
+                <Input />
               )}
             </FormItem>
-            <FormItem className="collection-create-form_last-form-item">
-              {getFieldDecorator('is_active', {
-                initialValue: 'false',
+            <FormItem label="Building">
+              {getFieldDecorator('building', {
+                rules: [{ required: true, message: 'Please input the building!' }],
               })(
-                <Radio.Group>
-                  <Radio value="true">Active</Radio>
-                  <Radio value="false">Inactive</Radio>
-                </Radio.Group>
+                <Input />
+              )}
+            </FormItem>
+            <FormItem label="Floor">
+              {getFieldDecorator('floor', {
+                rules: [{ required: true, message: 'Please input the floor!' }],
+              })(
+                <Input />
               )}
             </FormItem>
           </Form>
@@ -65,23 +71,24 @@ class FormHandler extends React.Component {
       }
 
       console.log('Received values of form: ', values);
+
+      const validated = {
+        classroom_name: values.classroom_name,
+        amount: Number(values.amount),
+        building: values.building,
+        floor: Number(values.floor),
+      }
       
       const variables = {
-        age_name: values.age_name,
-        duration: {
-          from_month: values.duration[0],
-          to_month: values.duration[1],
-        },
-        is_active: values.is_active === 'true',
+        ...validated
       }
-      const {insertAgeClientMutation} = this.props
-      await insertAgeClientMutation({
+      const {insertClassRoomClientMutation} = this.props
+      await insertClassRoomClientMutation({
         variables
       })
       form.resetFields();
     });
   }
-
 
   saveFormRef = (formRef) => {
     this.formRef = formRef;
@@ -95,13 +102,13 @@ class FormHandler extends React.Component {
         { visible ? <Button type="default" onClick={this.handleCancel}>
           Cancel
         </Button> : <Button type="primary" onClick={this.showForm}>
-        New Age
+        New Classroom
       </Button>}
         { visible && <CollectionCreateForm
           wrappedComponentRef={this.saveFormRef}
         />}
         {visible && <Button type="primary" onClick={this.handleCreate}>
-          Create Age
+          Create Classroom
         </Button>}
       </div>
     );
@@ -109,9 +116,9 @@ class FormHandler extends React.Component {
 }
 
 const Wrapper = () => {
-  const {insertAgeClientMutation} = usePageContext()
+  const {insertClassRoomClientMutation} = usePageContext()
   return (
-    <FormHandler insertAgeClientMutation={insertAgeClientMutation} />
+    <FormHandler insertClassRoomClientMutation={insertClassRoomClientMutation} />
   )
 }
 

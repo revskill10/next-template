@@ -38,7 +38,7 @@ const CollectionCreateForm = Form.create()(
 
 class FormHandler extends React.Component {
   state = {
-    visible: false,
+    visible: true,
   };
 
   showForm = () => {

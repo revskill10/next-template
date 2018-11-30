@@ -8,7 +8,7 @@ export const withMultipleInitialProps = callbacks => Component => {
       ...ctx,
       fetchPolicy,
       })))
-    return res
+    return {}
   }
 
   return Component;

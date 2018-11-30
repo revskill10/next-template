@@ -1,3 +1,4 @@
+scalar Date
 
 input DurationInput {
   from_month: Int!
@@ -13,6 +14,29 @@ input AgePayload {
 type Mutation {
   createAge(age: AgePayload!): Boolean!
   insertYear(from_year: Int!, to_year: Int!): Boolean!
+  insertClassRoom(
+    classroom_name:String!,
+    amount:Int!,
+    building:String!,
+    floor:Int!
+  ): Boolean!
+  insertSemester(
+    semester_name:String!,
+    school_year_id:String!,
+    start_date:Date!,
+    to_date:Date!
+  ): Boolean!
+  insertTerm(
+    semester_id:String!,
+    start_date:Date!,
+    end_date:Date!
+  ): Boolean!
+  insertWeek(
+    week:Int!,
+    semester_id:String!,
+    start_date:Date!,
+    end_date:Date!
+  ): Boolean!
 }
 
 type Query {

@@ -10,13 +10,13 @@ const styles = {
     flexGrow: 1,
     background: 'transparent',
     boxShadow: 'none',
-    marginTop: '-2rem',
   },
 };
 
 const CenteredTabs = ({classes, items}) => {
-  let Container = null
   const [value, setValue] = useState(0)
+
+  let Container = items[value].component
 
   const handleChange = useCallback((e, v) => {
     setValue(v)
@@ -25,7 +25,6 @@ const CenteredTabs = ({classes, items}) => {
     return <Tab key={`tab-${index}`} label={item.label} />
   })
   
-  Container = items[value].component
 
   return (
     <Paper className={classes.root}>

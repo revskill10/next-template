@@ -1,23 +1,34 @@
 import Tabs from 'modules/edu/containers/tabs'
 import dynamic from 'next/dynamic'
 const NewAge = dynamic(import('modules/edu/components/new-age')) 
-const NewActivity = dynamic(import('modules/edu/components/new-activity'))
+const NewClassRoom = dynamic(import('modules/edu/components/new-classroom'))
 const NewSchoolYear = dynamic(import('modules/edu/components/new-school-year'))
+const NewSemester = dynamic(import('modules/edu/components/new-semester'))
+const NewTerm = dynamic(import('modules/edu/components/new-term'))
+const NewWeek = dynamic(import('modules/edu/components/new-week'))
 
 export default () => {
   const items = [
     {
-      header: 'Ages',
-      component: <NewAge />
+      header: 'Age',
+      component: <NewAge />,
     },
     {
-      header: 'School Years',
-      component: <NewSchoolYear />
+      header: 'School Year',
+      component: <NewSchoolYear />,
     },
     {
-      header: 'New Activity',
-      component: <NewActivity />
+      header: 'ClassRoom',
+      component: <NewClassRoom />,
     },
+    {
+      header: <div>Semester</div>,
+      component: <NewSemester />,
+    },
+    {
+      header: <div>Week</div>,
+      component: <NewWeek />,
+    }
   ]
   return (
     <Tabs items={items} />

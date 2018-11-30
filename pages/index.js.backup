@@ -1,0 +1,45 @@
+import "antd/dist/antd.css";
+import React, {Component} from 'react'
+import { withI18next } from 'lib/hocs/with-i18next'
+import {compose} from 'recompose'
+import styled from 'styled-components'
+//import Tab from 'components/tabs/guest'
+import withMultipleInitialProps from 'lib/hocs/with-multiple-initial-props'
+import { getInitialProps as getAdminProps } from 'modules/user/components/admin'
+import {getInitialProps as getEduProps} from 'modules/edu/containers'
+import dynamic from 'next/dynamic'
+const Loader = () => <div>...</div>
+const Layout = dynamic(import(/* webpackChunkName: 'layout' */ 'containers/layouts/guest'), {ssr: false, loading: () => <Loader />})
+const Calendar = dynamic(import(/* webpackChunkName: 'calendar' */ 'modules/timetables/containers'), { ssr: false, loading: () => <Loader />})
+const Datatable = dynamic(import(/* webpackChunkName: 'datatable' */ 'components/charts/datatable'), {ssr: false, loading: () => <Loader />})
+const Attendance = dynamic(import(/* webpackChunkName: 'agenda' */ 'modules/attendance/components/attendance'), {ssr: false, loading: () => <Loader />})  
+const Tab = dynamic(import(/* webpackChunkName: 'tab' */ 'components/tabs/guest'), {loading: () => <Loader />} )
+const VerticalTab = dynamic(import(/* webpackChunkName: 'vertical-tab' */ 'components/tabs/vertical'), {loading: () => <Loader />} )
+const Admin = dynamic(import(/* webpackChunkName: 'admin' */ 'modules/user/components/admin'), {ssr: false, loading: () => <Loader />})
+const Semester = dynamic(import(/* webpackChunkName: 'semester' */ 'modules/edu/containers'), {ssr: false, loading: () => <Loader />})
+
+const items = [
+  { label: 'Planning', component: Semester},
+  { label: 'Calendar', component: Calendar},
+  { label: 'Attendance', component: Attendance},
+  { label: 'User', component: Admin}
+]
+
+const IndexPage = () => (
+  <Layout
+      title='Home page'
+      description='Simple things'      
+    >
+    <Tab
+      items={items}
+    />
+  </Layout>
+);
+
+export default compose(
+  withMultipleInitialProps(
+    getAdminProps,
+    getEduProps
+  ),
+  //withI18next(['common', 'report', 'timetables', 'admin']),
+)(IndexPage)

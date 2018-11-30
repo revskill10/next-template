@@ -89,9 +89,7 @@ function Pricing(props) {
       </AppBar>
       <Divider />
       <main className={classes.layout}>
-        <>
-          {children}
-        </>
+        {children}
       </main>
       <Footer classes={classes} />
     </div>

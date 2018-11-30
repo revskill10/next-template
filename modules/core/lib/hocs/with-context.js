@@ -8,18 +8,18 @@ const withContext = ({
   subscription,
   context,
 }) => Component => {
-  return () => {
+  return (props) => {
     const {mutations} = useMutations(mutation)
 
     useSubscriptions(subscription)
-    
+
     return (
       <ContextComponent
         query={query}
         mutations={mutations}
         context={context}
       >
-        <Component />
+        <Component {...props} />
       </ContextComponent>
     )
   }      

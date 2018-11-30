@@ -9,6 +9,7 @@ const withPlugins = require('next-compose-plugins');
 const withOffline = require('next-offline')
 const withTypescript = require('@zeit/next-typescript')
 const withLess = require('@zeit/next-less')
+const withStyledIcons = require('next-plugin-styled-icons')
 
 const lessOptions = require('./configs/less.config')
 const offlineOptions = require('./configs/offline.config')
@@ -37,6 +38,7 @@ const nextConfig = {
 //module.exports = withWorkers(withOffline(withSize(withOptimizedImages(withMDX(withSass(withCSS(withBundleAnalyzer(nextConfig))))))))
 const plugins = [
   withTypescript,
+  withStyledIcons,
   withWorkers,
   withOffline,
   withSize,

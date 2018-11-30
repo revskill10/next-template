@@ -4,14 +4,10 @@
     "@zeit/next-typescript/babel"
   ],
   "plugins": [
+    "styled-components",
     "@babel/plugin-proposal-do-expressions",
     "import-graphql",
     "graphql-tag",
-    ["styled-components", { 
-      "ssr": true,
-      "displayName": true,
-      "preprocess": false
-    } ],
     ["module-resolver", {
       "root": ["./"],
       "alias": {

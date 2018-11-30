@@ -9,7 +9,6 @@ const TIMEOUT=400
 const UIContainer = (props) => {
   const {Component, pageProps, router, pageContext} = props
   return (
-    <>
     <PageTransition
       timeout={TIMEOUT}
       classNames='page-transition'
@@ -38,8 +37,6 @@ const UIContainer = (props) => {
         </ThemeProvider>
       </JssProvider>
     </PageTransition>
-    
-    </>
   )
 }
 

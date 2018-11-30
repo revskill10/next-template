@@ -1,4 +1,6 @@
-import Main from 'modules/edu/containers/main'
+import dynamic from 'next/dynamic'
+//import Main from 'modules/edu/containers/main'
+const Main = dynamic(import('modules/edu/containers/main'))
 import {
   query,
   mutation,

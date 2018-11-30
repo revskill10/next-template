@@ -1,17 +1,23 @@
 import {createContext} from 'react'
 import { Table } from 'antd';
+
 const columns = [{
   title: 'Name',
   dataIndex: 'name',
 },
 {
-  title: 'From year',
-  dataIndex: 'from_year',
+  title: 'Amount',
+  dataIndex: 'amount',
 },
 {
-  title: 'To year',
-  dataIndex: 'to_year',
-},];
+  title: 'Building',
+  dataIndex: 'building',
+},
+{
+  title: 'Floor',
+  dataIndex: 'floor',
+},
+];
 const EditableContext = createContext();
 
 const EditableRow = ({ form, index, ...props }) => (
@@ -20,10 +26,10 @@ const EditableRow = ({ form, index, ...props }) => (
   </EditableContext.Provider>
 );
 
-const SchoolYears = ({school_years}) => {
+const ClassRooms = ({classrooms}) => {
   return (
-    <Table columns={columns} dataSource={school_years} />
+    <Table columns={columns} dataSource={classrooms} />
   )
 }
 
-export default SchoolYears
+export default ClassRooms

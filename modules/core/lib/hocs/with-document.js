@@ -7,7 +7,7 @@ import {inspect} from 'util'
 
 export const withDocument = Container =>
   class extends Document {
-    static async getInitialProps(props) {
+    static async getInitialProps(ctx) {
       
       
       // Resolution order
@@ -31,19 +31,24 @@ export const withDocument = Container =>
       // 2. page.getInitialProps
       // 3. app.render
       // 4. page.render
-      const {renderPage, query, req} = props
+      const {renderPage, query} = ctx
       const {phone} = query
       const sheet = new ServerStyleSheet()
-        
+
       let pageContext;
+      let page;
+      if (!phone) {
+        page = renderPage((App) => (props) => {
+          pageContext = props.pageContext
+          return sheet.collectStyles(<App {...props} />)
+        }
+      );
+      } else {
+        page = renderPage((App) => (props) =>
+          sheet.collectStyles(<App {...props} />),
+        );
+      }
       
-      const page = renderPage(App => {
-        const WrappedApp = appProps => {
-          pageContext = appProps.pageContext;
-          return sheet.collectStyles(<App {...appProps} />);
-        };
-        return WrappedApp;
-      });
       const styleTags = sheet.getStyleElement()
       if (!phone) {
         const css = pageContext.sheetsRegistry.toString()

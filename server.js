@@ -108,7 +108,7 @@ i18n
           if (!md.mobile()) {
             app.render(req, res, '/index', Object.assign({phone: false}, query))
           } else {
-            app.render(req, res, '/index.mobile', Object.assign({phone: true}, query))
+            app.render(req, res, '/index', Object.assign({phone: true}, query))
           }
           
           //handle(req, res, parsedUrl)
