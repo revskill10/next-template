@@ -3,5 +3,5 @@
   "dotenv": true,
   "version": 1,
   "name": "test",
-  "alias": "web.ihs.edu.vn"
+  "alias": "web.ihs.edu.vn"  
 }

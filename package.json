@@ -2,7 +2,7 @@
   "name": "next-template",
   "version": "0.0.0-development",
   "scripts": {
-    "dev": "rm -rf ./node_modules/.cache/babel-loader && nodemon server.js",
+    "dev": "nodemon server.js",
     "build": "next build",
     "export": "next export",
     "start": "NODE_ENV=production node server.js",
@@ -64,6 +64,7 @@
     "dotenv": "6.1.0",
     "exceljs": "1.6.3",
     "express": "4.16.4",
+    "express-rate-limit": "^3.3.2",
     "fast-deep-equal": "2.0.1",
     "file-loader": "2.0.0",
     "file-saver": "2.0.0",

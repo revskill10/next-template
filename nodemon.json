@@ -1,6 +1,8 @@
 {
   "watch": [
     "modules/**/api/**/*.js",
-    "server.js"
+    "server.js",
+    "configs/*.js",
+    "now.json"
   ] 
 }
