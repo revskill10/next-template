@@ -144,7 +144,7 @@
     "react-calendar-material": "0.1.8",
     "react-content-loader": "3.4.1",
     "react-dnd": "7.0.0",
-    "react-dnd-html5-backend": "7.0.0",
+    "react-dnd-html5-backend": "7.0.2",
     "react-dom": "16.7.0-alpha.2",
     "react-dropzone": "7.0.1",
     "react-event-timeline": "1.6.1",
