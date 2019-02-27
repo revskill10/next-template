@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@date-io/date-fns": "0.0.2",
-    "@devexpress/dx-core": "1.9.0",
+    "@devexpress/dx-core": "1.10.3",
     "@devexpress/dx-react-chart": "1.9.0",
     "@devexpress/dx-react-chart-material-ui": "1.9.0",
     "@devexpress/dx-react-core": "1.9.0",
