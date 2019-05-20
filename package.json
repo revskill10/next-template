@@ -51,7 +51,7 @@
     "apollo-utilities": "1.0.26",
     "axios": "0.18.0",
     "babel-plugin-htm": "1.0.1",
-    "babel-plugin-import": "1.11.0",
+    "babel-plugin-import": "1.11.2",
     "babel-plugin-inline-import": "3.0.0",
     "babel-plugin-styled-components": "1.9.2",
     "body-parser": "1.18.3",
