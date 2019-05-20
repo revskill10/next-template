@@ -53,7 +53,7 @@
     "babel-plugin-htm": "1.0.1",
     "babel-plugin-import": "1.11.2",
     "babel-plugin-inline-import": "3.0.0",
-    "babel-plugin-styled-components": "1.9.2",
+    "babel-plugin-styled-components": "1.10.0",
     "body-parser": "1.18.3",
     "cookie": "0.3.1",
     "cookie-parser": "1.4.3",
