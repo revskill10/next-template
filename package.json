@@ -109,7 +109,7 @@
     "lodash.debounce": "4.0.8",
     "lodash.get": "4.4.2",
     "lodash.memoize": "4.1.2",
-    "lodash.merge": "4.6.1",
+    "lodash.merge": "4.6.2",
     "lru-cache": "5.1.1",
     "material-ui-pickers": "2.0.3",
     "max-listeners-exceeded-warning": "0.0.1",
