@@ -116,7 +116,7 @@
     "merge-graphql-schemas": "1.5.8",
     "mobile-detect": "1.4.3",
     "moment": "2.22.2",
-    "next": "7.0.2",
+    "next": "9.3.2",
     "next-compose-plugins": "2.1.1",
     "next-nprogress": "1.4.0",
     "next-offline": "3.2.2",
