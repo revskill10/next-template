@@ -127,7 +127,7 @@
     "nprogress": "0.2.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "path-match": "1.2.4",
-    "pkg": "4.3.4",
+    "pkg": "4.5.1",
     "prop-types": "15.6.2",
     "pusher": "2.2.0",
     "pusher-js": "4.3.1",
