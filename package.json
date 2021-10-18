@@ -189,7 +189,7 @@
     "victory": "31.0.1",
     "web-push": "3.3.3",
     "worker-loader": "2.0.0",
-    "xlsx": "0.14.1",
+    "xlsx": "0.17.0",
     "yup": "0.26.6"
   },
   "author": "",
