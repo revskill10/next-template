@@ -123,7 +123,7 @@
     "next-page-transitions": "1.0.0-canary.1",
     "next-pkg": "1.1.0",
     "next-plugin-styled-icons": "5.2.0",
-    "node-sass": "4.10.0",
+    "node-sass": "7.0.0",
     "nprogress": "0.2.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "path-match": "1.2.4",
