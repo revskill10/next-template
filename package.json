@@ -36,7 +36,7 @@
     "@zeit/next-sass": "1.0.1",
     "@zeit/next-typescript": "1.1.1",
     "@zeit/next-workers": "1.0.1-canary.1",
-    "ag-grid-community": "19.1.4",
+    "ag-grid-community": "31.3.4",
     "ag-grid-react": "19.1.2",
     "antd": "3.10.9",
     "antd-mobile": "2.2.13",
