@@ -54,7 +54,7 @@
     "babel-plugin-import": "1.11.2",
     "babel-plugin-inline-import": "3.0.0",
     "babel-plugin-styled-components": "1.10.0",
-    "body-parser": "1.18.3",
+    "body-parser": "1.20.3",
     "cookie": "0.3.1",
     "cookie-parser": "1.4.3",
     "csso": "3.5.1",
