@@ -156,7 +156,7 @@
     "react-leaflet": "2.1.2",
     "react-messenger-customer-chat": "0.7.2",
     "react-no-ssr": "1.1.0",
-    "react-pdf": "4.0.0",
+    "react-pdf": "7.7.3",
     "react-redux": "5.1.1",
     "react-select": "2.1.2",
     "react-smooth-collapse": "2.0.0",
