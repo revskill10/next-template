@@ -63,7 +63,7 @@
     "devextreme-react": "18.2.3",
     "dotenv": "6.2.0",
     "exceljs": "1.6.3",
-    "express": "4.16.4",
+    "express": "4.20.0",
     "express-rate-limit": "3.5.1",
     "fast-deep-equal": "2.0.1",
     "file-loader": "2.0.0",
