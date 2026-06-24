@@ -195,7 +195,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "7.1.6",
+    "@babel/core": "7.29.6",
     "@babel/plugin-proposal-decorators": "7.1.6",
     "@babel/plugin-proposal-do-expressions": "7.0.0",
     "@babel/runtime": "7.1.5",
